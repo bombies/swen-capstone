@@ -28,7 +28,6 @@ export default antfu(
 			'**/.turbo',
 			'node_modules',
 			'**/node_modules',
-			'packages/frontend/videos/*',
 		],
 	},
 	// --- Next.js Specific Rules ---
@@ -61,6 +60,12 @@ export default antfu(
 			'react/no-nested-component-definitions': 'off',
 			'react/no-context-provider': 'off',
 			'@next/next/no-html-link-for-pages': 'off',
+		},
+	},
+	{
+		files: ['packages/backend/src/**/*.ts'],
+		rules: {
+			'@typescript-eslint/consistent-type-imports': 'off',
 		},
 	},
 );
