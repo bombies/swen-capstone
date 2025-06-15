@@ -1,0 +1,428 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "One Yaad Marketplace API - Auth Controller",
+		"version": "1.0"
+	},
+	"paths": {
+		"/auth/login": {
+			"post": {
+				"operationId": "login",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"access_token": {
+											"type": "string"
+										},
+										"refresh_token": {
+											"type": "string"
+										},
+										"user": {
+											"type": "object"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"summary": "User login",
+				"tags": ["auth"]
+			}
+		},
+		"/auth/refresh": {
+			"post": {
+				"operationId": "refreshToken",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RefreshTokenDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"access_token": {
+											"type": "string"
+										},
+										"refresh_token": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"summary": "Refresh access token",
+				"tags": ["auth"]
+			}
+		},
+		"/auth/logout": {
+			"post": {
+				"operationId": "logout",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LogoutDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Logout from current device",
+				"tags": ["auth"]
+			}
+		},
+		"/auth/logout-all": {
+			"post": {
+				"operationId": "logoutAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Logout from all devices",
+				"tags": ["auth"]
+			}
+		},
+		"/auth/switch-role": {
+			"post": {
+				"operationId": "switchRole",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SwitchRoleDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"access_token": {
+											"type": "string"
+										},
+										"role": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Switch user role",
+				"tags": ["auth"]
+			}
+		},
+		"/auth/sessions": {
+			"get": {
+				"operationId": "getActiveSessions",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"deviceInfo": {
+												"type": "object"
+											},
+											"lastActive": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get active sessions",
+				"tags": ["auth"]
+			}
+		},
+		"/auth/profile": {
+			"get": {
+				"operationId": "getProfile",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"email": {
+											"type": "string"
+										},
+										"firstName": {
+											"type": "string"
+										},
+										"lastName": {
+											"type": "string"
+										},
+										"role": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get user profile",
+				"tags": ["auth"]
+			}
+		},
+		"/auth/register": {
+			"post": {
+				"operationId": "register",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"access_token": {
+											"type": "string"
+										},
+										"refresh_token": {
+											"type": "string"
+										},
+										"user": {
+											"type": "object"
+										}
+									}
+								}
+							}
+						}
+					},
+					"409": {}
+				},
+				"summary": "Register a new user as customer or merchant",
+				"tags": ["auth"]
+			}
+		},
+		"/auth/add-role": {
+			"post": {
+				"operationId": "addRole",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AddRoleDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"roles": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"409": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Add a new role (merchant/customer) to the current user",
+				"tags": ["auth"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"LoginDto": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 8
+					}
+				},
+				"required": ["email", "password"]
+			},
+			"RefreshTokenDto": {
+				"type": "object",
+				"properties": {
+					"refreshToken": {
+						"type": "string"
+					}
+				},
+				"required": ["refreshToken"]
+			},
+			"LogoutDto": {
+				"type": "object",
+				"properties": {
+					"tokenId": {
+						"type": "string"
+					}
+				},
+				"required": ["tokenId"]
+			},
+			"SwitchRoleDto": {
+				"type": "object",
+				"properties": {
+					"role": {
+						"type": "string",
+						"enum": ["admin", "merchant", "customer"]
+					}
+				},
+				"required": ["role"]
+			},
+			"RegisterDto": {
+				"type": "object",
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"eSignature": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string",
+						"enum": ["admin", "merchant", "customer"],
+						"default": "customer"
+					}
+				},
+				"required": ["username", "email", "password", "firstName", "lastName", "eSignature", "role"]
+			},
+			"AddRoleDto": {
+				"type": "object",
+				"properties": {
+					"role": {
+						"type": "string",
+						"enum": ["admin", "merchant", "customer"]
+					}
+				},
+				"required": ["role"]
+			}
+		}
+	}
+}

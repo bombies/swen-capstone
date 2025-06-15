@@ -36,7 +36,7 @@ export class User {
 		example: '$2b$10$abcdefghijklmnopqrstuvwxyz',
 	})
 	@Prop({ required: true })
-	passwordHash: string;
+	password: string;
 
 	@ApiProperty({
 		description: 'First name',

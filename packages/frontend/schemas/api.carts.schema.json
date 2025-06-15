@@ -1,0 +1,589 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "One Yaad Marketplace API - Carts Controller",
+		"version": "1.0"
+	},
+	"paths": {
+		"/carts": {
+			"post": {
+				"operationId": "create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateCartDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Create a new cart",
+				"tags": ["carts"]
+			},
+			"get": {
+				"operationId": "findAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Cart"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all carts",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/customer/{customerId}": {
+			"get": {
+				"operationId": "findByCustomer",
+				"parameters": [{
+					"name": "customerId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Cart"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all carts for a customer",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/{id}": {
+			"get": {
+				"operationId": "findOne",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get a cart by id",
+				"tags": ["carts"]
+			},
+			"patch": {
+				"operationId": "update",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateCartDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update a cart",
+				"tags": ["carts"]
+			},
+			"delete": {
+				"operationId": "remove",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Delete a cart",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/{id}/items": {
+			"post": {
+				"operationId": "addItem",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateCartItemDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Add an item to the cart",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/{id}/items/{productId}/{merchantId}": {
+			"delete": {
+				"operationId": "removeItem",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}, {
+					"name": "productId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}, {
+					"name": "merchantId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Remove an item from the cart",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/{id}/items/{productId}/{merchantId}/quantity": {
+			"patch": {
+				"operationId": "updateItemQuantity",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}, {
+					"name": "productId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}, {
+					"name": "merchantId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update item quantity in the cart",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/{id}/clear": {
+			"post": {
+				"operationId": "clearCart",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Clear all items from the cart",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/{id}/abandon": {
+			"post": {
+				"operationId": "markAsAbandoned",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Mark a cart as abandoned",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/{id}/checkout": {
+			"post": {
+				"operationId": "markAsCheckedOut",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Mark a cart as checked out",
+				"tags": ["carts"]
+			}
+		},
+		"/carts/{id}/calculate": {
+			"post": {
+				"operationId": "calculateTotals",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Cart"
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Calculate cart totals",
+				"tags": ["carts"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"CreateCartItemDto": {
+				"type": "object",
+				"properties": {
+					"product": {
+						"type": "string"
+					},
+					"merchant": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"minimum": 1
+					},
+					"price": {
+						"type": "number",
+						"minimum": 0
+					},
+					"shippingAddress": {
+						"type": "string"
+					}
+				},
+				"required": ["product", "merchant", "quantity", "price"]
+			},
+			"CreateCartDto": {
+				"type": "object",
+				"properties": {
+					"customer": {
+						"type": "string"
+					},
+					"items": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CreateCartItemDto"
+						}
+					},
+					"shippingAddress": {
+						"type": "string"
+					}
+				},
+				"required": ["customer"]
+			},
+			"CartItem": {
+				"type": "object",
+				"properties": {
+					"product": {
+						"type": "string"
+					},
+					"merchant": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"minimum": 1
+					},
+					"price": {
+						"type": "number",
+						"minimum": 0
+					},
+					"shippingAddress": {
+						"type": "string"
+					}
+				},
+				"required": ["product", "merchant", "quantity", "price"]
+			},
+			"Cart": {
+				"type": "object",
+				"properties": {
+					"customer": {
+						"type": "string"
+					},
+					"items": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CartItem"
+						}
+					},
+					"totalItems": {
+						"type": "number"
+					},
+					"totalAmount": {
+						"type": "number"
+					},
+					"isAbandoned": {
+						"type": "boolean"
+					},
+					"abandonedAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"lastUpdatedAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"expiresAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"isCheckedOut": {
+						"type": "boolean"
+					},
+					"checkedOutAt": {
+						"format": "date-time",
+						"type": "string"
+					}
+				},
+				"required": ["customer", "items", "totalItems", "totalAmount", "isAbandoned", "lastUpdatedAt", "isCheckedOut"]
+			},
+			"UpdateCartDto": {
+				"type": "object",
+				"properties": {
+					"items": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CreateCartItemDto"
+						}
+					},
+					"shippingAddress": {
+						"type": "string"
+					},
+					"isAbandoned": {
+						"type": "boolean"
+					},
+					"abandonedAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"expiresAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"isCheckedOut": {
+						"type": "boolean"
+					},
+					"checkedOutAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"totalItems": {
+						"type": "number",
+						"minimum": 0
+					},
+					"totalAmount": {
+						"type": "number",
+						"minimum": 0
+					}
+				}
+			}
+		}
+	}
+}

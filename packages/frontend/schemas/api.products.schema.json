@@ -1,0 +1,391 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "One Yaad Marketplace API - Products Controller",
+		"version": "1.0"
+	},
+	"paths": {
+		"/products": {
+			"post": {
+				"operationId": "create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateProductDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Product"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Create a new product",
+				"tags": ["products"]
+			},
+			"get": {
+				"operationId": "findAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Product"
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all products",
+				"tags": ["products"]
+			}
+		},
+		"/products/search": {
+			"get": {
+				"operationId": "search",
+				"parameters": [{
+					"name": "q",
+					"required": true,
+					"in": "query",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Product"
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Search products",
+				"tags": ["products"]
+			}
+		},
+		"/products/category/{category}": {
+			"get": {
+				"operationId": "findByCategory",
+				"parameters": [{
+					"name": "category",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Product"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get products by category",
+				"tags": ["products"]
+			}
+		},
+		"/products/merchant/{merchantId}": {
+			"get": {
+				"operationId": "findByMerchant",
+				"parameters": [{
+					"name": "merchantId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Product"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get products by merchant",
+				"tags": ["products"]
+			}
+		},
+		"/products/{id}": {
+			"get": {
+				"operationId": "findOne",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Product"
+								}
+							}
+						}
+					},
+					"401": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get a product by id",
+				"tags": ["products"]
+			},
+			"patch": {
+				"operationId": "update",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateProductDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Product"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update a product",
+				"tags": ["products"]
+			},
+			"delete": {
+				"operationId": "remove",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Delete a product",
+				"tags": ["products"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"CreateProductDto": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"minimum": 0
+					},
+					"stock": {
+						"type": "number",
+						"minimum": 0
+					},
+					"merchant": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"categories": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"images": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
+				"required": ["name", "description", "price", "stock", "merchant"]
+			},
+			"Product": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"minimum": 0
+					},
+					"stock": {
+						"type": "number",
+						"minimum": 0
+					},
+					"merchant": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"categories": {
+						"default": [],
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"images": {
+						"default": [],
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"isActive": {
+						"type": "boolean",
+						"default": true
+					},
+					"rating": {
+						"type": "number",
+						"minimum": 0,
+						"default": 0
+					},
+					"reviewCount": {
+						"type": "number",
+						"minimum": 0,
+						"default": 0
+					}
+				},
+				"required": ["name", "description", "price", "stock", "merchant", "categories", "images", "isActive", "rating", "reviewCount"]
+			},
+			"UpdateProductDto": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"minimum": 0
+					},
+					"stock": {
+						"type": "number",
+						"minimum": 0
+					},
+					"merchant": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"categories": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"images": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"rating": {
+						"type": "number",
+						"minimum": 0
+					}
+				}
+			},
+			"ObjectId": {
+				"type": "object",
+				"properties": {}
+			}
+		}
+	}
+}

@@ -1,0 +1,350 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "One Yaad Marketplace API - Payments Controller",
+		"version": "1.0"
+	},
+	"paths": {
+		"/payments": {
+			"post": {
+				"operationId": "create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreatePaymentDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Payment"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Create a new payment",
+				"tags": ["payments"]
+			},
+			"get": {
+				"operationId": "findAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Payment"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all payments",
+				"tags": ["payments"]
+			}
+		},
+		"/payments/order/{orderId}": {
+			"get": {
+				"operationId": "findByOrder",
+				"parameters": [{
+					"name": "orderId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Payment"
+								}
+							}
+						}
+					},
+					"401": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get payment by order ID",
+				"tags": ["payments"]
+			}
+		},
+		"/payments/customer": {
+			"get": {
+				"operationId": "findByCustomer",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Payment"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all payments for the current customer",
+				"tags": ["payments"]
+			}
+		},
+		"/payments/merchant": {
+			"get": {
+				"operationId": "findByMerchant",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Payment"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all payments for the current merchant",
+				"tags": ["payments"]
+			}
+		},
+		"/payments/{id}": {
+			"get": {
+				"operationId": "findOne",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Payment"
+								}
+							}
+						}
+					},
+					"401": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get a payment by id",
+				"tags": ["payments"]
+			},
+			"patch": {
+				"operationId": "update",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdatePaymentDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Payment"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update a payment",
+				"tags": ["payments"]
+			}
+		},
+		"/payments/{id}/refund": {
+			"post": {
+				"operationId": "refund",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Payment"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Refund a payment",
+				"tags": ["payments"]
+			}
+		},
+		"/payments/merchant/stats": {
+			"get": {
+				"operationId": "getPaymentStats",
+				"parameters": [],
+				"responses": {
+					"200": {},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get payment statistics for the current merchant",
+				"tags": ["payments"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"CreatePaymentDto": {
+				"type": "object",
+				"properties": {
+					"order": {
+						"type": "string"
+					},
+					"customer": {
+						"type": "string"
+					},
+					"merchant": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"minimum": 0
+					},
+					"method": {
+						"type": "string",
+						"enum": ["credit_card", "debit_card", "bank_transfer", "cash"]
+					},
+					"transactionId": {
+						"type": "string"
+					}
+				},
+				"required": ["order", "customer", "merchant", "amount", "method"]
+			},
+			"Payment": {
+				"type": "object",
+				"properties": {
+					"order": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"customer": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"merchant": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"amount": {
+						"type": "number"
+					},
+					"status": {
+						"type": "string",
+						"enum": ["pending", "completed", "failed", "refunded"]
+					},
+					"method": {
+						"type": "string",
+						"enum": ["credit_card", "debit_card", "bank_transfer", "cash"]
+					},
+					"transactionId": {
+						"type": "string"
+					},
+					"errorMessage": {
+						"type": "string"
+					},
+					"refundReason": {
+						"type": "string"
+					}
+				},
+				"required": ["order", "customer", "merchant", "amount", "status", "method"]
+			},
+			"UpdatePaymentDto": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": ["pending", "completed", "failed", "refunded"]
+					},
+					"transactionId": {
+						"type": "string"
+					},
+					"errorMessage": {
+						"type": "string"
+					},
+					"refundReason": {
+						"type": "string"
+					}
+				}
+			},
+			"ObjectId": {
+				"type": "object",
+				"properties": {}
+			}
+		}
+	}
+}

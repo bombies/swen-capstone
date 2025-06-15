@@ -1,0 +1,590 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "One Yaad Marketplace API - Orders Controller",
+		"version": "1.0"
+	},
+	"paths": {
+		"/orders": {
+			"post": {
+				"operationId": "create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateOrderDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Create a new order",
+				"tags": ["orders"]
+			},
+			"get": {
+				"operationId": "findAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Order"
+									}
+								}
+							}
+						}
+					},
+					"401": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all orders",
+				"tags": ["orders"]
+			}
+		},
+		"/orders/customer/{customerId}": {
+			"get": {
+				"operationId": "findByCustomer",
+				"parameters": [{
+					"name": "customerId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Order"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all orders for a customer",
+				"tags": ["orders"]
+			}
+		},
+		"/orders/merchant/{merchantId}": {
+			"get": {
+				"operationId": "findByMerchant",
+				"parameters": [{
+					"name": "merchantId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Order"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all orders for a merchant",
+				"tags": ["orders"]
+			}
+		},
+		"/orders/{id}": {
+			"get": {
+				"operationId": "findOne",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"401": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get a order by id",
+				"tags": ["orders"]
+			},
+			"patch": {
+				"operationId": "update",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateOrderDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update a order",
+				"tags": ["orders"]
+			},
+			"delete": {
+				"operationId": "remove",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Cancel an order",
+				"tags": ["orders"]
+			}
+		},
+		"/orders/{id}/status": {
+			"patch": {
+				"operationId": "updateStatus",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update order status",
+				"tags": ["orders"]
+			}
+		},
+		"/orders/{orderId}/payment-status": {
+			"patch": {
+				"operationId": "updatePaymentStatus",
+				"parameters": [{
+					"name": "orderId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update order payment status",
+				"tags": ["orders"]
+			}
+		},
+		"/orders/{id}/refund": {
+			"post": {
+				"operationId": "requestRefund",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Request a refund for an order",
+				"tags": ["orders"]
+			}
+		},
+		"/orders/{id}/tracking": {
+			"patch": {
+				"operationId": "updateTracking",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update order tracking information",
+				"tags": ["orders"]
+			}
+		},
+		"/orders/{id}/delivered": {
+			"patch": {
+				"operationId": "markAsDelivered",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Order"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Mark an order as delivered",
+				"tags": ["orders"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"CreateOrderItemDto": {
+				"type": "object",
+				"properties": {
+					"product": {
+						"type": "string"
+					},
+					"merchant": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"minimum": 1
+					},
+					"price": {
+						"type": "number",
+						"minimum": 0
+					},
+					"shippingAddress": {
+						"type": "string"
+					}
+				},
+				"required": ["product", "merchant", "quantity", "price"]
+			},
+			"CreateOrderDto": {
+				"type": "object",
+				"properties": {
+					"customer": {
+						"type": "string"
+					},
+					"items": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CreateOrderItemDto"
+						}
+					},
+					"totalItems": {
+						"type": "number",
+						"minimum": 1
+					},
+					"totalAmount": {
+						"type": "number",
+						"minimum": 0
+					},
+					"shippingAddress": {
+						"type": "string"
+					},
+					"notes": {
+						"type": "string"
+					}
+				},
+				"required": ["customer", "items", "totalItems", "totalAmount"]
+			},
+			"OrderItem": {
+				"type": "object",
+				"properties": {
+					"product": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"merchant": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"quantity": {
+						"type": "number",
+						"minimum": 1
+					},
+					"price": {
+						"type": "number",
+						"minimum": 0
+					},
+					"shippingAddress": {
+						"type": "string"
+					}
+				},
+				"required": ["product", "merchant", "quantity", "price"]
+			},
+			"Order": {
+				"type": "object",
+				"properties": {
+					"customer": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"items": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/OrderItem"
+						}
+					},
+					"totalItems": {
+						"type": "number",
+						"minimum": 1
+					},
+					"totalAmount": {
+						"type": "number",
+						"minimum": 0
+					},
+					"status": {
+						"type": "string",
+						"enum": ["pending", "processing", "shipped", "out_for_delivery", "delivered", "completed", "cancelled", "refunded"]
+					},
+					"paymentStatus": {
+						"type": "string",
+						"enum": ["pending", "completed", "failed", "refunded"]
+					},
+					"payment": {
+						"allOf": [{
+							"$ref": "#/components/schemas/ObjectId"
+						}]
+					},
+					"shippingAddress": {
+						"type": "string"
+					},
+					"trackingNumber": {
+						"type": "string"
+					},
+					"estimatedDeliveryDate": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"cancellationReason": {
+						"type": "string"
+					},
+					"refundReason": {
+						"type": "string"
+					},
+					"notes": {
+						"type": "string"
+					},
+					"processedAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"completedAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"cancelledAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"refundedAt": {
+						"format": "date-time",
+						"type": "string"
+					}
+				},
+				"required": ["customer", "items", "totalItems", "totalAmount", "status", "paymentStatus", "shippingAddress"]
+			},
+			"UpdateOrderDto": {
+				"type": "object",
+				"properties": {
+					"items": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/CreateOrderItemDto"
+						}
+					},
+					"totalItems": {
+						"type": "number",
+						"minimum": 1
+					},
+					"totalAmount": {
+						"type": "number",
+						"minimum": 0
+					},
+					"status": {
+						"type": "string",
+						"enum": ["pending", "processing", "shipped", "out_for_delivery", "delivered", "completed", "cancelled", "refunded"]
+					},
+					"paymentStatus": {
+						"type": "string",
+						"enum": ["pending", "completed", "failed", "refunded"]
+					},
+					"payment": {
+						"type": "string"
+					},
+					"shippingAddress": {
+						"type": "string"
+					},
+					"trackingNumber": {
+						"type": "string"
+					},
+					"estimatedDeliveryDate": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"cancellationReason": {
+						"type": "string"
+					},
+					"refundReason": {
+						"type": "string"
+					},
+					"notes": {
+						"type": "string"
+					}
+				}
+			},
+			"ObjectId": {
+				"type": "object",
+				"properties": {}
+			}
+		}
+	}
+}

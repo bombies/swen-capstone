@@ -1,0 +1,521 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "One Yaad Marketplace API - Catalogues Controller",
+		"version": "1.0"
+	},
+	"paths": {
+		"/catalogues": {
+			"post": {
+				"operationId": "create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateCatalogueDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Create a new catalogue",
+				"tags": ["catalogues"]
+			},
+			"get": {
+				"operationId": "findAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Catalogue"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all catalogues",
+				"tags": ["catalogues"]
+			}
+		},
+		"/catalogues/merchant": {
+			"get": {
+				"operationId": "findByMerchant",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Catalogue"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all catalogues for a merchant",
+				"tags": ["catalogues"]
+			}
+		},
+		"/catalogues/{id}": {
+			"get": {
+				"operationId": "findOne",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get a catalogue by id",
+				"tags": ["catalogues"]
+			},
+			"patch": {
+				"operationId": "update",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateCatalogueDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update a catalogue",
+				"tags": ["catalogues"]
+			},
+			"delete": {
+				"operationId": "remove",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Delete a catalogue",
+				"tags": ["catalogues"]
+			}
+		},
+		"/catalogues/{id}/products/{productId}": {
+			"post": {
+				"operationId": "addProduct",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}, {
+					"name": "productId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Add a product to the catalogue",
+				"tags": ["catalogues"]
+			},
+			"delete": {
+				"operationId": "removeProduct",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}, {
+					"name": "productId",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Remove a product from the catalogue",
+				"tags": ["catalogues"]
+			}
+		},
+		"/catalogues/{id}/publish": {
+			"post": {
+				"operationId": "publish",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Publish a catalogue",
+				"tags": ["catalogues"]
+			}
+		},
+		"/catalogues/{id}/unpublish": {
+			"post": {
+				"operationId": "unpublish",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Unpublish a catalogue",
+				"tags": ["catalogues"]
+			}
+		},
+		"/catalogues/{id}/view": {
+			"post": {
+				"operationId": "incrementViewCount",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"401": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Increment catalogue view count",
+				"tags": ["catalogues"]
+			}
+		},
+		"/catalogues/{id}/rate": {
+			"post": {
+				"operationId": "rate",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Catalogue"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Rate a catalogue",
+				"tags": ["catalogues"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"CreateCatalogueDto": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"merchant": {
+						"type": "string"
+					},
+					"products": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"status": {
+						"type": "string",
+						"enum": ["active", "inactive", "draft"]
+					},
+					"isPublic": {
+						"type": "boolean"
+					},
+					"publishedAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"expiresAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"tags": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				},
+				"required": ["name", "merchant"]
+			},
+			"Catalogue": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"merchant": {
+						"type": "string"
+					},
+					"products": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"status": {
+						"type": "string",
+						"enum": ["active", "inactive", "draft"]
+					},
+					"isPublic": {
+						"type": "boolean"
+					},
+					"publishedAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"expiresAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"tags": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"viewCount": {
+						"type": "number"
+					},
+					"productCount": {
+						"type": "number"
+					},
+					"isFeatured": {
+						"type": "boolean"
+					},
+					"featuredAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"rating": {
+						"type": "number"
+					},
+					"reviewCount": {
+						"type": "number"
+					}
+				},
+				"required": ["name", "merchant", "products", "status", "isPublic", "tags", "viewCount", "productCount", "isFeatured", "rating", "reviewCount"]
+			},
+			"UpdateCatalogueDto": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"products": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"status": {
+						"type": "string",
+						"enum": ["active", "inactive", "draft"]
+					},
+					"isPublic": {
+						"type": "boolean"
+					},
+					"publishedAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"expiresAt": {
+						"format": "date-time",
+						"type": "string"
+					},
+					"tags": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,244 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "One Yaad Marketplace API - Users Controller",
+		"version": "1.0"
+	},
+	"paths": {
+		"/users": {
+			"post": {
+				"operationId": "create",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUserDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateUserDto"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Create a new user",
+				"tags": ["users"]
+			},
+			"get": {
+				"operationId": "findAll",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/CreateUserDto"
+									}
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get all users",
+				"tags": ["users"]
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"operationId": "findOne",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateUserDto"
+								}
+							}
+						}
+					},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Get a user by id",
+				"tags": ["users"]
+			},
+			"patch": {
+				"operationId": "update",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateUserDto"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateUserDto"
+								}
+							}
+						}
+					},
+					"400": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Update a user",
+				"tags": ["users"]
+			},
+			"delete": {
+				"operationId": "remove",
+				"parameters": [{
+					"name": "id",
+					"required": true,
+					"in": "path",
+					"schema": {
+						"type": "string"
+					}
+				}],
+				"responses": {
+					"200": {},
+					"401": {},
+					"403": {},
+					"404": {}
+				},
+				"security": [{ "bearer": [] }],
+				"summary": "Delete a user",
+				"tags": ["users"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"CreateUserDto": {
+				"type": "object",
+				"properties": {
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 8
+					},
+					"phone": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"roles": {
+						"type": "string",
+						"enum": ["admin", "merchant", "customer"],
+						"default": ["customer"]
+					},
+					"activeRole": {
+						"type": "string",
+						"enum": ["admin", "merchant", "customer"],
+						"default": "customer"
+					},
+					"acceptedTermsAndPrivacy": {
+						"type": "boolean",
+						"default": false
+					},
+					"policiesAcceptedAt": {
+						"format": "date-time",
+						"type": "string"
+					}
+				},
+				"required": ["firstName", "lastName", "email", "password", "roles", "activeRole", "acceptedTermsAndPrivacy"]
+			},
+			"UpdateUserDto": {
+				"type": "object",
+				"properties": {
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 8
+					},
+					"role": {
+						"type": "string",
+						"enum": ["admin", "merchant", "customer"]
+					},
+					"roles": {
+						"type": "string",
+						"enum": ["admin", "merchant", "customer"]
+					},
+					"activeRole": {
+						"type": "string",
+						"enum": ["admin", "merchant", "customer"]
+					},
+					"status": {
+						"type": "string",
+						"enum": ["pending", "active", "suspended", "deleted"]
+					},
+					"phone": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"profilePicture": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}

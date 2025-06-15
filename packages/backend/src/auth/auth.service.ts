@@ -22,9 +22,14 @@ export class AuthService {
 
 	async register(registerDto: RegisterDto, deviceInfo?: { ip: string; userAgent: string }) {
 		// Check if user already exists
-		const existingUser = await this.usersService.findByEmail(registerDto.email);
+		let existingUser = await this.usersService.findByEmail(registerDto.email);
 		if (existingUser) {
 			throw new ConflictException('User with this email already exists');
+		} else {
+			existingUser = await this.usersService.findByUsername(registerDto.username);
+			if (existingUser) {
+				throw new ConflictException('User with this username already exists');
+			}
 		}
 
 		// Create new user

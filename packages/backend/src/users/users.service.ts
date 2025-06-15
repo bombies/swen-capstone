@@ -29,19 +29,27 @@ export class UsersService {
 		return this.userModel.find().exec();
 	}
 
-	async findById(id: string): Promise<User> {
+	async findById(id: string): Promise<User | null> {
 		const user = await this.userModel.findById(id).exec();
-		if (!user) {
-			throw new NotFoundException('User not found');
-		}
 		return user;
 	}
 
-	async findByEmail(email: string): Promise<User> {
+	async findByEmail(email: string): Promise<User | null> {
 		const user = await this.userModel.findOne({ email }).exec();
-		if (!user) {
-			throw new NotFoundException('User not found');
-		}
+		return user;
+	}
+
+	async findByUsername(username: string) {
+		const user = await this.userModel.findOne({ username }).exec();
+		return user;
+	}
+
+	async findByUsernameOrEmail(usernameOrEmail: string) {
+		const user = await this.userModel
+			.findOne({
+				$or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+			})
+			.exec();
 		return user;
 	}
 
@@ -75,7 +83,7 @@ export class UsersService {
 			return null;
 		}
 
-		const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+		const isPasswordValid = await bcrypt.compare(password, user.password);
 		if (!isPasswordValid) {
 			return null;
 		}
