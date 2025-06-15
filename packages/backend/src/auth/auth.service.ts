@@ -1,15 +1,15 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
-import { User } from '../users/schemas/user.schema';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { User, UserDocument } from '../users/schemas/user.schema';
 import { UsersService } from '../users/users.service';
+import { AddRoleDto } from './dto/add-role.dto';
+import { RegisterDto } from './dto/register.dto';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
 	constructor(
 		private readonly usersService: UsersService,
-		private readonly jwtService: JwtService,
-		private readonly configService: ConfigService,
+		private readonly tokenService: TokenService,
 	) {}
 
 	async validateUser(email: string, password: string): Promise<User> {
@@ -20,64 +20,105 @@ export class AuthService {
 		return user;
 	}
 
-	async login(user: User) {
-		const payload = { sub: user._id.toString(), email: user.email };
-		const [accessToken, refreshToken] = await Promise.all([
-			this.generateAccessToken(payload),
-			this.generateRefreshToken(payload),
-		]);
+	async register(registerDto: RegisterDto, deviceInfo?: { ip: string; userAgent: string }) {
+		// Check if user already exists
+		const existingUser = await this.usersService.findByEmail(registerDto.email);
+		if (existingUser) {
+			throw new ConflictException('User with this email already exists');
+		}
 
-		await this.usersService.addRefreshToken(user._id.toString(), refreshToken);
-		await this.usersService.updateLastLogin(user._id.toString());
+		// Create new user
+		const user = (await this.usersService.create({
+			...registerDto,
+			acceptedTermsAndPrivacy: true,
+			policiesAcceptedAt: new Date(),
+		})) as UserDocument;
+
+		// Generate tokens
+		const tokens = await this.tokenService.createTokens(
+			user.id,
+			user.email,
+			user.activeRole,
+			deviceInfo,
+		);
 
 		return {
-			accessToken,
-			refreshToken,
+			...tokens,
+			user: {
+				id: user.id,
+				email: user.email,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				roles: user.roles,
+				activeRole: user.activeRole,
+			},
+		};
+	}
+
+	async addRole(userId: string, addRoleDto: AddRoleDto) {
+		const user = await this.usersService.findById(userId);
+		if (!user) {
+			throw new UnauthorizedException('User not found');
+		}
+
+		// Check if user already has this role
+		if (user.roles.includes(addRoleDto.role)) {
+			throw new ConflictException('User already has this role');
+		}
+
+		// Add new role
+		user.roles.push(addRoleDto.role);
+		await this.usersService.update(userId, { roles: user.roles });
+
+		return {
+			message: `Role ${addRoleDto.role} added successfully`,
+			roles: user.roles,
+		};
+	}
+
+	async login(
+		user: UserDocument,
+		deviceInfo?: { ip: string; userAgent: string },
+	) {
+		const tokens = await this.tokenService.createTokens(
+			user.id,
+			user.email,
+			user.activeRole,
+			deviceInfo,
+		);
+
+		await this.usersService.updateLastLogin(user.id);
+
+		return {
+			...tokens,
 			user: {
 				id: user._id,
 				email: user.email,
 				firstName: user.firstName,
 				lastName: user.lastName,
+				roles: user.roles,
+				activeRole: user.activeRole,
 			},
 		};
 	}
 
-	async refreshToken(userId: string, refreshToken: string) {
-		const user = await this.usersService.findById(userId);
-		if (!user?.refreshTokens.includes(refreshToken)) {
-			throw new UnauthorizedException('Invalid refresh token');
-		}
-
-		const payload = { sub: user._id.toString(), email: user.email };
-		const [newAccessToken, newRefreshToken] = await Promise.all([
-			this.generateAccessToken(payload),
-			this.generateRefreshToken(payload),
-		]);
-
-		await this.usersService.removeRefreshToken(userId, refreshToken);
-		await this.usersService.addRefreshToken(userId, newRefreshToken);
-
-		return {
-			accessToken: newAccessToken,
-			refreshToken: newRefreshToken,
-		};
+	async refreshToken(
+		userId: string,
+		refreshToken: string,
+		deviceInfo?: { ip: string; userAgent: string },
+	) {
+		return this.tokenService.refreshTokens(userId, refreshToken, deviceInfo);
 	}
 
-	async logout(userId: string, refreshToken: string) {
-		await this.usersService.removeRefreshToken(userId, refreshToken);
+	async logout(tokenId: string) {
+		await this.tokenService.revokeToken(tokenId);
 	}
 
-	private async generateAccessToken(payload: { sub: string; email: string }) {
-		return this.jwtService.signAsync(payload, {
-			secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-			expiresIn: '15m',
-		});
+	async logoutAll(userId: string) {
+		await this.tokenService.revokeAllUserTokens(userId);
 	}
 
-	private async generateRefreshToken(payload: { sub: string; email: string }) {
-		return this.jwtService.signAsync(payload, {
-			secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-			expiresIn: '7d',
-		});
+	async getActiveSessions(userId: string) {
+		return this.tokenService.getActiveTokens(userId);
 	}
 }

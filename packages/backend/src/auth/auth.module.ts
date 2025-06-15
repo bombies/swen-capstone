@@ -1,28 +1,30 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from 'src/auth/strategies/local.strategy';
-import { UsersModule } from '../users/users.module';
+import { UsersService } from 'src/users/users.service';
+import { User, UserSchema } from '../users/schemas/user.schema';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { Token, TokenSchema } from './schemas/token.schema';
+import { SessionService } from './session.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { TokenService } from './token.service';
 
 @Module({
 	imports: [
-		UsersModule,
 		PassportModule,
-		JwtModule.registerAsync({
-			imports: [ConfigModule],
-			useFactory: async (configService: ConfigService) => ({
-				secret: configService.get<string>('JWT_ACCESS_SECRET'),
-				signOptions: { expiresIn: '15m' },
-			}),
-			inject: [ConfigService],
+		JwtModule.register({
+			secret: process.env.JWT_SECRET || 'your-secret-key',
+			signOptions: { expiresIn: '1d' },
 		}),
+		MongooseModule.forFeature([
+			{ name: User.name, schema: UserSchema },
+			{ name: Token.name, schema: TokenSchema },
+		]),
 	],
 	controllers: [AuthController],
-	providers: [AuthService, LocalStrategy, JwtStrategy],
-	exports: [AuthService],
+	providers: [UsersService, AuthService, JwtStrategy, SessionService, TokenService],
+	exports: [AuthService, SessionService, TokenService],
 })
 export class AuthModule {}

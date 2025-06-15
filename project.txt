@@ -1,0 +1,3460 @@
+﻿Project Charter
+Project Title: Jamaica’s Bridges in Business
+Project Date:  January 2025 - June 12, 2025
+Problem Identification:
+In Jamaica, sole traders such as student entrepreneurs, new ventures, and established small businesses face persistent challenges in promoting their goods and services due to the absence of a centralized platform. This gap forces entrepreneurs to rely on fragmented, inefficient advertising methods  like WhatsApp, Instagram and group chats, which are not designed to support structured commerce, secure payments, or legal compliance. This severely limits their visibility, market reach, and growth potential. The issue disproportionately impacts informal and semi-formal sectors, where limited resources compound the struggle to navigate Jamaica’s regulatory landscape, including tax compliance, business registration, and data privacy laws.
+Additionally, many of these small businesses are unfamiliar with the legal and regulatory obligations necessary for running a compliant business. These include proper business registration with the Companies Office of Jamaica (COJ), adherence to the Electronic Transactions Act, and compliance with Jamaica’s Data Protection Act (2020). This regulatory gap creates legal risk and inhibits sustainable operation, particularly for micro-enterprises operating in semi-formal sectors.
+
+
+
+
+
+
+Project Purpose and Justification
+Our project, Jamaica’s Bridges in Business, addresses these barriers by developing an inclusive online marketplace tailored for sole traders. The platform will streamline legal compliance while providing accessible, efficient channels for entrepreneurs to promote their offerings. By bridging regulatory knowledge gaps and access to digital commerce, the solution aims to amplify visibility for local businesses, foster scalability, and cultivate a supportive ecosystem where Jamaican entrepreneurs, from students to seasoned traders,  have the opportunity to thrive.
+
+
+Product Functionality:
+The Jamaica’s Bridges in Business platform will provide end-to-end functionality for vendors, customers and administrators that simplifies and streamlines key aspects of entrepreneurship.
+
+
+These are the core functionalities that The Jamaica’s Bridges in Business platform must perform:
+1. User Registration and Authentication
+   1. Role based registration for users 
+   2. Secure login and session management 
+2. Business Verification 
+   1. Upload and verify key documents 
+   2. Yearly re verification 
+3. Vendor Dashboard 
+   1. Create and manage business profiles 
+   2. Track inventory levels and view customer reviews 
+4. Browsing and Search 
+   1. Search bars and filters 
+5. Shopping cart
+6. Order Management 
+7. Privacy and data protection 
+8. Administrative Tools 
+Scope and Deliverables:
+* Role-based user registration and authentication
+* Business verification workflows
+* Product and service catalog with media uploads
+* Shopping cart and secure checkout
+* Order tracking, refund, and return support
+* Review and rating system
+* Admin dashboard for moderation and analytics
+* User data management tools (consent, export, delete)
+________________
+Problem Domain
+Domain Model 
+________________
+Specific Requirements
+External Interface Requirements:
+Requirements
+
+
+Template
+
+
+Requirement #
+	
+
+	Use Case
+	
+
+	Rationale
+	
+
+	User Requirement
+	
+
+	System Requirements
+	
+
+	Acceptance Criteria
+	
+
+	Dependencies
+	
+
+	Priority
+	
+
+	Team Owner
+	
+
+	
+
+________________
+Functional Requirements 
+Regulatory Requirements
+Requirement #
+	1
+	Use Case
+	Adherence to E-Commerce Regulations for Suppliers/Businesses
+	Rationale
+	In order to operate an online marketplace based in Jamaica, there should be strict compliance with the Electronic Transactions Act of Jamaica (ETA) in relation to the suppliers within the system
+	User Requirement
+	The system should be structured in order to comply with the Electronic Transactions Act of Jamaica
+	System Requirements
+	1.1. The system shall allow suppliers/business owners to provide and update their information as it relates to the Second Schedule of the ETA
+1.2. The system shall allow suppliers/business owners to register as different kinds of businesses (for returns purposes)
+1.3. The system shall provide suppliers/business owners functionality to capture valid e-signatures from customers
+1.4. The system shall allow suppliers/business owners the ability to interface with a secure, 3rd party payment gateway to receive payments
+	Acceptance Criteria
+	1.1. A displayable view of the supplier’s general information is available
+1.2. Different types of suppliers can register
+1.3. The customer can provide an e-signature
+1.4. Customers and suppliers can provide and receive payments through a secure payment gateway 
+	Dependencies
+	All E-Commerce Requirements for Suppliers
+	Priority
+	High
+	Team Owner
+	Nathan
+	
+
+
+
+Requirement #
+	2
+	Use Case
+	Adherence to E-Commerce Regulations for Customers/Consumers
+	Rationale
+	In order to operate an online marketplace based in Jamaica, there should be strict compliance with the Electronic Transactions Act of Jamaica (ETA) in relation to the customers of the system
+	User Requirement
+	The system should be structured in order to comply with consumer’s rights outlined within the Electronic Transactions Act
+	System Requirements
+	1.1. The system will allow consumers to have the ability to review electronic transactions
+1.2. The system will allow consumers to have the ability to edit their electronic transaction (before purchasing/placing an order)
+1.3. The system will allow consumers to have the ability to withdraw from a transaction before placing an order
+1.4. The system will allow consumers to access summaries of the order, its terms and the total cost of the order
+1.5. The system will allow consumers to provide valid e-signatures to suppliers
+1.6. The system will allow consumers/customers to view a business’s information as it relates to the Second Schedule of the ETA
+1.7. The system will allow consumers to cancel orders within 7 days of receipt of goods or 7 days after an agreement on the provision of services
+1.8. The system will allow consumers the ability to interface with a secure, 3rd-party payment gateway to make payments and receive refunds
+	Acceptance Criteria
+	
+
+	Dependencies
+	All E-Commerce Requirements for consumers
+	Priority
+	High
+	Team Owner
+	Nathan
+	
+
+
+
+Requirement #
+	3
+	Use Case
+	Adherence to the Registration of Business Names Act
+	Rationale
+	Suppliers/Businesses that register to be apart of the online marketplace must be a registered business in Jamaica
+	User Requirement
+	The system should ensure all registered businesses are compliant with the Companies Office of Jamaica
+	System Requirements
+	1.1. The system should allow business owners to upload certified copies of their “Letter of Good Standing” 
+1.2. The system should track and suspend businesses on the marketplace that have an expired “Letter of Good Standing”
+1.3. The system should notify business owners when their “Letter of Good Standing” are within one month of expiry
+	Acceptance Criteria
+	
+
+	Dependencies
+	
+
+	Priority
+	High
+	Team Owner
+	Nathan
+	
+
+E-Commerce Requirements
+Requirement #
+	
+
+	Use Case
+	Verify business for vendor registration.
+	Rationale
+	Prevent non-registered businesses from selling.
+	User Requirement
+	Vendors must be verified businesses.
+	System Requirements
+	1.1 The system shall allow a user to create a profile as a vendor.
+1.2 The system should confirm business registration with the Tax Office and Companies of Jamaica .
+1.3 The system should keep track of vendor registration status and suspend their vendor status when they are no longer registered.
+1.4 The system should allow vendors to categorize their page as either a product page or service page.
+1.5 The system shall require vendors to re-verify their business status yearly.
+1.6 The system shall require vendors to add business locations.
+	Acceptance Criteria
+	Vendors cannot register without a valid certificate of business via email and a valid ID.
+Vendors page is categorized based on service or product being offered.
+	Dependencies
+	
+
+	Priority
+	High
+	Team Owner
+	Jaydah
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Manage personal product/service page.
+	Rationale
+	Allow vendors to adjust the products/service information on their personal product page.
+	User Requirement
+	Vendors should be able to create and modify their personal product/service page.
+	System Requirements
+	1.1 The system shall provide a product/service input screen with fields for:
+                                                         * Product/service name (max 100 characters).
+                                                         * Product picture.
+                                                         * Product/Service description.
+                                                         * Price.
+                                                         * Category selection (e.g., "Food," "Tutoring," "Clothing").
+                                                         * Tags/keywords for search optimization.
+
+
+1.2 The system should allow entry of availability slots for services (e.g., "Mondays 2–4 PM").
+1.3 The system shall allow entry of product stock.
+1.4 The system should allow users to edit their product/service information as they see fit.
+1.5 The system shall allow for the selection of tags for products/services for easier searching.
+1.6 The system shall allow vendors to select a deposit percentage for services.
+	Acceptance Criteria
+	Fully described product/service shows up on page.
+Changes reflect on the page within 60 seconds.
+	Dependencies
+	Business Verification
+	Priority
+	High
+	Team Owner
+	Jaydah
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Inventory Management[b]
+	Rationale
+	Prevent overselling of a product or overbooking of a service.
+	User Requirement
+	Vendors should be able to input/update their stock.
+	System Requirements
+	1.1 The system should allow for the updating of product stock
+1.2 The system should automatically notify the vendor when their stock for a product is below five.
+1.3 The system should allow a maximum stock of 100 units for any one product.
+1.4 The system should mark a product as ‘Out Of Stock’ when stock reaches zero.
+1.5 The system should remove available slots as they are booked on the system for services.
+1.6 The system should prevent the sale of a product if there is no stock.
+1.7 The system should automatically create a stock item when a product is created 
+	Acceptance Criteria
+	Stock levels update globally within 60 seconds of a sale.
+Service slots disappear from public view immediately upon booking.
+Orders fail with "Insufficient Stock" error if inventory = 0 during checkout.
+Overbooking attempts display "This slot is no longer available."
+
+
+	Dependencies
+	Product/Service Page Management
+	Priority
+	High
+	Team Owner
+	Jaydah
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Respond to customer queries
+	Rationale
+	Improve buyer-seller communication
+	User Requirement
+	Vendors should be able to answer customer queries.
+	System Requirements
+	1.1 The system should provide an in-app chat system with text and image support.
+1.2 The system should alert vendors via email/SMS when a new query is received.
+1.3 The system should show when a message is read by the recipient.
+1.4 The system shall auto reminder vendors of unresolved chats after 24hrs of not responding.
+	Acceptance Criteria
+	Messages are delivered within 5 seconds.
+Vendors receive alerts within 1 minute of a new query.
+	Dependencies
+	
+
+	Priority
+	Low
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Track order status.
+	Rationale
+	Ensure transparency in the order lifecycle to reduce customer anxiety and support inquiries.
+	User Requirement
+	Customers receive notifications on order updates.
+	System Requirements
+	1.1 The system should trigger email/SMS alerts for order confirmation.
+1.2 The system shall trigger email/SMS alerts for service date confirmation.
+	Acceptance Criteria
+	Notifications sent ≤2 minutes after status change.
+	Dependencies
+	Payment Gateway
+	Priority
+	Low
+	Team Owner
+	Jaydah 
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Submit review.
+	Rationale
+	Build trust in the marketplace.
+	User Requirement
+	Customers can rate/review vendors after receiving products.
+	System Requirements
+	1.1 The system should enable review submission only after an order status is marked "Delivered"; using a 5-star rating system.
+1.2 The system shall allow photo/video attachments (max 3 files; 20MB total).
+1.3 The system shall allow anonymous display (real identity hidden, but account verified).
+1.4 The system shall allow vendor responses to reviews (publicly visible).
+1.5 The system shall calculate and display aggregate ratings on service/product pages.
+1.6 The system shall allow one review per customer.
+	Acceptance Criteria
+	Customers cannot submit reviews before delivery or for canceled orders.
+Reviews appear on product/vendor pages within 5 minutes of submission.
+	Dependencies
+	Order Tracking
+	Priority
+	Medium
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Product Discovery
+	Rationale
+	Customer expect search tools to efficiently find products
+	User Requirement
+	The system shall enable customers to easily search and discover products and services
+	System Requirements
+	1.1 The system shall provide a search bar that will allow for the finding of products and services.
+1.2 The system shall allow customers to filter products and services by prices, categories, rating and location.
+1.3 The system shall display products and or services with descriptions and reviews.
+1.4 The system shall allow for semantic searching of services/products.
+	Acceptance Criteria
+	Search result will load in less than 5 seconds with 95% accuracy
+Price: Sorts products and services from lowest to highest price or vice versa based on customer selection.
+Category: Filters listings based on predefined product or service categories such as Fashion, Food, Electronics, or Education.
+Rating: Displays products and services based on average customer ratings based on customer selection.
+Location (Nearest first): Prioritizes vendors within 50km of the customer’s current location to support local businesses.
+Default displays by previous first and nearest first.
+	Dependencies
+	Product/Service Page
+	Priority
+	High
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Manage Cart
+	Rationale
+	Enable customers to add items for purchase to cart and modify selections before checkout.
+	User Requirement
+	Customers should be able to add/remove, modify items and review cart contents before payment.
+	System Requirements
+	1.1 The system shall allow adding products/services to a persistent cart linked to the user profile.
+1.2 The system shall enable quantity modification (+/-) for cart items.
+1.3 The system shall display real-time cart totals.
+1.4 The system should allow users to select specific cart items for checkout.
+1.5 The system should automatically remove services that are in the cart for more than 24 hr and automatically update the booking calendar for the removed service.
+1.6 The system shall prevent checkout with unavailable items (marked red).
+	Acceptance Criteria
+	Cart contents persist for 60 days of inactivity
+Total calculation error margin < 0.1%
+	Dependencies
+	Inventory Management
+User Profile
+	Priority
+	High
+	Team Owner
+	Jaydah
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Add To Cart
+	Rationale
+	Help customers save products/services for future consideration.
+	User Requirement
+	Users should be able to save items to personalized lists.
+	System Requirements
+	1.1 The system shall allow "Save for Later" functionality from product pages/cart.
+1.2 The system shall notify users when saved items drop below 10% stock.
+	Acceptance Criteria
+	Saved listed has a maximum of 100 items.
+Item is added to the saved list.
+	Dependencies
+	Inventory Management
+User profile
+	Priority
+	Low
+	Team Owner
+	Jaydah 
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Create User Profile
+	Rationale
+	Help customers to be identified and enhance their experience as a User and manage personal data
+	User Requirement
+	The User should be able to create an account enabling users to manage personal details, and customize their experiences
+	System Requirements
+	1.1 The system shall require users to authenticate before creating or editing their profile
+1.2 The system shall allow customers to create and edit their profile eg.(Name, email, address,)
+1.2 The system shall allow users to identify whether their profile will be a vendor or customer
+
+
+	Acceptance Criteria
+	User must authenticate before accessing or editing profile 
+	Dependencies
+	Authenticate user
+	Priority
+	Medium 
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Order Management[c][d][e]
+	Rationale
+	Customers that order goods/services should have the ability to manage the orders they make
+	User Requirement
+	The system shall allow customers to manage the orders they make
+	System Requirements
+	1.1. The system shall generate a unique order ID for each purchase the customer has made
+1.2. The system shall allow customers to view orders in their accounts (as per requirement 2)
+1.3. The system shall allow customers to cancel an order and request a refund (within the timeframe outlined in the Electronic Transactions Act of Jamaica) 
+1.4. The system shall send an order confirmation email to the customer after each order/purchase
+	Acceptance Criteria
+	1. A unique order ID is generated and stored within database per each new order made
+2. The customer can view a list of their past orders
+3. The customer can return their order within 7 days of receipt of goods or cancel 7 days after purchasing a service
+4. The customer receives email confirmation for each new order
+	Dependencies
+	Requirement 2 and (a requirement that speaks about customer purchases, Refund and Return)
+	Priority
+	1
+	Team Owner
+	
+
+	
+
+
+
+
+
+Requirement #
+	
+
+	Use Case
+	Refund and Return 
+	Rationale
+	Customers after the purchase of a product or service should have the ability to request a refund or a return.
+	User Requirement
+	The system shall allow customers to request a return or refund from the merchant. 
+	System Requirements
+	1.1 The system shall provide a return/ refund button after confirmation of purchase.
+1.2 The system shall provide this functionality to a customer for only 7 days after the purchase of the product or service.
+1.3 The system shall notify the merchant of a customer's request within 5 minutes of request.
+1.4 The systems shall prompt communication between the merchant and customer upon request.
+1.5 The system shall allow the customer to notify the system once the issue is resolved.
+1.6 The system shall allow the customer to request further action if they feel their request is being ignored.
+	Acceptance Criteria
+	The return/refund button should only be available to customers after a purchase for 7 days.
+The merchant is notified about the request.
+The issue can be resolved by the customer.
+	Dependencies
+	
+
+	Priority
+	Medium
+	Team Owner
+	
+
+	
+
+
+
+Privacy & Security Requirements
+Requirement #
+	
+
+	Use Case
+	Collect User Data Collection Consent
+	Rationale
+	Compliance with the Data Protection Act (2020) requires obtaining user consent for collecting and processing personal data.
+	User Requirement
+	The system shall inform users about what personal data is collected and why.
+	System Requirements
+	                                                         1. The system shall display a clear privacy policy during user sign-up explaining what data will be collected and the purposes for its use.
+                                                         2. The system shall provide an unchecked consent checkbox in which the user must actively tick to agree to data collection and processing terms.
+                                                         3. The system shall disallow account creation until the user has checked the consent checkbox.
+                                                         4. The system shall record the timestamp and the user’s consent decision for audit purposes.
+                                                         5. The system shall collect a valid e-signature for all users.
+
+
+	Acceptance Criteria
+	                                                         1. Given  a new user registration,when the user tries to sign up without giving consent, the system should prevent registration and display a message requiring consent.
+                                                         2. Given a user who consents and completes registration, when an admin reviews the consent log, the user’s consent status and timestamp can be clearly seen and are properly recorded.
+	Dependencies
+	None
+	Priority
+	High
+	Team Owner
+	Ajani
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Define Data Retention Periods
+	Rationale
+	The Data Protection Act (2020) requires that personal data not be kept longer than necessary. Enforcing timely deletion reduces risk exposure and storage of stale sensitive data, limiting damage in case of a breach.
+	User Requirement
+	The system shall ensure personal information is not stored indefinitely without reason. It shall delete old data to protect user privacy.
+	System Requirements
+	                                                         1. The system shall define retention periods for different data types (user accounts, order history, audit logs, etc.).
+                                                         2. The system shall automatically purge data that exceeds its retention period.
+                                                         3. The system shall ensure data disposal is permanent, except for the cases where the data is required to be kept by law.
+	Acceptance Criteria
+	                                                         1. When a user account has been inactive beyond the defined system threshold, the system flags the account and after notifying the user, deletes the personal data.
+                                                         2. Given log data older than the retention limit, when the automated purge process is run those logs are successfully deleted.
+	Dependencies
+	<Collect User Data Collection Consent>
+	Priority
+	Medium
+	Team Owner
+	Ajani
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Authenticate User
+	Rationale
+	Strong authentication prevents unauthorized access to user accounts. Enforcing a robust password policy and secure storage reduces the likelihood of account breaches, protecting personal and financial data.
+	User Requirement
+	The system shall prompt users to authenticate themselves.
+	System Requirements
+	                                                         1. The system shall enforce a password policy at account creation and password change.
+                                                         2. The system shall store user passwords using secure hashing.
+                                                         3. The system shall implement rate-limiting on login attempts.
+                                                         4. The system shall implement authenticated sessions to enable authorized actions within the system.
+	Acceptance Criteria
+	                                                         1. When a user attempts to set a weak password then the system should reject it with a message explaining the password requirements.
+                                                         2. On inspecting the database, no plaintext passwords are stored.
+                                                         3. Given a defined number of failed login attempts, the system imposes a delay to login again.
+	Dependencies
+	None
+	Priority
+	High
+	Team Owner
+	Ajani
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Manage User Session
+	Rationale
+	Secured sessions and automatic session timeouts help protect used accounts from being hijacked.
+	User Requirement
+	The system shall keep authenticated sessions secured
+	System Requirements
+	                                                         1. The system shall automatically require re-authentication after a defined period of inactivity.
+                                                         2. The system shall securely manage session tokens through the use of up-to-date encryption mechanisms and secure techniques such as Secure Cookies or JWT tokens
+	Acceptance Criteria
+	                                                         1. When an authenticated user remains idle beyond the set session timeout then any subsequent action requires re-authentication and the previous session token is invalidated.
+                                                         2. If a user logs out manually, then their session is terminated on the server side, preventing the re-use of that session.
+	Dependencies
+	<Authenticate User>
+	Priority
+	High
+	Team Owner
+	Ajani
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Process Payments
+	Rationale
+	This allows users to pay for items with their money and buyers to receive their payment for products purchased.
+	User Requirement
+	The system shall securely process payments through a payment gateway.
+	System Requirements
+	                                                         1. The system shall integrate with multiple PCI DSS Level 1 compliant payment gateways for processing transactions.
+                                                         2. The system shall not transmit unencrypted card numbers over its own server beyond what is needed for the gateway integration.
+                                                         3. The system shall not store full payment credentials.
+                                                         4. The system shall allow for payment credentials recall through the use of a tokenizer provided by the payment gateway.
+                                                         5. The system shall communicate with payment gateways through secure channels (TLS 1.2/1.3).
+                                                         6. The system shall handle all payment errors or declines in such a way that doesn’t expose any sensitive information.
+                                                         7. The system shall store a record of all transactions.
+	Acceptance Criteria
+	                                                         1. When a user attempts to pay for an order, the system should direct the payment through the payment gateway’s secure interface or API.
+                                                         2. No credit card details should be found in the database or logs upon inspection.
+                                                         3. Given a successful payment, there should be a record of the transaction in the database upon inspection.
+	Dependencies
+	<Adherence to E-Commerce Regulations for Suppliers/Businesses>, <Adherence to E-Commerce Regulations for Customers/Consumers>
+	Priority
+	High
+	Team Owner
+	Ajani
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Export User Data
+	Rationale
+	The Data Protection Act (2020) grants users the right to access their own data and the right to data portability.
+	User Requirement
+	The system shall allow users to request and access their personal data.
+	System Requirements
+	                                                         1. The system shall provide a self-service data download feature. This will allow the user to request an export of their personal data.
+                                                         2. The system shall ensure the exported data include profile information, order history, transactions, vendor information and any additional personal data in a structured format.
+                                                         3. The system shall ensure some authentication is provided before exporting the data. (Entering a password again, MFA, etc.)
+                                                         4. The system shall provide a secure, download link for any exported data.
+                                                         5. The system shall ensure the download link expires in a relatively short period of time to ensure data security.
+	Acceptance Criteria
+	                                                         1. When a user requests a data export, the system should verify the user’s identity.
+                                                         2. Given a user requests a data export and has authenticated themselves, the system generates a file containing all relevant personal data and makes it available for download.
+                                                         3. Given a data export is available, the user receives a notification with a secure link to access the download.
+                                                         4. Given a data export is available, the downloaded data file is in a structured, readable format and contains all the gathered information on the user.
+	Dependencies
+	<Authenticate User>
+	Priority
+	High
+	Team Owner
+	Ajani
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Update CustomerDetails
+	Rationale
+	Users have the right to rectification of their data (Data Protection Act, 2020). Keeping data accurate and up-to-date is also important for service quality.
+	User Requirement
+	The system shall allow the user to edit personal details on their account and have those changes reflected in all future transactions.
+	System Requirements
+	                                                         1. The system shall provide account profile pages where users can view and edit their personal information.
+                                                         2. The system shall ensure sensitive fields require re-authentication (e.g.; passwords, emails, etc.).
+                                                         3. The system shall propagate updated information to relevant parts of the system.
+                                                         4. The system shall log all changes to personal data.
+	Acceptance Criteria
+	                                                         1. When a user attempts to change their email address, then the system requires them to enter their password again.
+                                                         2. When a user’s personal details are updated the changes should be visible through the entire application.
+	Dependencies
+	<Authenticate User>
+	Priority
+	High
+	Team Owner
+	Ajani
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Delete Account
+	Rationale
+	The Data Protection Act (2020) requires that users be able to have their personal data erased when it’s no longer necessary for the purpose it was collected. Implementing account deletion gives us control and shows respect for their privacy choices.
+	User Requirement
+	The system shall allow users to fully delete their account and personal information from the platform.
+	System Requirements
+	                                                         1. The system shall provide a self-service account deletion option.
+                                                         2. The system shall require re-authentication before an account deletion request is created.
+                                                         3. The system shall remove all personal information relating to the user, with the exclusion of data needed for legal purposes.
+	Acceptance Criteria
+	                                                         1. When a user requests account deletion and confirms the action, then the system deletes the user’s account. Subsequent attempts to log in with that account fail,and the user’s personal data is no longer retrieved via the app or APIs.
+	Dependencies
+	<Authenticate User>
+	Priority
+	High
+	Team Owner
+	Ajani
+	Non Functional Requirements 
+
+
+Requirement #
+	
+
+	Use Case
+	Handle User Traffic
+	Rationale
+	Ensure smooth operation during usage times and future growth, the system must handle high volumes of concurrent users.
+	User Requirement
+	The system shall allow users to access the platform without performance degradation, even during peak hours.
+	System Requirements
+	1.1 The system shall support a minimum of 5,000 concurrent active users.
+1.2 The database and search engine shall handle simultaneous queries without crashing or significant delay.
+	Acceptance Criteria
+	1.1 Under simulated load of 5,000 concurrent users, system latency stays under 3 seconds for 95% of requests.
+1.2 No critical service crashes occur during load testing.
+	Dependencies
+	
+
+	Priority
+	High
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Long-Term System Evolution
+	Rationale
+	Ensure that new features can be added or updated with minimal impact on existing code, reducing technical debt.
+	User Requirement
+	Developers shall be able to easily update or extend platform functionality without rewriting existing code.
+	System Requirements
+	1.1 The system shall use a component-based architecture (e.g., microservices or modular frontend components).
+1.2 Modules shall be documented and isolated to allow independent development.
+1.3 The codebase shall adhere to a clean code standard with enforced linters and formatting tools.
+	Acceptance Criteria
+	1.1 New features can be added without impacting unrelated modules.
+1.2 Module updates require changes to ≤ 2 existing components.
+	Dependencies
+	
+
+	Priority
+	Medium
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Ensure System Availability
+	Rationale
+	The platform must provide high availability.
+	User Requirement
+	The system shall be available to users 24/7 with minimal disruptions.
+	System Requirements
+	The system shall be hosted on highly available cloud infrastructure.
+The system shall include automatic failover and redundancy mechanisms.
+	Acceptance Criteria
+	Failover activates within 60 seconds of a simulated failure.
+	Dependencies
+	
+
+	Priority
+	High
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	System Performance
+	Rationale
+	Ensuring fast response times and high throughput enhances user experience and supports commercial transactions.
+	User Requirement
+	Users shall experience fast interactions with the platform, regardless of transaction volume.
+	System Requirements
+	1.1 The system shall respond to 95% of requests within 2 seconds under normal load.
+1.2 The system shall process at least 500 transactions per minute during peak periods.
+1.3 The system shall maintain average request latency below 1.5 seconds. 
+1.4 The system shall support both horizontal and vertical scaling.
+	Acceptance Criteria
+	1.1 Load tests confirm <2s response times at 80% load.
+1.2 Stress tests confirm throughput ≥500 transactions/minute.
+	Dependencies
+	
+
+	Priority
+	High
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	 User Experience
+	Rationale
+	A user-friendly interface ensures that users can easily complete tasks.
+	User Requirement
+	The interface must be intuitive and accessible to all users.
+	System Requirements
+	1.1 UI shall include keyboard navigation, and form labels.
+1. 2 Error messages shall explain what went wrong and how to resolve it.
+1.3 System shall support multilingual interfaces (English at launch)
+1.4 System shall allow users to switch seamlessly between merchant and customer profile.[f]
+	Acceptance Criteria
+	
+
+	Dependencies
+	High
+	Priority
+	
+
+	Team Owner
+	
+
+	
+
+
+
+
+
+Requirement #
+	
+
+	Use Case
+	Platforms and Devices
+	Rationale
+	Users should be able to access the platform with minimal setup on phones, tablets and PCs.
+	User Requirement
+	The system should run with minimal setup on phones, tablets, and PCs.
+	System Requirements
+	1.1 The system shall run on all major OS platforms and browsers.
+1.2 Minimal configuration shall be required when moving between dev, staging, and prod environments.
+1.3 The system shall offer integration hooks for third-party systems (e.g., PayPal).
+	Acceptance Criteria
+	1.1 App renders correctly on Chrome, Firefox, Safari, Edge, mobile browsers.
+	Dependencies
+	
+
+	Priority
+	Medium
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	Auditability for Legal and Support Traceability
+	Rationale
+	Logs and audit trails help with compliance, debugging, and incident response.
+	User Requirement
+	The system shall log all relevant actions for traceability.
+	System Requirements
+	1.1 The system shall log user actions (login, data edits, purchases, refunds, etc.)for up to 5 years.
+1.2 Logs shall include timestamp, user ID, and action details.
+1.3 The system shall provide audit trail access for compliance reports.
+	Acceptance Criteria
+	1.1 Admins can retrieve a full history of user activity.
+1.2 Log integrity is protected from tampering.
+	Dependencies
+	
+
+	Priority
+	Medium
+	Team Owner
+	
+
+	
+
+
+
+Requirement #
+	
+
+	Use Case
+	
+
+	Rationale
+	
+
+	User Requirement
+	
+
+	System Requirements
+	
+
+	Acceptance Criteria
+	
+
+	Dependencies
+	
+
+	Priority
+	
+
+	Team Owner
+	
+
+	
+
+Actors: User, Payment Gateway, Admin, Merchants, Customer
+Use Case:
+                                                         1. Update Merchant Details (extends Upload Media)
+                                                         2. View Merchant Details
+                                                         3. Update Customer Details (extends Upload Media)
+                                                         4. Create Customer Account (includes Provide eSignature, extends Upload Media)
+                                                         5. Create Merchant Account (includes Provide eSignature, extends Upload Media)
+                                                         6. Provide eSignature
+
+
+                                                         7. View Transaction
+                                                         8. View Order (includes View Transactions)
+                                                         9. Cancel Order
+                                                         10. Create Order (includes Process Payment)
+                                                         11. Refund Order (?)
+
+
+                                                         12. View Cart
+                                                         13. Add Cart Item
+                                                         14. Select Cart Item
+                                                         15. Remove Cart Item
+
+
+                                                         16. Verify Merchant Records
+                                                         17. Suspend Merchant
+
+
+                                                         18. Update Product (extends Upload Media)
+                                                         19. View Product
+                                                         20. Delete Product
+                                                         21. Add Product
+                                                         22. Update Service (extends Upload Media)
+                                                         23. View Service
+                                                         24. Delete Service
+                                                         25. Add Service
+
+
+                                                         26. Bookmark Product[g]
+                                                         27. Add Product Stock
+                                                         28. Remove Product Stock
+
+
+                                                         29. Create Customer Issue
+                                                         30. Send Message
+                                                         31. Resolve Customer Issue
+
+
+                                                         32. Review Product/Review (extends Upload Media)
+
+
+                                                         33. Search
+                                                         34. Filter Search (includes Search)
+
+
+                                                         35. View Privacy Policy
+                                                         36. View Terms of Service
+                                                         37. Accept Privacy Policy
+                                                         38. Accept Terms of Service
+                                                         39. Export User Data (includes Authenticate User)
+                                                         40. Delete Account (includes Authenticate User)
+
+                                                         41. Authenticate User
+
+                                                         42. Process Payment
+
+
+                                                            43. Upload Media
+                                                            44. Switch 
+
+
+________________
+
+
+Use Cases
+
+
+Use Case
+	
+
+	Related Requirements
+	
+
+	Goal in Context
+	
+
+	Preconditions
+	
+
+	Successful End Conditions
+	
+
+	Failed End Conditions
+	
+
+	Primary Actors
+	
+
+	Secondary Actors
+	
+
+	Trigger
+	
+
+	Main Flow
+	Step
+	Action
+	
+
+	
+
+	
+
+	Extensions
+	Step
+	Action
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Use Case
+	Update Merchant Details
+	Related Requirements
+	
+
+	Goal in Context
+	Allows a registered merchant on the platform to update their merchant details (as per the Second Schedule of the ETA)
+	Preconditions
+	                                                            1. The Merchant is authenticated.
+                                                            2. The Merchant is updating their own details (and not someone else's)
+	Successful End Conditions
+	The system reflects the updated merchant details
+	Failed End Conditions
+	The system does not change the merchant’s details
+	Primary Actors
+	Merchants
+	Secondary Actors
+	None
+	Trigger
+	The merchant clicks the “update details” button
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System displays editable fields
+	
+
+	2
+Includes::Upload Media
+	Merchant modifies the desired fields
+	
+
+	3
+	System validates the new inputs
+	
+
+	4
+	System updates the merchant profile
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	If input validation fails, system prompts user to correct it
+	
+
+
+
+Use Case
+	View Merchant Details
+	Related Requirements
+	
+
+	Goal in Context
+	Allows any user on the platform to view a merchant’s details
+	Preconditions
+	                                                            1. The user is on the system
+                                                            2. The user has selected a valid and compliant merchant to view the details of
+	Successful End Conditions
+	The system displays the merchant’s details (as per the Second Schedule of the ETA)
+	Failed End Conditions
+	The system does not display any merchant details
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user selects a merchant profile from a product catalog
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System retrieves merchant details from database
+	
+
+	2
+	System displays merchant’s information
+	Extensions
+	Step
+	Action
+	
+
+	
+
+	
+
+	
+
+
+
+Use Case
+	Update Customer Details
+	Related Requirements
+	
+
+	Goal in Context
+	Allows a registered customer on the platform to update their customer details
+	Preconditions
+	                                                            1. The user is authenticated
+                                                            2. The user is updating their own profile
+	Successful End Conditions
+	The updated details are saved and reflected across the system
+	Failed End Conditions
+	The system does not display any updated customer details
+	Primary Actors
+	Customer
+	Secondary Actors
+	
+
+	Trigger
+	The customer clicks the “update details” button 
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System displays editable fields
+	
+
+	2
+Includes::Upload Media
+	Customer modifies details as needed 
+	
+
+	3
+	System validates the updated input
+	
+
+	4
+	System updates the customer’s profile
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	If input validation fails, system prompts user to correct it
+	
+
+
+
+Use Case
+	Create Customer Account
+	Related Requirements
+	
+
+	Goal in Context
+	A customer creates an account to access services on the platform
+	Preconditions
+	                                                            1. The customer is not already registered on the system
+	Successful End Conditions
+	A new customer account is created
+	Failed End Conditions
+	The account is not created
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	User clicks on “Create Account”
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The system displays a form for account creation
+	
+
+	2
+	The customer enters personal and contact information (including billing address, payment details, etc)
+	
+
+	3
+Include::Provide eSignature
+	The customer provides an e signature to signify acceptance of terms of service and privacy policies
+	
+
+	4
+	The system validates the input data
+	
+
+	5
+	The system creates a new customer account
+	Extensions
+	Step
+	Action
+	
+
+	2.1
+Extends::Upload Media
+	The customer chooses to upload a profile image or supporting documents
+	
+
+	4.1
+	The system identifies invalid input and prompts the customer to correct it
+	
+
+
+
+Use Case
+	Create Merchant Account
+	Related Requirements
+	
+
+	Goal in Context
+	A merchant creates an account to sell products/services on the platform
+	Preconditions
+	The merchant is not already registered on the system
+	Successful End Conditions
+	A new merchant account is create
+	Failed End Conditions
+	The account is not created
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	User clicks on “Create Merchant Account”
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The system presents a merchant registration form
+	
+
+	2
+	The merchant fills in business details and contact information (required by Second Schedule of ETA)
+	
+
+	3
+Include::Provide eSignature
+	The merchant provides an e-signature to signify acceptance of terms of service and privacy policies
+	
+
+	4
+	The system validates the input data
+	
+
+	5
+	The system creates a new merchant account (pending verification from an Admin)
+	Extensions
+	Step
+	Action
+	
+
+	2.1
+Extends::Upload Media
+	The merchant uploads Letter of Good Standing and any optional images
+	
+
+
+
+Use Case
+	Switch Roles
+	Related Requirements
+	
+
+	Goal in Context
+	To allow a user to seamlessly change their active role
+	Preconditions
+	The user is registered as both a merchant and customer
+The user is currently operating in one of these assigned roles.
+	Successful End Conditions
+	The user is able to  successfully switch to their desired role
+	Failed End Conditions
+	The system fails to switch roles
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	User clicks on “Switch Role”
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The user selects the “Switch Role” option
+	
+
+	2
+	The system displays the available roles for the user
+	
+
+	3
+
+
+	The user selects the desired role from the presented options. 
+	
+
+	4
+	The system validates the user authorization for the selected role
+	
+
+	5
+	The system updates the active user session to reflect the selected role
+	
+
+	6
+	System displays the appropriate landing page.
+	Extensions
+	Step
+	Action
+	
+
+	
+
+
+
+	 
+	
+
+
+
+Use Case
+	Provide eSignature
+	Related Requirements
+	
+
+	Goal in Context
+	A user signs electronically to signify agreement for input validation purposes (as per Electronic Transaction Act)
+	Preconditions
+	                                                            1. The user is authenticated
+                                                            2. The user is in a process that requires an eSignature
+	Successful End Conditions
+	A valid eSignature is recorded
+	Failed End Conditions
+	The eSignature is not captured
+	Primary Actors
+	Customer, Merchant
+	Secondary Actors
+	
+
+	Trigger
+	The system requests a digital signature
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The system presents an eSignature interface to the user
+	
+
+	2
+	The user provides their digital signature using their preferred input method (mouse, touchscreen, etc.)
+	
+
+	3
+	The system captures the eSignature
+	Extensions
+	Step
+	Action
+	
+
+	
+
+	
+
+	
+
+
+
+Use Case
+	View Transaction
+	Related Requirements
+	
+
+	Goal in Context
+	Allow users to view transaction details (cart contents, terms, total cost, etc.) before moving onto creating an order
+	Preconditions
+	                                                            1. The user is authenticated on the system
+                                                            2. The transaction contains valid items
+	Successful End Conditions
+	The user reviews the transaction 
+	Failed End Conditions
+	The system fails to display transaction details
+	Primary Actors
+	Customer
+	Secondary Actors
+	
+
+	Trigger
+	The user navigates to transaction review before placing an order
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System retrieves items and pricing details
+	
+
+	2
+	System displays: item list, prices, delivery terms, applicable taxes and refund policies
+	
+
+	3
+	User can review the transaction and take action depending on its state 
+	Extensions
+	Step
+	Action
+	
+
+	
+
+	
+
+	
+
+
+
+Use Case
+	View Order
+	Related Requirements
+	
+
+	Goal in Context
+	Allows customers to view the details of confirmed orders, including delivery status and related transactions
+	Preconditions
+	                                                            1. Customer is authenticated
+                                                            2. At least one order has been placed
+	Successful End Conditions
+	The system displays the list of confirmed orders
+	Failed End Conditions
+	Orders fail to load
+	Primary Actors
+	Customer
+	Secondary Actors
+	
+
+	Trigger
+	Customer clicks on “View Orders” in their dashboard/profile
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System retrieves the customer’s order history
+	
+
+	2
+	System displays each order’s summary (its terms and the total cost of the order)
+	
+
+	3
+Include::View Transaction
+	Displays transaction summary tied to the order
+	Extensions
+	Step
+	Action
+	
+
+	2.1
+	If no orders exist, system should display that there have not been any orders placed
+	
+
+
+
+Use Case
+	Verify Merchant Records
+	Related Requirements
+	
+
+	Goal in Context
+	Ensure that merchants registering on the platform are verified and compliant with Electronic Transactions Act by validation of official documentation
+	Preconditions
+	                                                            1. The merchant has uploaded documents to be verified
+	Successful End Conditions
+	The records are validated, and they are authorized to conduct business on the system
+	Failed End Conditions
+	Verification fails due to missing/invalid documentation
+	Primary Actors
+	Admin
+	Secondary Actors
+	Merchant
+	Trigger
+	Admin accesses a list of merchants awaiting verification
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System displays submitted “Letters of Good Standing”
+	
+
+	2
+	Admin reviews documentation for authenticity by cross-referencing with the Companies Office of Jamaica’s registered business list
+	
+
+	
+
+	Admin marks merchant as “Verified” if the documents are verifiable
+	
+
+	
+
+	System updates merchant profile status to “Verified” and notifies the merchant
+	Extensions
+	Step
+	Action
+	
+
+	4.1 
+	If documents are invalid/unverifiable, then admin rejects the application and the merchant is notified
+	
+
+
+
+Use Case
+	Suspend Merchant
+	Related Requirements
+	
+
+	Goal in Context
+	Temporarily or permanently suspend a merchant’s account if their business documentation is invalid, expired, or if they violate marketplace policies
+	Preconditions
+	                                                            1. Merchant account exists and is current active
+                                                            2. There is a reason for suspension (expired Letter of Good Standing, customer complaints, fraudulent activity)
+	Successful End Conditions
+	The merchant’s status is changed to “Suspended” and all merchant listings are hidden from customers
+	Failed End Conditions
+	The merchant’s account remains active and listings remain publicly visible
+	Primary Actors
+	Admin
+	Secondary Actors
+	
+
+	Trigger
+	Admin identifies a violation or expiry and chooses to suspend the merchant
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	Admin reviews compliance status/violation reports
+	
+
+	2
+	Admin selects “Suspend Merchant”
+	
+
+	3
+	System prompts for confirmation and reason for suspension
+	
+
+	4
+	System updates the merchant’s status to “Suspended”, disables new listings, and hides active products/services
+	
+
+	5
+	System notifies the merchant
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	Admin cancels the operation
+	
+
+
+
+Use Case
+	Cancel Order
+	Related Requirements
+	Customer Authentication
+	Goal in Context
+	Allow a customer to cancel an order before it is fulfilled.
+	Preconditions
+	                                                            1. Customer is authenticated.
+                                                            2. Order is in a cancellable state (e.g., "Pending" or "Confirmed").
+	Successful End Conditions
+	Customer and merchant receive notifications.
+	Failed End Conditions
+	The order cannot be cancelled(eg. already fulfilled)
+	Primary Actors
+	Customers 
+	Secondary Actors
+	None 
+	Trigger
+	Customer initiates cancellation.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	Customer navigates to "Order History" 
+	
+
+	2
+	Customer selects the order to cancel.
+	
+
+	3
+	System verifies the order is cancellable (status = "Pending" or "Confirmed").
+	
+
+	4
+	Customer confirms cancellation.
+	
+
+	5
+	System updates order status to "Canceled."
+	
+
+	6
+	System triggers inventory restock (if applicable).
+	
+
+	7
+	System sends confirmation email/SMS to the customer and merchant.
+	Extensions
+	Step
+	Action
+	
+
+	1
+	System verifies the order is not cancellable (status != "Pending" or "Confirmed").
+	
+
+	2
+	Order is not cancelled.
+	
+
+	3
+	Customer is notified.
+	
+
+
+
+
+
+
+
+Use Case
+	Create Order
+	Related Requirements
+	Customer Authentication,  Inventory Management
+	Goal in Context
+	Enable customers to successfully place orders for products/services on the market place
+	Preconditions
+	                                                            1. Customer is authenticated.
+                                                            2. Cart contains items.
+                                                            3. Payment gateway is operational.
+	Successful End Conditions
+	Order is created:
+Payment is processed.
+Inventory is updated.
+Order confirmation is sent to customer and merchant.
+	Failed End Conditions
+	Order creation fails (e.g., payment declined, item out of stock), and customer is notified.
+	Primary Actors
+	Customer
+	Secondary Actors
+	Payment Gateway
+	Trigger
+	Customer clicks "Place Order" on the checkout page.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System validates the selected cart items.
+	
+
+	2
+	System redirects customers to the payment gateway.
+	
+
+	3
+	Payment gateway confirms payment success.
+	
+
+	4
+	System creates an order with status "Confirmed":
+	
+
+	4.1
+	System deducts inventory quantities (for physical products).
+	
+
+	4.2
+	System records order details (items, price, merchant ID).
+	
+
+	4.3
+	System generates a unique order number.
+	
+
+	5
+	System generates an order invoice.
+	
+
+	6
+	Order appears in customer’s "Order History" and merchant’s dashboard.
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	Payment gateway declines payment 
+	
+
+	3.2
+	Order is not created 
+	
+
+	3.3
+	System notifies customer of payment gateway error.
+	
+
+
+
+
+
+Use Case
+	Refund Order
+	Related Requirements
+	 Inventory Management
+	Goal in Context
+	Process refunds for orders.
+	Preconditions
+	Customer is authenticated.
+Order exist in the system.
+	Successful End Conditions
+	Customer and merchant receive notification.
+Refund request is successfully submitted and recorded
+	Failed End Conditions
+	Customer and merchant do not receive notification.
+	Primary Actors
+	Customer
+	Secondary Actors
+	Merchant
+	Trigger
+	Customer navigates to "Order History" and selects "Request Refund" for a specific order.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	                                                            1. Customer selects a specific order they wish to have refunded.
+	
+
+	2
+	Customer selects “Request Refund”
+Option for the chosen order.
+	
+
+	3
+	System performs eligibility checks.
+	
+
+	4
+	Customer provides the refund reason then submits request.
+	
+
+	5
+	System records the refund request with a “Pending” status.
+	
+
+	6
+	System sends a notification acknowledging the refund request to the customer.
+	
+
+	7
+	System sends notification to Merchant of refund request and details.
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	System produces error message about unmet refund eligibility conditions.
+	
+
+	4.1
+	Customer cancels refund request before submitting, process is terminat
+	
+
+
+
+
+
+Use Case
+	View Cart 
+	Related Requirements
+	Customer Authentication
+	Goal in Context
+	Allow customers to review items in their shopping cart before proceeding to checkout.
+	Preconditions
+	Customer is authenticated.
+	Successful End Conditions
+	Customer views cart contents with accurate item details, quantities, and total price.
+	Failed End Conditions
+	Customer cannot view cart.
+	Primary Actors
+	Customer
+	Secondary Actors
+	None
+	Trigger
+	Customer navigates to the "Cart" page.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System retrieves cart items.
+	
+
+	2
+	System displays:
+                                                            1. Product/service name, image, price, quantity.
+                                                            2. Subtotal, taxes (if applicable), and total.
+	
+
+	3
+	Customer views items and can proceed to checkout or continue shopping.
+	Extensions
+	Step
+	Action
+	
+
+	
+
+	
+
+	
+
+
+
+Use Case
+	Add to Cart
+	Related Requirements
+	Customer Authentication
+	Goal in Context
+	Allow customer to add items to cart to check out later.
+	Preconditions
+	                                                            1. Customer is authenticated.
+                                                            2. Item is available.
+	Successful End Conditions
+	Item is added to cart with correct quantity and price..
+	Failed End Conditions
+	Item cannot be added to cart.
+	Primary Actors
+	Customer
+	Secondary Actors
+	None
+	Trigger
+	Customer select ‘Add to Cart’ button under an item.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	Customer enters desired item preferences.
+	
+
+	1.1
+	For a service customer selects date and time 
+	
+
+	1.2
+	For a product customer select size, colour and quantity.
+	
+
+	2
+	System checks to confirm availability.
+	
+
+	3
+	Item is added to the cart with selected preferences.
+	
+
+	4
+	Cart total updates to reflect the addition of the new item’s price.
+	
+
+	5
+	System displays confirmation: "Item added to cart!"
+	
+
+	6
+	Customer can continue browsing.
+	Extensions
+	Step
+	Action
+	
+
+	2.1.1
+	System produces error message “Product preference not available”
+	
+
+	2.2.1
+	System produces error message “Date or Time not available”
+	
+
+
+
+
+
+Use Case
+	Select Cart Item
+	Related Requirements
+	Customer Authentication
+	Goal in Context
+	Allow customer to select what item(s) from cart they would like to check out 
+	Preconditions
+	                                                            1. Customer is authenticated.
+                                                            2. Customer is in cart.
+	Successful End Conditions
+	Customer select the item they want to checkout.
+	Failed End Conditions
+	Customer cannot select item(s).
+	Primary Actors
+	Customer
+	Secondary Actors
+	None
+	Trigger
+	Customer selects an item from cart 
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	Customer checks the checkbox beside the item to show the item has been selected.
+	Extensions
+	Step
+	Action
+	
+
+	1.1
+	Customer selects ‘Select All’
+	
+
+
+
+ 
+Use Case
+	Remove Cart Item
+	Related Requirements
+	Customer Authentication
+	Goal in Context
+	Allow customer to remove a item from cart.
+	Preconditions
+	Customer is authenticated. 
+Customer is on cart page.
+	Successful End Conditions
+	Selected item is removed from the cart.
+	Failed End Conditions
+	Item is not removed from the cart.
+	Primary Actors
+	Customer
+	Secondary Actors
+	None
+	Trigger
+	Customer selects “Delete”.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System confirms deletion with customer.
+	
+
+	2
+	System removes item from the cart.
+	
+
+	3
+	System updates cart info.
+	Extensions
+	Step
+	Action
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+Use Case
+	View Service
+	Related Requirements
+	
+
+	Goal in Context
+	Allow customer to view service details.
+	Preconditions
+	Customer is authenticated.
+	Successful End Conditions
+	Customer is able to view a service.
+	Failed End Conditions
+	Customer is unable to view a service.
+	Primary Actors
+	Customers
+	Secondary Actors
+	None
+	Trigger
+	Customer clicks on a service on their browsing page.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System brings up a detailed service page with service details.
+	Extensions
+	Step
+	Action
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+Use Case
+	Delete Service
+	Related Requirements
+	
+
+	Goal in Context
+	Allow merchant to delete a service from service page.
+	Preconditions
+	Merchant is verified.
+	Successful End Conditions
+	Service is deleted from the service page.
+	Failed End Conditions
+	Service is not deleted from the service page.
+	Primary Actors
+	Merchant
+	Secondary Actors
+	None
+	Trigger
+	Merchant selects “Delete” under a service on the service page.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System confirms deletion with merchant.
+	
+
+	2
+	System removes service from the service page.
+	Extensions
+	Step
+	Action
+	
+
+	1.1
+	Merchant cancels deletion.
+	
+
+
+
+
+
+Use Case
+	Add Service
+	Related Requirements
+	Merchant Authentication 
+	Goal in Context
+	Allow merchant to add a service to service page.
+	Preconditions
+	Merchant is verified.
+	Successful End Conditions
+	Service is added to the service page.
+	Failed End Conditions
+	Service is not added to the service page.
+	Primary Actors
+	Merchant
+	Secondary Actors
+	None
+	Trigger
+	Merchant selects “Add Service” on the service page.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	Systems prompts merchant to add service information.
+                                                            1. Service Name
+                                                            2. Service description
+                                                            3. Service Prices
+                                                            4. Service Dates and Times
+	
+
+	2
+	Service page is updated.
+	Extensions
+	Step
+	Action
+	
+
+	1.1
+	Merchant cancels addition of service.
+	
+
+
+
+Use Case
+	Update Product Stock
+	Related Requirements
+	Inventory Management
+	Goal in Context
+	Allow a merchant to update stock for a product on their system.
+	Preconditions
+	Merchant is verified,
+	Successful End Conditions
+	Stock on product page is updated.
+	Failed End Conditions
+	Stock on product page is not updated.
+	Primary Actors
+	Merchant
+	Secondary Actors
+	None
+	Trigger
+	Merchant selects “Update Stock” under a product on the product page. 
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	Systems allow merchants to enter new stock totals.
+	
+
+	2
+	System updates product stock.
+	Extensions
+	Step
+	Action
+	
+
+	1.1
+	Merchant cancels stock update.
+	
+
+
+
+
+
+Use Case
+	Update Product 
+	Related Requirements
+	Inventory Management
+	Goal in Context
+	Allow a merchant to modify the details of an existing product.
+	Preconditions
+	Merchant must be verified,
+Merchant must have at least one added product to the platform
+Merchant selects an existing product to modify
+	Successful End Conditions
+	Product details are successfully updated on the product page.
+	Failed End Conditions
+	System fails to update product.
+	Primary Actors
+	Merchant
+	Secondary Actors
+	None
+	Trigger
+	Merchant selects “Edit” under a product on the product page. 
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System displays the current details of the selected product.
+	
+
+	2
+	Merchant modifies on product details. includes:: Upload Media
+	
+
+	3
+	Merchant submits updated details
+	
+
+	4
+	System validates product details
+	
+
+	5
+	System confirms successful update of product details to merchant
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	Mechant cancels update
+	
+
+	4.1
+	Validation fails error message displayed.
+	
+
+Use Case
+	Delete Product
+	Related Requirements
+	Inventory Management
+	Goal in Context
+	Allow Merchants to permanently remove a product.
+	Preconditions
+	Merchant is verified.
+	Successful End Conditions
+	The product is removed and no longer visible
+	Failed End Conditions
+	The product cannot be deleted
+	Primary Actors
+	Merchant
+	Secondary Actors
+	System
+	Trigger
+	Merchant selects the “ Delete Product” button
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The system verifies eligibility for product removal:
+                                                            1. The product exists in the merchant's inventory
+                                                            2. No pending orders exist for the product
+	
+
+	2
+	The system confirms deletion with the Merchant
+	
+
+	3
+	Merchant confirms deletion
+	
+
+	4
+	The system removes the product
+	Extensions
+	Step
+	Action
+	
+
+	1.1
+	The system blocks deletion and displays: “Cannot delete pending orders exist.”
+	
+
+
+
+
+
+
+
+Use Case
+	Review Product
+	Related Requirements
+	Submit Review
+	Goal in Context
+	Enable customers to rate a product/service based on their experience with a Merchant, providing feedback to guide future buyers.
+	Preconditions
+	The user may only submit a review if they are verified customers who have bought and received the product/service from the Merchant that they are reviewing 
+	Successful End Conditions
+	 The customer successfully submits a review for the product/service.
+	Failed End Conditions
+	The customer is unable to make a review
+	Primary Actors
+	Customer
+	Secondary Actors
+	Merchant
+	Trigger
+	The customer clicks the “Review Button” for a purchased product/service
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The customer selects the “Review Button”
+	
+
+	2
+	The system verifies the customer’s eligibility
+	
+
+	3
+	The system displays the review interface
+	
+
+	4
+	The customer rates the product/service and writes an optional comment
+	
+
+	5
+	The customer submits the review
+	
+
+	
+
+	The system saves the review and displays it publicly on the Merchant’s page
+	Extensions
+	Step
+	ActionSystem prompts: “Review submission failed. Please try again.”
+	
+
+	2.1
+	The system displays an error: “You must purchase and receive this item to leave a review.”
+	
+
+	5.1
+	An error message displays that the customer has not met the requirements to submit a review.
+	
+
+
+
+Use Case
+	Resolve Customer Issues
+	Related Requirements
+	Respond to customer queries
+	Goal in Context
+	Enable Merchants to address and resolve customer concerns about a product/service.
+	Preconditions
+	The Customer must have submitted an issue/concern for the Merchant to respond
+	Successful End Conditions
+	The Merchant resolves the customer’s concern 
+	Failed End Conditions
+	The issue remains unresolved 
+	Primary Actors
+	Merchant
+	Secondary Actors
+	Customer
+	Trigger
+	The merchant receives a notification of a customer’s submitted issue
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The merchant receives notifications and views the customers’ issues/concerns.
+	
+
+	2
+	Merchant communicates with the customer and offers a solution
+	
+
+	3
+	Merchant updates status as to resolved
+	
+
+	4
+	System reflects status
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	The system fails to update, prompting the merchant to retry only once more.
+	
+
+
+
+
+
+
+
+
+
+Use Case
+	Create Customer Issue
+	Related Requirements
+	Respond to Customer Queries
+	Goal in Context
+	Allow customers to report problems with a product/service to the Merchant
+	Preconditions
+	The customer must have purchased a product/service
+	Successful End Conditions
+	The customer submits the issue to the Merchant 
+	Failed End Conditions
+	Customer issue fails to reach Merchant
+	Primary Actors
+	Customer
+	Secondary Actors
+	Merchant
+	Trigger
+	The customer selects the “Report Issue” button
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The customer selects “Report Issue” for a specific order
+	
+
+	2
+	The customer submits the issue
+	
+
+	3
+	The system logs the issue and notifies the Merchant
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	The submission fails and the system prompts the customer to retry
+	
+
+
+
+Use Case
+	Update Service
+	Related Requirements
+	
+
+	Goal in Context
+	Allow Merchants to modify their existing service offering 
+	Preconditions
+	Merchant must be verified
+Merchant must already have an existing service published
+	Successful End Conditions
+	The selected service details are successfully modified on the service page, changes are displayed
+	Failed End Conditions
+	System fails to update service
+Merchant unable to save changes due to invalid inputs
+	Primary Actors
+	Merchants
+	Secondary Actors
+	System
+	Trigger
+	The merchant selects an existing serce that belong to them to edit and clicks the “Edit”option
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The system displays the current details of the selected service
+	
+
+	2
+	The merchant selects edit and modifies one or more service details
+	
+
+	3
+	The merchant submits the updated service information by selecting the update button
+	
+
+	4
+	The system updates service information
+	
+
+	5
+	System confirms the successful update
+	Extensions
+	Step
+	Action
+	
+
+	4.1
+	The submission fails and the system prompts the merchant to retry
+	
+
+Use Case
+	Remove Product stock
+	Related Requirements
+	Inventory Management
+	Goal in Context
+	Enable Merchants to reduce the stock quantity of a product that they own
+	Preconditions
+	The product exists within the system with a current stock level greater than 0
+	Successful End Conditions
+	The product is reduced by the quantity specified by the Merchant
+	Failed End Conditions
+	The stock is not reduced
+	Primary Actors
+	Merchant
+	Secondary Actors
+	System 
+	Trigger
+	The Merchant selects the “Remove Product” button
+	Main Flow
+	Step
+	Action
+	
+
+	1.
+	Merchant selects “Remove Stock” and enters the quantity to remove
+	
+
+	2
+	The system validates the input
+	
+
+	3
+	The system reduces the product’s stock by the specified quantity
+	Extensions
+	Step
+	Action
+	
+
+	2.1
+	The system displays: “Invalid quantity. Enter a positive number.”
+	
+
+	2.2
+	The system displays: “Cannot remove more stock than available”
+	
+
+Use Case
+	Add Product
+	Related Requirements
+	Inventory Management
+	Goal in Context
+	Enable Merchants to add a new product/service to the system.
+	Preconditions
+	The product/service does not already exist in the system under the Merchant
+	Successful End Conditions
+	The product/service is added to the system with accurate details 
+	Failed End Conditions
+	The product/service is not added
+	Primary Actors
+	Merchant
+	Secondary Actors
+	System
+	Trigger
+	Merchant selects the “Add New Product” button
+	Main Flow
+	Step
+	Action
+	
+
+	1.
+	Merchant selects “Add New Product”
+	
+
+	2.
+	Merchant enters product details
+	
+
+	3.
+	The merchant submits the product details.
+	
+
+	4.
+	The system checks for duplicates.
+	
+
+	5.
+	The system confirms successful creation: “Product/Service added successfully.”
+	Extensions
+	Step
+	Action
+	
+
+	
+
+	
+
+	
+
+
+
+Use Case
+	View Product
+	Related Requirements
+	Inventory Management 
+	Goal in Context
+	Allow users to view product details
+	Preconditions
+	The product exists within the system
+	Successful End Conditions
+	The user views accurate product details
+	Failed End Conditions
+	The product cannot be displayed 
+	Primary Actors
+	Customer
+	Secondary Actors
+	Merchant
+	Trigger
+	The user selects a product from the merchants' catalogue
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	The system retrieves product details
+	Extensions
+	Step
+	Action
+	
+
+	1.1
+	The system displays: “This item is no longer available.”
+	
+
+
+
+Use Case
+	Search
+	Related Requirements
+	Product Discovery
+	Goal in Context
+	To allow users (customers) to find products or services on the platform efficiently.
+	Preconditions
+	There are products/services indexed in the system.
+	Successful End Conditions
+	                                                            * The system displays a list of relevant products/services matching the search query.
+                                                            * Search results load in less than 5 seconds with 95% accuracy.
+	Failed End Conditions
+	                                                            * The system returns no results, or irrelevant results.
+                                                            * The search functionality fails or times out.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user enters a search term into the search bar and initiates the search
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	User types a search query into the search bar.
+	
+
+	2
+	User submits the search query.
+	
+
+	3
+	System processes the query and searches the product/service database.
+	
+
+	4
+	System displays products and/or services with descriptions and reviews that match the query.
+	Extensions
+	Step
+	Action
+	
+
+	3.1
+	If no results are found, the system displays a "No results found" message.
+	
+
+	
+
+	
+
+	
+
+
+
+Use Case
+	Filter Search
+	Related Requirements
+	Product Discovery
+	Goal in Context
+	To allow users to refine search results based on specific criteria, making it easier to find desired products or services.
+	Preconditions
+	                                                            * The user has performed an initial search or is on a page displaying multiple products/services.
+                                                            * Filtering options (e.g., price, category, rating, location) are available.
+	Successful End Conditions
+	                                                            * The system displays a refined list of products/services based on the applied filters.
+                                                            * "Nearest first" prioritizes vendors within 50km of the customer's location (if location filter is used).
+	Failed End Conditions
+	                                                            * The system fails to apply filters correctly.
+                                                            * Applying filters results in an error or no results when relevant items exist.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user selects one or more filter options after performing a search or while browsing a product/service listing.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	Includes::Search (User performs an initial search or is viewing a list of products/services).
+	
+
+	2
+	User selects filter criteria (e.g., price range, category, rating, location).
+	
+
+	3
+	User applies the selected filters.
+	
+
+	4
+	System processes the filters and refines the displayed list of products/services accordingly.
+	Extensions
+	Step
+	Action
+	
+
+	4.1
+	If no results match the filter criteria, the system displays a "No results found for your filters" message.
+	
+
+	4.2
+	User can select multiple filter options simultaneously.
+	
+
+	4.3
+	User can clear applied filters to return to the original search results or full listing.
+	
+
+
+
+Use Case
+	View Privacy Policy
+	Related Requirements
+	Collect User Data Collection Consent
+	Goal in Context
+	To allow a user to read and understand the platform's privacy policy regarding data collection and usage.
+	Preconditions
+	A link to the Privacy Policy is accessible.
+	Successful End Conditions
+	The user is able to view the full text of the Privacy Policy.
+	Failed End Conditions
+	                                                            * The Privacy Policy page fails to load.
+                                                            * The link to the Privacy Policy is broken or missing.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user clicks on a link or button designated for viewing the Privacy Policy.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	User clicks the "Privacy Policy" link.
+	
+
+	2
+	System retrieves and displays the Privacy Policy document.
+	Extensions
+	Step
+	Action
+	
+
+	2.1
+	If the Privacy Policy document cannot be retrieved, the system displays an error message.
+	
+
+
+
+Use Case
+	View Terms of Service
+	Related Requirements
+	Collect User Data Collection Consent
+	Goal in Context
+	To allow a user to read and understand the platform's terms and conditions of use.
+	Preconditions
+	A link to the Terms of Service is accessible.
+	Successful End Conditions
+	The user is able to view the full text of the Terms of Service.
+	Failed End Conditions
+	                                                            * The Terms of Service page fails to load.
+                                                            * The link to the Terms of Service is broken or missing.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user clicks on a link or button designated for viewing the Terms of Service.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	User clicks the "Terms of Service" link.
+	
+
+	2
+	System retrieves and displays the Terms of Service document.
+	Extensions
+	Step
+	Action
+	
+
+	2.1
+	If the Terms of Service document cannot be retrieved, the system displays an error message.
+	
+
+
+
+Use Case
+	Accept Privacy Policy
+	Related Requirements
+	Collect User Data Collection Consent
+	Goal in Context
+	For the user to formally agree to the platform's Privacy Policy, typically during account creation or when the policy is updated.
+	Preconditions
+	                                                            * The user is presented with the Privacy Policy (or a link to it).
+                                                            * The user is in a process that requires acceptance (e.g., sign-up).
+	Successful End Conditions
+	                                                            * The system records the user's acceptance of the Privacy Policy, including a timestamp and e-signature.
+                                                            * The user can proceed with the process (e.g., account creation).
+	Failed End Conditions
+	                                                            * The user does not accept the Privacy Policy, and the process is halted (e.g., account creation is disallowed).
+                                                            * The system fails to record the acceptance.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user indicates acceptance, typically by checking a consent checkbox and providing an e-signature, during a process like account registration.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System displays the Privacy Policy or a summary and a link to the full policy.
+	
+
+	2
+	System provides an unchecked consent checkbox for the Privacy Policy.
+	
+
+	3
+	User reads/reviews the Privacy Policy.
+	
+
+	4
+	User ticks the consent checkbox to indicate agreement.
+	
+
+	5
+	Includes::Provide eSignature (User provides an e-signature).
+	
+
+	6
+	System records the user's consent, timestamp, and e-signature.
+	Extensions
+	Step
+	Action
+	
+
+	4.1
+	If the user does not tick the consent checkbox, the system prevents continuation of the current process (e.g., account creation) and displays a message requiring consent.
+	
+
+
+
+Use Case
+	Accept Terms of Service
+	Related Requirements
+	Collect User Data Collection Consent
+	Goal in Context
+	For the user to formally agree to the platform's Terms of Service, typically during account creation or when the terms are updated.
+	Preconditions
+	                                                            * The user is presented with the Terms of Service (or a link to it).
+                                                            * The user is in a process that requires acceptance (e.g., sign-up).
+	Successful End Conditions
+	                                                            * The system records the user's acceptance of the Terms of Service, including a timestamp and e-signature.
+                                                            * The user can proceed with the process (e.g., account creation).
+	Failed End Conditions
+	                                                            * The user does not accept the Terms of Service, and the process is halted (e.g., account creation is disallowed).
+                                                            * The system fails to record the acceptance.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user indicates acceptance, typically by checking a consent checkbox and providing an e-signature, during a process like account registration.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System displays the Terms of Service or a summary and a link to the full document.
+	
+
+	2
+	System provides an unchecked consent checkbox for the Terms of Service.
+	
+
+	3
+	User reads/reviews the Terms of Service.
+	
+
+	4
+	User ticks the consent checkbox to indicate agreement.
+	
+
+	5
+	Includes::Provide eSignature (User provides an e-signature).
+	
+
+	6
+	System records the user's consent, timestamp, and e-signature.
+	Extensions
+	Step
+	Action
+	
+
+	4.1
+	If the user does not tick the consent checkbox, the system prevents continuation of the current process (e.g., account creation) and displays a message requiring consent.
+	
+
+
+
+Use Case
+	Export User Data
+	Related Requirements
+	Export User Data
+	Goal in Context
+	To allow a user to request and download a copy of their personal data stored by the platform, in compliance with data portability rights.
+	Preconditions
+	The user has an account on the platform.
+	Successful End Conditions
+	                                                            * The user successfully downloads a file containing their personal data in a structured, readable format.
+                                                            * The download link provided is secure and time-limited.
+	Failed End Conditions
+	                                                            * The user is unable to authenticate.
+                                                            * The system fails to generate the data export.
+                                                            * The download link is broken or insecure.
+                                                            * Exported data is incomplete or incorrect.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user initiates a data export request through their account settings or a designated data request feature.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	User navigates to the data export feature.
+	
+
+	2
+	Includes::Authenticate User (System requires user to re-authenticate or provide additional verification).
+	
+
+	3
+	User confirms the request for data export.
+	
+
+	4
+	System generates an export of the user's personal data (profile information, order history, transactions, vendor information, etc.) in a structured format.
+	
+
+	5
+	System provides a secure, time-limited download link for the exported data.
+	
+
+	6
+	User downloads the data file.
+	Extensions
+	Step
+	Action
+	
+
+	2.1
+	If authentication fails, the system denies the export request and informs the user.
+	
+
+	4.1
+	If data generation fails, the system informs the user and may provide instructions or support options.
+	
+
+	5.1
+	User receives a notification (e.g. email) when the data export is ready for download.
+	
+
+
+
+Use Case
+	Delete Account
+	Related Requirements
+	Delete Account
+	Goal in Context
+	To allow a user to permanently delete their account and associated personal data from the platform, respecting their right to erasure.
+	Preconditions
+	The user has an account on the platform.
+	Successful End Conditions
+	                                                            * The user's account is deleted.
+                                                            * The user's personal data is removed from the system (except data required for legal purposes).
+                                                            * Subsequent login attempts with the deleted account fail.
+	Failed End Conditions
+	                                                            * The user is unable to authenticate.
+                                                            * The system fails to delete the account or associated data.
+                                                            * The user is not adequately informed of the consequences of deletion.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user initiates an account deletion request through their account settings.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	User navigates to the account deletion option.
+	
+
+	2
+	Includes::Authenticate User (System requires user to re-authenticate).
+	
+
+	3
+	System informs the user about the consequences of account deletion (permanent data loss).
+	
+
+	4
+	User confirms their intention to delete the account.
+	
+
+	5
+	System processes the account deletion request.
+	
+
+	6
+	System removes all personal information relating to the user (excluding data needed for legal purposes).
+	
+
+	7
+	System confirms account deletion to the user.
+	Extensions
+	Step
+	Action
+	
+
+	2.1
+	If authentication fails, the system denies the deletion request and informs the user.
+	
+
+	4.1
+	User cancels the deletion request.
+	
+
+	6.1
+	If deletion fails, the system informs the user and may provide support options.
+	
+
+
+
+Use Case
+	Authenticate User
+	Related Requirements
+	Authenticate User
+	Goal in Context
+	To verify the identity of a user attempting to access the system or specific features, thereby preventing unauthorized access.
+	Preconditions
+	                                                            * The user has an existing account with credentials (e.g., username/email and password).
+                                                            * The user is at a login prompt or a point requiring re-authentication.
+	Successful End Conditions
+	                                                            * The user's identity is verified.
+                                                            * The user is granted access to the system or requested feature.
+                                                            * An authenticated session is established.
+	Failed End Conditions
+	                                                            * The user provides invalid credentials.
+                                                            * The system locks the account after multiple failed attempts.
+                                                            * The authentication process fails due to a system error.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user attempts to log in or access a protected resource that requires authentication.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	System presents a login interface (e.g., fields for email/username and password).
+	
+
+	2
+	User enters their credentials (email/username and password).
+	
+
+	3
+	User submits the credentials.
+	
+
+	4
+	System validates the submitted credentials against stored hashed passwords.
+	
+
+	5
+	If credentials are valid, system grants access and establishes an authenticated session.
+	Extensions
+	Step
+	Action
+	
+
+	4.1
+	If credentials are invalid, system displays an error message "Invalid username or password."
+	
+
+	4.2
+	System implements rate-limiting: After a defined number of failed login attempts, the system imposes a delay before allowing another attempt or locks the account.
+	
+
+
+
+Use Case
+	Process Payment
+	Related Requirements
+	Process Payments, Adherence to E-Commerce Regulations for Suppliers/Businesses, Adherence to E-Commerce Regulations for Customers/Consumers
+	Goal in Context
+	To securely handle and complete a financial transaction when a customer purchases goods or services from a merchant on the platform.
+	Preconditions
+	                                                            * Customer has items in their cart and has proceeded to checkout.
+                                                            * Customer has provided necessary payment information.
+                                                            * A payment gateway is integrated and operational.
+                                                            * Customer has reviewed and confirmed the order.
+	Successful End Conditions
+	                                                            * Payment is successfully processed by the payment gateway.
+                                                            * Merchant receives confirmation of payment.
+                                                            * Customer receives confirmation of payment and order.
+                                                            * A record of the transaction is stored.
+	Failed End Conditions
+	                                                            * Payment is declined by the payment gateway (e.g., insufficient funds, invalid card).
+                                                            * Payment gateway is unavailable or experiences an error.
+                                                            * System fails to record the transaction.
+                                                            * Sensitive information is exposed.
+	Primary Actors
+	Customer
+	Secondary Actors
+	Payment Gateway, Merchant
+	Trigger
+	Customer confirms their order and initiates the payment process during checkout.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	Customer proceeds to checkout and confirms order details.
+	
+
+	2
+	System presents payment options and prompts for payment details.
+	
+
+	3
+	Customer provides payment information and authorizes the payment.
+	
+
+	4
+	System securely transmits payment information to the selected PCI DSS Level 1 compliant payment gateway (via TLS 1.2/1.3).
+	
+
+	5
+	Payment Gateway processes the payment.
+	
+
+	6
+	Payment Gateway returns a success or failure response to the System.
+	
+
+	7
+	If payment is successful, System updates the order status to "Paid" or "Confirmed".
+	
+
+	8
+	System stores a record of the transaction (without storing full payment credentials).
+	
+
+	9
+	System notifies the Customer and Merchant of the successful payment and order confirmation.
+	Extensions
+	Step
+	Action
+	
+
+	6.1
+	If payment fails, Payment Gateway returns an error code/message.
+	
+
+	6.2
+	System displays an appropriate error message to the Customer (without exposing sensitive details) and allows them to retry or use a different payment method.
+	
+
+	6.3
+	Order status remains "Pending Payment" or similar.
+	
+
+
+
+Use Case
+	Upload Media
+	Related Requirements
+	Manage personal product/service page, Submit review, Create Customer Account, Create Merchant Account
+	Goal in Context
+	To allow users to upload images/videos to the platform for various purposes such as product listings, profile pictures, or reviews.
+	Preconditions
+	                                                            * The user is authenticated.
+                                                            * The user is at a point in the system where media upload is permitted (e.g., editing profile, creating product, writing review).
+                                                            * The media file meets system requirements (format, size).
+	Successful End Conditions
+	                                                            * The media file is successfully uploaded to the server.
+                                                            * The media file is associated with the correct entity (e.g., product, user profile, review).
+                                                            * The media is accessible/viewable as intended.
+	Failed End Conditions
+	                                                            * The upload fails due to network issues, file size/format errors, or server errors.
+                                                            * The uploaded media is not correctly associated or displayed.
+	Primary Actors
+	User
+	Secondary Actors
+	
+
+	Trigger
+	The user selects an option to upload a media file and chooses a file from their local device.
+	Main Flow
+	Step
+	Action
+	
+
+	1
+	User clicks an "Upload Media,"
+	
+
+	2
+	System presents a file selection dialog.
+	
+
+	3
+	User selects a media file from their device.
+	
+
+	4
+	User confirms the selection.
+	
+
+	5
+	System validates the file (MIME types, file size limits, file count limits).
+	
+
+	6
+	System uploads the file to the server.
+	
+
+	7
+	System associates the uploaded media with the relevant content (e.g., product, profile, review).
+	
+
+	8
+	System provides feedback to the user on the upload status (e.g., progress bar, success message).
+	Extensions
+	Step
+	Action
+	
+
+	5.1
+	If file validation fails (e.g., wrong format, too large), system displays an error message and prompts the user to select a valid file.
+	
+
+	6.1
+	If upload fails (e.g., network error), system displays an error message and allows the user to retry.
+	

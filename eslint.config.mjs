@@ -60,6 +60,7 @@ export default antfu(
 			'react/no-nested-component-definitions': 'off',
 			'react/no-context-provider': 'off',
 			'@next/next/no-html-link-for-pages': 'off',
+			'new-cap': 'off',
 		},
 	},
 	{
