@@ -103,10 +103,23 @@ export class Order {
 
 	@ApiProperty({
 		description: 'Shipping address',
-		example: '123 Main St, City, Country',
+		type: Object,
+		example: {
+			street: '123 Main St',
+			city: 'New York',
+			state: 'NY',
+			country: 'USA',
+			zipCode: '10001',
+		},
 	})
-	@Prop()
-	shippingAddress: string;
+	@Prop({ type: Object, required: true })
+	shippingAddress: {
+		street: string;
+		city: string;
+		state: string;
+		country: string;
+		zipCode: string;
+	};
 
 	@ApiProperty({
 		description: 'Tracking number for the shipment',

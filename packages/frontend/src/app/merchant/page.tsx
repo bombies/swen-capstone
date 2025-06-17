@@ -50,7 +50,7 @@ export default function MerchantDashboard() {
 					</CardHeader>
 					<CardContent>
 						<div className="text-2xl font-bold">
-							{catalogue?.productCount || 0}
+							{catalogue?.length || 0}
 						</div>
 					</CardContent>
 				</Card>

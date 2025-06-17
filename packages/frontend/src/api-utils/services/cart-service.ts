@@ -1,5 +1,6 @@
 import type {
 	Cart,
+	CartWithRefs,
 	CreateCartDto,
 	CreateCartItemDto,
 	UpdateCartDto,
@@ -15,12 +16,12 @@ export class CartService {
 		return apiClient.get<Cart[]>('/carts');
 	}
 
-	static async getCartById(id: string): Promise<Cart> {
-		return apiClient.get<Cart>(`/carts/${id}`);
+	static async getCartById(id: string): Promise<CartWithRefs> {
+		return apiClient.get<CartWithRefs>(`/carts/${id}`);
 	}
 
-	static async getCartsByCustomer(customerId: string): Promise<Cart[]> {
-		return apiClient.get<Cart[]>(`/carts/customer/${customerId}`);
+	static async getCartsByCustomer(customer: string): Promise<Cart[]> {
+		return apiClient.get<Cart[]>(`/carts/customer/${customer}`);
 	}
 
 	static async updateCart(id: string, data: UpdateCartDto): Promise<Cart> {
@@ -37,11 +38,11 @@ export class CartService {
 
 	static async removeItemFromCart(
 		id: string,
-		productId: string,
-		merchantId: string,
+		product: string,
+		merchant: string,
 	): Promise<void> {
 		return apiClient.delete<void>(
-			`/carts/${id}/items/${productId}/${merchantId}`,
+			`/carts/${id}/items/${product}/${merchant}`,
 		);
 	}
 }

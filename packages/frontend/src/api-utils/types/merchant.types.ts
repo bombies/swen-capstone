@@ -1,7 +1,7 @@
 import type { User } from './user.types';
 
 export interface Merchant {
-	id: string;
+	_id: string;
 	user: User;
 	companyName: string;
 	companyAddress: string;
@@ -18,4 +18,5 @@ export interface BecomeMerchantDto {
 	companyName: string;
 	companyAddress: string;
 	companyPhone: string;
+	letterOfGoodStanding: string;
 }

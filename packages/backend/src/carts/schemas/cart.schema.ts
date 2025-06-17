@@ -48,8 +48,18 @@ export class CartItem {
 	shippingAddress?: string;
 }
 
+export const CartItemSchema = SchemaFactory.createForClass(CartItem);
+
 @Schema({ timestamps: true })
 export class Cart {
+	@ApiProperty({
+		description: 'The name of the cart',
+		example: 'Birthday Shopping',
+		type: String,
+	})
+	@Prop({ required: true, type: String })
+	name: string;
+
 	@ApiProperty({
 		description: 'The ID of the customer who owns the cart',
 		example: '507f1f77bcf86cd799439013',
@@ -71,7 +81,7 @@ export class Cart {
 			},
 		],
 	})
-	@Prop({ type: [CartItem], default: [] })
+	@Prop({ type: [CartItemSchema], default: [] })
 	items: CartItem[];
 
 	@ApiProperty({
@@ -89,6 +99,15 @@ export class Cart {
 	})
 	@Prop({ type: Number, default: 0 })
 	totalAmount: number;
+
+	@ApiProperty({
+		description: 'The default shipping address for the cart',
+		example: '123 Main St, City, Country',
+		required: false,
+		type: String,
+	})
+	@Prop({ type: String })
+	defaultShippingAddress?: string;
 
 	@ApiProperty({
 		description: 'Whether the cart has been abandoned',

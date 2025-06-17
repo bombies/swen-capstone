@@ -3,7 +3,9 @@ import type {
 	UpdateProductDto,
 } from '../types/product.types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useSingleMediaUploader } from '@/hooks/media-upload-hooks';
 import { ProductService } from '../services/product-service';
+import { useGetUploadUrl } from './s3.hooks';
 
 export const useCreateProduct = () => {
 	const queryClient = useQueryClient();
@@ -75,4 +77,17 @@ export const useDeleteProduct = () => {
 			queryClient.invalidateQueries({ queryKey: ['products'] });
 		},
 	});
+};
+
+export const useProductImageUpload = () => {
+	const { mutateAsync: fetchUrl } = useGetUploadUrl();
+	return useSingleMediaUploader<string, Error, { fileExtension: string; objectKey: string }>(
+		async ({ fileExtension, objectKey }) => {
+			return fetchUrl({
+				filename: `${objectKey}.${fileExtension}`,
+				fileType: 'product-image',
+				objectId: objectKey,
+			});
+		},
+	);
 };

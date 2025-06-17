@@ -1,29 +1,36 @@
 'use client';
 
-import type { Catalogue } from '@/api-utils/types/catalogue.types';
 import Link from 'next/link';
-import { useGetAllCatalogues } from '@/api-utils/hooks/catalogue.hooks';
-import { CatalogueCard } from '@/components/catalogue-card';
+import { useGetCatalogueProducts } from '@/api-utils/hooks/catalogue.hooks';
+import { ProductCard } from '@/components/product-card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
-	const { data: catalogues, isLoading } = useGetAllCatalogues();
+	const { data: catalogueProducts, isLoading } = useGetCatalogueProducts();
 	const { user: { data: userData, isLoading: userDataLoading } } = useAuth();
 
 	return (
 		<main className="min-h-screen bg-background">
 			{/* Hero Section */}
-			<section className="container py-24 text-center">
-				<h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+			<section className={cn(
+				'py-24 text-center bg-secondary w-full',
+				'bg-gradient-to-br to-primary from-lime-700',
+				'bg-[length:200%_200%]',
+				'hover:bg-[position:100%_100%]',
+				'transition-all duration-1000 ease-in-out',
+			)}
+			>
+				<h1 className="text-4xl text-secondary-foreground font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
 					Jamaica&apos;s Digital Marketplace
 				</h1>
-				<p className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl">
+				<p className="mx-auto mt-4 max-w-[700px] text-muted md:text-xl">
 					Connect with local businesses, discover unique products, and support Jamaican entrepreneurs.
 				</p>
 				<div className="mt-8 flex justify-center gap-4">
-					<Button size="lg" asChild>
-						<Link href="/catalogues">Browse Catalogues</Link>
+					<Button variant="outline" size="lg" asChild>
+						<Link href="#catalogue">Browse Product Catalogue</Link>
 					</Button>
 					{!userDataLoading && !userData?.roles.includes('merchant') && (
 						<Button size="lg" variant="outline" asChild>
@@ -33,26 +40,18 @@ export default function Home() {
 				</div>
 			</section>
 
-			{/* Featured Catalogues */}
-			<section className="container p-12">
-				<h2 className="text-3xl font-bold tracking-tight">Featured Catalogues</h2>
+			{/* Featured Products */}
+			<section id="catalogue" className="p-12">
+				<h2 className="text-3xl font-bold tracking-tight">Featured Products</h2>
 				<div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{isLoading
-						? <div>Loading catalogues...</div>
-						: catalogues?.map((catalogue: Catalogue) => (
-								<CatalogueCard
-									key={catalogue.merchant}
-									catalogue={catalogue}
+						? <div>Loading products...</div>
+						: catalogueProducts?.map(product => (
+								<ProductCard
+									key={product._id}
+									product={product}
 								/>
 							))}
-				</div>
-			</section>
-
-			{/* Popular Products */}
-			<section className="container p-12">
-				<h2 className="text-3xl font-bold tracking-tight">Popular Products</h2>
-				<div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-					{/* Product Cards will be added here */}
 				</div>
 			</section>
 		</main>

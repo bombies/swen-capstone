@@ -2,6 +2,7 @@ import type { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axio
 import type { RefreshTokenResponse } from '@/api-utils/types/auth.types';
 import axios from 'axios';
 import { clearTokens, getTokens, setTokens } from '@/lib/auth';
+import { logger } from '@/lib/logger';
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -102,16 +103,21 @@ class ApiClient {
 						// Update the original request and retry
 						originalRequest.headers.Authorization = `Bearer ${accessToken}`;
 						return this.axiosInstance(originalRequest);
-					} catch (refreshError) {
-						// If refresh fails, reject all queued requests
-						this.failedQueue.forEach((prom) => {
-							prom.reject(refreshError);
-						});
+					} catch (refreshError: any) {
+						if (refreshError.message.includes('No refresh token available'))
+							clearTokens();
+						else {
+							logger.debug('refreshError', refreshError);
+							// If refresh fails, reject all queued requests
+							this.failedQueue.forEach((prom) => {
+								prom.reject(refreshError);
+							});
 
-						// Clear tokens and redirect to login
-						clearTokens();
-						window.location.href = '/auth/login';
-						return Promise.reject(refreshError);
+							// Clear tokens and redirect to login
+							clearTokens();
+							window.location.href = '/auth/login';
+							return Promise.reject(refreshError);
+						}
 					} finally {
 						this.isRefreshing = false;
 						this.failedQueue = [];

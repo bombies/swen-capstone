@@ -3,10 +3,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { HydratedDocument, Schema as MongooseSchema, Types } from 'mongoose';
 
 export enum PaymentStatus {
-	PENDING = 'pending',
-	COMPLETED = 'completed',
-	FAILED = 'failed',
-	REFUNDED = 'refunded',
+	PENDING = 'PENDING',
+	COMPLETED = 'COMPLETED',
+	FAILED = 'FAILED',
+	REFUNDED = 'REFUNDED',
 }
 
 export enum PaymentMethod {

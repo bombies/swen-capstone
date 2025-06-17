@@ -1,35 +1,64 @@
+import type { Product } from '@/api-utils/types/product.types';
+
+export interface CreateCartItemDto {
+	product: string;
+	merchant: string;
+	quantity: number;
+	price: number;
+	shippingAddress?: string;
+}
+
 export interface CreateCartDto {
-	customerId: string;
+	customer: string;
+	name: string;
+	defaultShippingAddress?: string;
+	items?: CreateCartItemDto[];
 }
 
 export interface UpdateCartDto {
-	customerId?: string;
-	status?: CartStatus;
+	items?: CartItem[];
+	shippingAddress?: string;
+	isAbandoned?: boolean;
+	abandonedAt?: Date;
+	expiresAt?: Date;
+	isCheckedOut?: boolean;
+	checkedOutAt?: Date;
+	totalItems?: number;
+	totalAmount?: number;
+	name?: string;
+	defaultShippingAddress?: string;
 }
-
-export interface CreateCartItemDto {
-	productId: string;
-	merchantId: string;
-	quantity: number;
-}
-
-export type CartStatus = 'ACTIVE' | 'CHECKED_OUT' | 'ABANDONED';
 
 export interface CartItem {
-	productId: string;
-	merchantId: string;
+	product: string;
+	merchant: string;
 	quantity: number;
 	price: number;
-	productName: string;
-	productImage: string;
+	shippingAddress?: string;
 }
 
+export type CartItemWithRefs = Omit<CartItem, 'product'> & {
+	product: Product;
+};
+
 export interface Cart {
-	id: string;
-	customerId: string;
-	status: CartStatus;
+	_id: string;
+	customer: string;
+	name: string;
+	defaultShippingAddress?: string;
 	items: CartItem[];
-	total: number;
-	createdAt: string;
-	updatedAt: string;
+	totalItems: number;
+	totalAmount: number;
+	isAbandoned: boolean;
+	abandonedAt?: Date;
+	lastUpdatedAt: Date;
+	expiresAt?: Date;
+	isCheckedOut: boolean;
+	checkedOutAt?: Date;
+	createdAt: Date;
+	updatedAt: Date;
 }
+
+export type CartWithRefs = Omit<Cart, 'items'> & {
+	items: CartItemWithRefs[];
+};

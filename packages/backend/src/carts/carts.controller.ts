@@ -9,6 +9,7 @@ import {
 	UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -41,7 +42,6 @@ export class CartsController {
 	}
 
 	@Get()
-	@Roles(UserRole.ADMIN)
 	@ApiOperation({ summary: 'Get all carts' })
 	@ApiResponse({
 		status: 200,
@@ -50,12 +50,12 @@ export class CartsController {
 	})
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
-	async findAll() {
-		return this.cartsService.findAll();
+	async findAll(@CurrentUser('sub') userId: string) {
+		return this.cartsService.findByCustomer(userId);
 	}
 
 	@Get('customer/:customerId')
-	@Roles(UserRole.CUSTOMER, UserRole.ADMIN)
+	@Roles(UserRole.ADMIN)
 	@ApiOperation({ summary: 'Get all carts for a customer' })
 	@ApiResponse({
 		status: 200,
@@ -81,7 +81,7 @@ export class CartsController {
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
 	@ApiResponse({ status: 404, description: 'Cart not found.' })
 	async findOne(@Param('id') id: string) {
-		return this.cartsService.findById(id);
+		return this.cartsService.findByIdWithPopulatedRefs(id);
 	}
 
 	@Patch(':id')
@@ -104,7 +104,7 @@ export class CartsController {
 	}
 
 	@Delete(':id')
-	@Roles(UserRole.CUSTOMER, UserRole.ADMIN)
+	@Roles(UserRole.CUSTOMER)
 	@ApiOperation({ summary: 'Delete a cart' })
 	@ApiResponse({
 		status: 200,
@@ -113,8 +113,11 @@ export class CartsController {
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
 	@ApiResponse({ status: 404, description: 'Cart not found.' })
-	async remove(@Param('id') id: string) {
-		return this.cartsService.remove(id);
+	async remove(
+		@CurrentUser('sub') userId: string,
+		@Param('id') id: string,
+	) {
+		return this.cartsService.remove(userId, id);
 	}
 
 	@Post(':id/items')

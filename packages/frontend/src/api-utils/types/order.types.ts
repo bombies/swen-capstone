@@ -1,21 +1,34 @@
 export interface CreateOrderDto {
-	customerId: string;
+	cart: string;
+	customer: string;
 	items: OrderItem[];
+	totalItems: number;
+	totalAmount: number;
 	shippingAddress: Address;
-	paymentMethod: string;
+	notes?: string;
 }
 
 export interface UpdateOrderDto {
+	items?: OrderItem[];
+	totalItems?: number;
+	totalAmount?: number;
 	status?: OrderStatus;
+	paymentStatus?: PaymentStatus;
+	payment?: string;
 	shippingAddress?: Address;
-	paymentMethod?: string;
+	trackingNumber?: string;
+	estimatedDeliveryDate?: Date;
+	cancellationReason?: string;
+	refundReason?: string;
+	notes?: string;
 }
 
 export interface OrderItem {
-	productId: string;
-	merchantId: string;
+	product: string;
+	merchant: string;
 	quantity: number;
 	price: number;
+	shippingAddress?: string;
 }
 
 export interface Address {
@@ -28,19 +41,37 @@ export interface Address {
 
 export type OrderStatus
 	= | 'PENDING'
-		| 'CONFIRMED'
+		| 'PROCESSING'
 		| 'SHIPPED'
 		| 'DELIVERED'
-		| 'CANCELLED';
+		| 'CANCELLED'
+		| 'REFUNDED';
+
+export type PaymentStatus
+	= | 'PENDING'
+		| 'COMPLETED'
+		| 'FAILED'
+		| 'REFUNDED';
 
 export interface Order {
-	id: string;
-	customerId: string;
+	_id: string;
+	customer: string;
 	items: OrderItem[];
-	total: number;
+	totalItems: number;
+	totalAmount: number;
 	status: OrderStatus;
+	paymentStatus: PaymentStatus;
+	payment?: string;
 	shippingAddress: Address;
-	paymentMethod: string;
+	trackingNumber?: string;
+	estimatedDeliveryDate?: Date;
+	cancellationReason?: string;
+	refundReason?: string;
+	notes?: string;
+	processedAt?: string;
+	completedAt?: string;
+	cancelledAt?: string;
+	refundedAt?: string;
 	createdAt: string;
 	updatedAt: string;
 }

@@ -2,11 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
 	IsArray,
+	IsMongoId,
 	IsNotEmpty,
 	IsNumber,
 	IsOptional,
 	IsString,
-	IsUUID,
 	ValidateNested,
 } from 'class-validator';
 
@@ -16,7 +16,7 @@ export class CreateOrderItemDto {
 		example: '507f1f77bcf86cd799439011',
 	})
 	@IsNotEmpty()
-	@IsUUID()
+	@IsMongoId()
 	product: string;
 
 	@ApiProperty({
@@ -24,7 +24,7 @@ export class CreateOrderItemDto {
 		example: '507f1f77bcf86cd799439012',
 	})
 	@IsNotEmpty()
-	@IsUUID()
+	@IsMongoId()
 	merchant: string;
 
 	@ApiProperty({
@@ -55,14 +55,64 @@ export class CreateOrderItemDto {
 	shippingAddress?: string;
 }
 
+export class AddressDto {
+	@ApiProperty({
+		description: 'Street address',
+		example: '123 Main St',
+	})
+	@IsNotEmpty()
+	@IsString()
+	street: string;
+
+	@ApiProperty({
+		description: 'City',
+		example: 'New York',
+	})
+	@IsNotEmpty()
+	@IsString()
+	city: string;
+
+	@ApiProperty({
+		description: 'State/Province',
+		example: 'NY',
+	})
+	@IsNotEmpty()
+	@IsString()
+	state: string;
+
+	@ApiProperty({
+		description: 'Country',
+		example: 'USA',
+	})
+	@IsNotEmpty()
+	@IsString()
+	country: string;
+
+	@ApiProperty({
+		description: 'ZIP/Postal code',
+		example: '10001',
+	})
+	@IsNotEmpty()
+	@IsString()
+	zipCode: string;
+}
+
 export class CreateOrderDto {
 	@ApiProperty({
 		description: 'Customer ID',
 		example: '507f1f77bcf86cd799439013',
 	})
 	@IsNotEmpty()
-	@IsUUID()
+	@IsMongoId()
 	customer: string;
+
+	@ApiProperty({
+		description: 'Cart ID',
+		example: '507f1f77bcf86cd799439013',
+	})
+	@IsNotEmpty()
+	@IsMongoId()
+	cart: string;
 
 	@ApiProperty({
 		description: 'Order items',
@@ -92,13 +142,13 @@ export class CreateOrderDto {
 	totalAmount: number;
 
 	@ApiProperty({
-		description: 'Shipping address for the entire order',
-		example: '123 Main St, City, Country',
-		required: false,
+		description: 'Shipping address',
+		type: AddressDto,
 	})
-	@IsOptional()
-	@IsString()
-	shippingAddress?: string;
+	@IsNotEmpty()
+	@ValidateNested()
+	@Type(() => AddressDto)
+	shippingAddress: AddressDto;
 
 	@ApiProperty({
 		description: 'Additional notes for the order',

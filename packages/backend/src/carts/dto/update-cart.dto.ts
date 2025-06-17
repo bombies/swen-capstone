@@ -7,99 +7,112 @@ import {
 	IsNumber,
 	IsOptional,
 	IsString,
-	Min,
 	ValidateNested,
 } from 'class-validator';
-import { CreateCartItemDto } from './create-cart.dto';
+import { CartItem } from '../schemas/cart.schema';
 
 export class UpdateCartDto {
 	@ApiProperty({
-		description: 'Cart items',
-		type: [CreateCartItemDto],
+		description: 'The items in the cart',
+		type: [CartItem],
 		required: false,
 	})
-	@IsOptional()
 	@IsArray()
 	@ValidateNested({ each: true })
-	@Type(() => CreateCartItemDto)
-	items?: CreateCartItemDto[];
+	@Type(() => CartItem)
+	@IsOptional()
+	items?: CartItem[];
 
 	@ApiProperty({
-		description: 'Default shipping address for the cart',
+		description: 'The name of the cart',
+		example: 'Birthday Shopping',
+		required: false,
+		type: String,
+	})
+	@IsString()
+	@IsOptional()
+	name?: string;
+
+	@ApiProperty({
+		description: 'The default shipping address for the cart',
 		example: '123 Main St, City, Country',
 		required: false,
+		type: String,
 	})
-	@IsOptional()
 	@IsString()
-	shippingAddress?: string;
+	@IsOptional()
+	defaultShippingAddress?: string;
 
 	@ApiProperty({
-		description: 'Whether the cart is abandoned',
+		description: 'Whether the cart has been abandoned',
 		example: false,
 		required: false,
+		type: Boolean,
 	})
-	@IsOptional()
 	@IsBoolean()
+	@IsOptional()
 	isAbandoned?: boolean;
 
 	@ApiProperty({
-		description: 'Date when the cart was abandoned',
-		example: '2024-03-15T00:00:00.000Z',
+		description: 'The date when the cart was abandoned',
+		example: '2024-03-20T10:00:00Z',
 		required: false,
+		type: Date,
 	})
-	@IsOptional()
-	@Type(() => Date)
 	@IsDate()
+	@Type(() => Date)
+	@IsOptional()
 	abandonedAt?: Date;
 
 	@ApiProperty({
-		description: 'Date when the cart expires',
-		example: '2024-03-22T00:00:00.000Z',
+		description: 'The date when the cart expires',
+		example: '2024-03-27T10:00:00Z',
 		required: false,
+		type: Date,
 	})
-	@IsOptional()
-	@Type(() => Date)
 	@IsDate()
+	@Type(() => Date)
+	@IsOptional()
 	expiresAt?: Date;
 
 	@ApiProperty({
 		description: 'Whether the cart has been checked out',
 		example: false,
 		required: false,
+		type: Boolean,
 	})
-	@IsOptional()
 	@IsBoolean()
+	@IsOptional()
 	isCheckedOut?: boolean;
 
 	@ApiProperty({
-		description: 'Date when the cart was checked out',
-		example: '2024-03-15T00:00:00.000Z',
+		description: 'The date when the cart was checked out',
+		example: '2024-03-20T10:00:00Z',
 		required: false,
+		type: Date,
 	})
-	@IsOptional()
-	@Type(() => Date)
 	@IsDate()
+	@Type(() => Date)
+	@IsOptional()
 	checkedOutAt?: Date;
 
 	@ApiProperty({
-		description: 'Total number of items in the cart',
-		example: 5,
-		minimum: 0,
+		description: 'The total number of items in the cart',
+		example: 2,
 		required: false,
+		type: Number,
 	})
-	@IsOptional()
 	@IsNumber()
-	@Min(0)
+	@IsOptional()
 	totalItems?: number;
 
 	@ApiProperty({
-		description: 'Total amount of the cart',
-		example: 499.95,
-		minimum: 0,
+		description: 'The total amount of the cart',
+		example: 59.98,
 		required: false,
+		type: Number,
 	})
-	@IsOptional()
 	@IsNumber()
-	@Min(0)
+	@IsOptional()
 	totalAmount?: number;
 }

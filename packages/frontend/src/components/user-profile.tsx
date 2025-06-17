@@ -2,7 +2,7 @@
 
 import type { FC } from 'react';
 import type { UserRole } from '@/api-utils/types/auth.types';
-import { LogOut, ShoppingBag, Store, User } from 'lucide-react';
+import { LogOut, Receipt, ShoppingBag, Store, User } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLogout, useSwitchRole } from '@/api-utils/hooks/auth.hooks';
@@ -79,13 +79,25 @@ const UserProfile: FC = () => {
 						<span>Profile</span>
 					</DropdownMenuItem>
 					{userData.activeRole === 'customer' && (
-						<DropdownMenuItem
-							onClick={() => handleRoleSwitch('merchant')}
-							disabled={isSwitchingRole}
-						>
-							<Store className="mr-2 h-4 w-4" />
-							<span>Switch to Seller</span>
-						</DropdownMenuItem>
+						<>
+							<DropdownMenuItem
+								disabled={isSwitchingRole}
+								asChild
+							>
+								<Link href="/orders">
+									<Receipt className="mr-2 h-4 w-4" />
+									<span>Orders</span>
+								</Link>
+							</DropdownMenuItem>
+							<DropdownMenuItem
+								onClick={() => handleRoleSwitch('merchant')}
+								disabled={isSwitchingRole}
+							>
+								<Store className="mr-2 h-4 w-4" />
+								<span>Switch to Seller</span>
+							</DropdownMenuItem>
+						</>
+
 					)}
 					{userData.activeRole === 'merchant' && (
 						<>

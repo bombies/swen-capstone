@@ -1,6 +1,8 @@
 import type { BecomeMerchantDto } from '../types/merchant.types';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useSingleMediaUploader } from '@/hooks/media-upload-hooks';
 import { merchantService } from '../services/merchant-service';
+import { useGetUploadUrl } from './s3.hooks';
 
 export const useBecomeMerchant = () => {
 	return useMutation({
@@ -21,4 +23,17 @@ export const useMerchantProfile = (id: string) => {
 		queryFn: () => merchantService.getMerchantProfile(id),
 		enabled: !!id,
 	});
+};
+
+export const useLetterOfGoodStandingUpload = () => {
+	const { mutateAsync: fetchUrl } = useGetUploadUrl();
+	return useSingleMediaUploader<string, Error, { fileExtension: string; objectKey: string }>(
+		async ({ fileExtension, objectKey }) => {
+			return fetchUrl({
+				filename: `${objectKey}.${fileExtension}`,
+				fileType: 'letter-of-good-standing',
+				objectId: objectKey,
+			});
+		},
+	);
 };

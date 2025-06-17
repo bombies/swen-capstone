@@ -2,11 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
 	IsArray,
+	IsMongoId,
 	IsNotEmpty,
 	IsNumber,
 	IsOptional,
 	IsString,
-	IsUUID,
 	Min,
 	ValidateNested,
 } from 'class-validator';
@@ -17,7 +17,7 @@ export class CreateCartItemDto {
 		example: '123e4567-e89b-12d3-a456-426614174000',
 	})
 	@IsNotEmpty()
-	@IsUUID()
+	@IsMongoId()
 	product: string;
 
 	@ApiProperty({
@@ -25,7 +25,7 @@ export class CreateCartItemDto {
 		example: '123e4567-e89b-12d3-a456-426614174001',
 	})
 	@IsNotEmpty()
-	@IsUUID()
+	@IsMongoId()
 	merchant: string;
 
 	@ApiProperty({
@@ -60,30 +60,39 @@ export class CreateCartItemDto {
 
 export class CreateCartDto {
 	@ApiProperty({
-		description: 'Customer ID',
-		example: '123e4567-e89b-12d3-a456-426614174002',
+		description: 'The ID of the customer who owns the cart',
+		example: '507f1f77bcf86cd799439013',
+		type: String,
 	})
-	@IsNotEmpty()
-	@IsUUID()
+	@IsMongoId()
 	customer: string;
 
 	@ApiProperty({
-		description: 'Cart items',
+		description: 'The name of the cart',
+		example: 'Birthday Shopping',
+		type: String,
+	})
+	@IsString()
+	name: string;
+
+	@ApiProperty({
+		description: 'The default shipping address for the cart',
+		example: '123 Main St, City, Country',
+		required: false,
+		type: String,
+	})
+	@IsString()
+	@IsOptional()
+	defaultShippingAddress?: string;
+
+	@ApiProperty({
+		description: 'The items to add to the cart',
 		type: [CreateCartItemDto],
 		required: false,
 	})
-	@IsOptional()
 	@IsArray()
 	@ValidateNested({ each: true })
 	@Type(() => CreateCartItemDto)
-	items?: CreateCartItemDto[];
-
-	@ApiProperty({
-		description: 'Default shipping address for the cart',
-		example: '123 Main St, City, Country',
-		required: false,
-	})
 	@IsOptional()
-	@IsString()
-	shippingAddress?: string;
+	items?: CreateCartItemDto[];
 }

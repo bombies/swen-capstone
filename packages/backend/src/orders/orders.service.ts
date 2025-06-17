@@ -5,9 +5,12 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { CartsService } from 'src/carts/carts.service';
+import { CartDocument } from 'src/carts/schemas/cart.schema';
 import { OrderStatus } from 'src/orders/enums/order-status.enum';
 import { Order, OrderDocument } from 'src/orders/schemas/order.schema';
-import { PaymentStatus } from 'src/payments/schemas/payment.schema';
+import { PaymentsService } from 'src/payments/payments.service';
+import { PaymentMethod, PaymentStatus } from 'src/payments/schemas/payment.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
@@ -15,9 +18,17 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 export class OrdersService {
 	constructor(
 		@InjectModel(Order.name) private readonly orderModel: Model<OrderDocument>,
+		private readonly cartService: CartsService,
+		private readonly paymentService: PaymentsService,
 	) {}
 
 	async create(createOrderDto: CreateOrderDto): Promise<Order> {
+		const cart = (await this.cartService.findById(createOrderDto.cart)) as CartDocument;
+
+		if (!cart) {
+			throw new BadRequestException('Invalid cart!');
+		}
+
 		const createdOrder = new this.orderModel({
 			...createOrderDto,
 			customer: new Types.ObjectId(createOrderDto.customer),
@@ -27,6 +38,21 @@ export class OrdersService {
 				merchant: new Types.ObjectId(item.merchant),
 			})),
 		});
+
+		// Delete the cart
+		await cart.deleteOne().exec();
+
+		// Create a payment records
+		for (const item of createOrderDto.items) {
+			await this.paymentService.create({
+				order: createdOrder.id,
+				amount: item.price * item.quantity,
+				merchant: item.merchant,
+				customer: createOrderDto.customer,
+				method: PaymentMethod.DEBIT_CARD,
+			});
+		}
+
 		return createdOrder.save();
 	}
 

@@ -9,6 +9,10 @@ declare module "sst" {
       "service": string
       "type": "sst.aws.Service"
     }
+    "ContentBucket": {
+      "name": string
+      "type": "sst.aws.Bucket"
+    }
     "Frontend": {
       "type": "sst.aws.Nextjs"
       "url": string
@@ -18,6 +22,18 @@ declare module "sst" {
       "value": string
     }
     "MongoDbUri": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "PayPalAccessToken": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "PayPalClientId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "PaypalApiUrl": {
       "type": "sst.sst.Secret"
       "value": string
     }

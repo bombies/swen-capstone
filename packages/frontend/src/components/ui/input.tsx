@@ -3,37 +3,48 @@ import { useEffect, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
-export type InputProps = {
+export type DefaultInputProps = {
 	startContent?: React.ReactNode;
 	endContent?: React.ReactNode;
 	inputClassName?: string;
-	onValueChange?: (value: string | number) => void;
-	onTypingEnd?: (value: string) => void;
 	typingEndDelay?: number;
-} & React.InputHTMLAttributes<HTMLInputElement> & {
+} & Omit<React.InputHTMLAttributes<HTMLInputElement> & {
 	ref?: React.Ref<HTMLInputElement>;
-};
+}, 'type'>;
+
+export type InputProps = DefaultInputProps & ({
+	type: 'number';
+	onValueChange?: (value: number) => void;
+	onTypingEnd?: (value: number) => void;
+} | {
+	type?: 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week';
+	onValueChange?: (value: string) => void;
+	onTypingEnd?: (value: string) => void;
+});
 
 const Input: React.FC<InputProps> = (
 	{ ref, className, type, startContent, endContent, inputClassName, onChange, onValueChange, onTypingEnd, typingEndDelay = 400, ...props },
 ) => {
 	const [isFocused, setIsFocused] = useState(false);
-	const [currentValue, setCurrentValue] = useState<string>('');
+	const [currentValue, setCurrentValue] = useState<string | number>(type === 'number' ? 0 : '');
 
 	useEffect(() => {
 		if (!onTypingEnd) return;
 
 		const timeout = setTimeout(() => {
-			onTypingEnd?.(currentValue);
+			if (type === 'number')
+				onTypingEnd?.(currentValue as number);
+			else
+				onTypingEnd?.(currentValue as string);
 		}, typingEndDelay);
 
 		return () => clearTimeout(timeout);
-	}, [currentValue, onTypingEnd, typingEndDelay]);
+	}, [currentValue, onTypingEnd, type, typingEndDelay]);
 
 	return (
 		<div
 			className={cn(
-				'flex items-center h-10 w-full bg-input text-foreground rounded-lg border border-primary/10 overflow-hidden',
+				'flex items-center h-10 w-full bg-background text-foreground rounded-lg border border-border overflow-hidden',
 				startContent && 'pl-3',
 				endContent && 'pr-3',
 				isFocused && 'focus-visible:!outline-0 ring-2 ring-primary',
@@ -55,8 +66,11 @@ const Input: React.FC<InputProps> = (
 				ref={ref}
 				onChange={(e) => {
 					if (onChange) onChange(e);
-					setCurrentValue(e.target.value);
-					onValueChange?.(e.target.value);
+					setCurrentValue(type === 'number' ? Number(e.target.value) : e.target.value);
+					if (type === 'number')
+						onValueChange?.(Number(e.target.value));
+					else
+						onValueChange?.(e.target.value);
 				}}
 				{...props}
 			/>

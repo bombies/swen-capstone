@@ -8,6 +8,7 @@ import { MerchantModule as MerchantsModule } from 'src/merchants/merchant.module
 import { OrdersModule } from 'src/orders/orders.module';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { ProductsModule } from 'src/products/products.module';
+import { S3Module } from 'src/s3/s3.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -26,6 +27,7 @@ import { UsersModule } from './users/users.module';
 			}),
 			inject: [ConfigService],
 		}),
+		S3Module,
 		AuthModule,
 		UsersModule,
 		MerchantsModule,

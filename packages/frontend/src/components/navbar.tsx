@@ -1,8 +1,10 @@
 'use client';
 
 import type { FC } from 'react';
-import { Search } from 'lucide-react';
+import { Search, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import { useGetAllCarts } from '@/api-utils/hooks/cart.hooks';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import UserProfile from '@/components/user-profile';
@@ -10,13 +12,16 @@ import { useAuth } from '@/hooks/use-auth';
 
 const Navbar: FC = () => {
 	const { session } = useAuth();
+	const { data: carts } = useGetAllCarts();
+
+	const totalItems = carts?.reduce((sum, cart) => sum + cart.items.length, 0) || 0;
 
 	return (
-		<nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+		<nav className="sticky top-0 z-50 px-12 w-full border-b border-border/10 bg-primary/95 backdrop-blur supports-[backdrop-filter]:bg-primary/95">
 			<div className="container flex h-16 items-center justify-between">
 				{/* Brand */}
 				<Link href="/" className="flex items-center space-x-2">
-					<span className="text-2xl font-bold">One Yaad</span>
+					<span className="text-2xl font-bold text-primary-foreground">One Yaad</span>
 				</Link>
 
 				{/* Search Bar */}
@@ -32,18 +37,35 @@ const Navbar: FC = () => {
 				</div>
 
 				{/* User Management */}
-				{session
-					? <UserProfile />
-					: (
-							<div className="flex items-center space-x-4">
-								<Button variant="ghost" asChild>
-									<Link href="/auth/login">Sign In</Link>
-								</Button>
-								<Button asChild>
-									<Link href="/auth/register">Get Started</Link>
-								</Button>
-							</div>
-						)}
+				<div className="flex items-center space-x-4">
+					{session && (
+						<Button variant="ghost" size="icon" asChild className="relative">
+							<Link href="/carts">
+								<ShoppingCart className="h-5 w-5 text-primary-foreground" />
+								{totalItems > 0 && (
+									<Badge
+										variant="secondary"
+										className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0"
+									>
+										{totalItems}
+									</Badge>
+								)}
+							</Link>
+						</Button>
+					)}
+					{session
+						? <UserProfile />
+						: (
+								<>
+									<Button variant="ghost" asChild>
+										<Link href="/auth/login">Sign In</Link>
+									</Button>
+									<Button asChild>
+										<Link href="/auth/register">Get Started</Link>
+									</Button>
+								</>
+							)}
+				</div>
 			</div>
 		</nav>
 	);

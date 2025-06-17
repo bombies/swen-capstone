@@ -14,7 +14,7 @@ export async function verifyToken(token: string): Promise<JWTPayload | null> {
 	try {
 		const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 		const { payload } = await jwtVerify(token, secret);
-		logger.debug('Decoded token', payload);
+		// logger.debug('Decoded token', payload);
 		// Type assertion after validation
 		if (
 			typeof payload === 'object'

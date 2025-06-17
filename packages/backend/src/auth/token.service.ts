@@ -27,7 +27,7 @@ export class TokenService {
 		]);
 
 		const expiresAt = new Date();
-		expiresAt.setDate(expiresAt.getDate() + 7); // 7 days from now
+		expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour from now
 
 		const token = await this.tokenModel.create({
 			userId,
@@ -80,7 +80,7 @@ export class TokenService {
 		// Update token
 		token.accessToken = newAccessToken;
 		token.refreshToken = newRefreshToken;
-		token.expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+		token.expiresAt = new Date(Date.now() + 1 * 60 * 60 * 1000); // 1 hour
 		if (deviceInfo) {
 			token.deviceInfo = {
 				ip: deviceInfo.ip,
@@ -127,7 +127,7 @@ export class TokenService {
 	}) {
 		return this.jwtService.signAsync(payload, {
 			secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-			expiresIn: '15m',
+			expiresIn: '1h',
 		});
 	}
 
@@ -137,7 +137,7 @@ export class TokenService {
 	}) {
 		return this.jwtService.signAsync(payload, {
 			secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-			expiresIn: '7d',
+			expiresIn: '30d',
 		});
 	}
 }

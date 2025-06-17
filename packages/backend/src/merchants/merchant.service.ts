@@ -33,12 +33,6 @@ export class MerchantService {
 
 		await this.userService.addRole(user, UserRole.MERCHANT);
 
-		// Create a default catalogue for the new merchant
-		await this.cataloguesService.create({
-			name: `${dto.companyName} Catalogue`,
-			description: `Default catalogue for ${dto.companyName}`,
-		}, user);
-
 		return savedMerchant;
 	}
 

@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { Product } from 'src/products/schemas/product.schema';
 import { CreateCartDto, CreateCartItemDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { Cart, CartDocument } from './schemas/cart.schema';
@@ -34,8 +35,19 @@ export class CartsService {
 		return this.cartModel.find().exec();
 	}
 
-	async findById(id: string): Promise<Cart> {
+	async findById(id: string): Promise<Cart | null> {
 		const cart = await this.cartModel.findById(id).exec();
+		return cart;
+	}
+
+	async findByIdWithPopulatedRefs(id: string) {
+		const cart = await this.cartModel.findById(id)
+			.populate<{
+			items: [
+				{ product: Product },
+			];
+		}>('items.product')
+			.exec();
 		if (!cart) {
 			throw new NotFoundException('Cart not found');
 		}
@@ -72,8 +84,8 @@ export class CartsService {
 		return updatedCart;
 	}
 
-	async remove(id: string): Promise<void> {
-		const result = await this.cartModel.deleteOne({ _id: id }).exec();
+	async remove(userId: string, id: string): Promise<void> {
+		const result = await this.cartModel.deleteOne({ _id: id, customer: userId }).exec();
 		if (result.deletedCount === 0) {
 			throw new NotFoundException('Cart not found');
 		}

@@ -4,15 +4,15 @@ import {
 	IsArray,
 	IsDate,
 	IsEnum,
+	IsMongoId,
 	IsNumber,
 	IsOptional,
 	IsString,
-	IsUUID,
 	ValidateNested,
 } from 'class-validator';
 import { OrderStatus } from 'src/orders/enums/order-status.enum';
 import { PaymentStatus } from 'src/payments/schemas/payment.schema';
-import { CreateOrderItemDto } from './create-order.dto';
+import { AddressDto, CreateOrderItemDto } from './create-order.dto';
 
 export class UpdateOrderDto {
 	@ApiProperty({
@@ -72,17 +72,18 @@ export class UpdateOrderDto {
 		required: false,
 	})
 	@IsOptional()
-	@IsUUID()
+	@IsMongoId()
 	payment?: string;
 
 	@ApiProperty({
 		description: 'Shipping address',
-		example: '123 Main St, City, Country',
+		type: AddressDto,
 		required: false,
 	})
 	@IsOptional()
-	@IsString()
-	shippingAddress?: string;
+	@ValidateNested()
+	@Type(() => AddressDto)
+	shippingAddress?: AddressDto;
 
 	@ApiProperty({
 		description: 'Tracking number for the shipment',

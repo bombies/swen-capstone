@@ -60,7 +60,7 @@ function ManagedFormInput<T extends z.ZodTypeAny>({
 				<Component
 					{...inputProps as any}
 					{...field}
-					value={field.value ?? ''}
+					value={field.value ?? ((inputProps as any)?.type === 'number' ? 0 : '')}
 					defaultValue={undefined}
 				/>
 			)}

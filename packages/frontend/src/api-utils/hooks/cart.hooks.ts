@@ -31,11 +31,11 @@ export const useGetCartById = (id: string) => {
 	});
 };
 
-export const useGetCartsByCustomer = (customerId: string) => {
+export const useGetCartsByCustomer = (customer: string) => {
 	return useQuery({
-		queryKey: ['carts', 'customer', customerId],
-		queryFn: () => CartService.getCartsByCustomer(customerId),
-		enabled: !!customerId,
+		queryKey: ['carts', 'customer', customer],
+		queryFn: () => CartService.getCartsByCustomer(customer),
+		enabled: !!customer,
 	});
 };
 
@@ -78,13 +78,13 @@ export const useRemoveItemFromCart = () => {
 	return useMutation({
 		mutationFn: ({
 			id,
-			productId,
-			merchantId,
+			product,
+			merchant,
 		}: {
 			id: string;
-			productId: string;
-			merchantId: string;
-		}) => CartService.removeItemFromCart(id, productId, merchantId),
+			product: string;
+			merchant: string;
+		}) => CartService.removeItemFromCart(id, product, merchant),
 		onSuccess: (_, { id }) => {
 			queryClient.invalidateQueries({ queryKey: ['carts', id] });
 		},
