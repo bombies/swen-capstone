@@ -3,7 +3,6 @@ export type CatalogueStatus = 'active' | 'inactive' | 'draft';
 export interface CreateCatalogueDto {
 	name: string;
 	description?: string;
-	merchant: string;
 	products?: string[];
 	status?: CatalogueStatus;
 	isPublic?: boolean;
@@ -23,7 +22,12 @@ export interface UpdateCatalogueDto {
 	tags?: string[];
 }
 
+export interface RateCatalogueDto {
+	rating: number;
+}
+
 export interface Catalogue {
+	_id: string;
 	name: string;
 	description?: string;
 	merchant: string;
@@ -39,4 +43,6 @@ export interface Catalogue {
 	featuredAt?: string;
 	rating: number;
 	reviewCount: number;
+	createdAt: string;
+	updatedAt: string;
 }

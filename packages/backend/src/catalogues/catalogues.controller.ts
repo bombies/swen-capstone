@@ -38,13 +38,10 @@ export class CataloguesController {
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
 	async create(
-		@CurrentUser('id') merchantId: string,
+		@CurrentUser('sub') userId: string,
 		@Body() createCatalogueDto: CreateCatalogueDto,
 	) {
-		return this.cataloguesService.create({
-			...createCatalogueDto,
-			merchant: merchantId,
-		});
+		return this.cataloguesService.create(createCatalogueDto, userId);
 	}
 
 	@Get()
@@ -61,6 +58,21 @@ export class CataloguesController {
 		return this.cataloguesService.findAll();
 	}
 
+	@Get('me')
+	@Roles(UserRole.MERCHANT)
+	@ApiOperation({ summary: 'Get my catalogue' })
+	@ApiResponse({
+		status: 200,
+		description: 'Return the merchant\'s catalogue.',
+		type: Catalogue,
+	})
+	@ApiResponse({ status: 401, description: 'Unauthorized.' })
+	@ApiResponse({ status: 403, description: 'Forbidden.' })
+	@ApiResponse({ status: 404, description: 'Catalogue not found.' })
+	async findMyCatalogue(@CurrentUser('sub') userId: string) {
+		return this.cataloguesService.findMyCatalogue(userId);
+	}
+
 	@Get('merchant')
 	@Roles(UserRole.CUSTOMER, UserRole.MERCHANT, UserRole.ADMIN)
 	@ApiOperation({ summary: 'Get all catalogues for a merchant' })
@@ -72,8 +84,8 @@ export class CataloguesController {
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
 	@ApiResponse({ status: 404, description: 'Merchant not found.' })
-	async findByMerchant(@CurrentUser('id') merchantId: string) {
-		return this.cataloguesService.findByMerchant(merchantId);
+	async findByMerchant(@CurrentUser('sub') userId: string) {
+		return this.cataloguesService.findByMerchant(userId);
 	}
 
 	@Get(':id')

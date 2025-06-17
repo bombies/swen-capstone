@@ -15,66 +15,72 @@ import type {
 import type {
 	UserRole,
 } from '../types/auth.types';
+import { apiClient } from '@/api-utils/api-client';
 import { clearTokens, setAccessToken, setTokens } from '@/lib/auth';
-import { ApiClient } from '../api-client';
 
 export class AuthService {
 	static async login(data: LoginDto): Promise<LoginResponse> {
-		const response = await ApiClient.post<LoginResponse>('/auth/login', data, false);
-		console.log(response);
+		const response = await apiClient.post<LoginResponse>('/auth/login', data);
 		return response;
 	}
 
 	static async refreshToken(data: RefreshTokenDto): Promise<RefreshTokenResponse> {
-		const response = await ApiClient.post<RefreshTokenResponse>('/auth/refresh', data, false);
+		const response = await apiClient.post<RefreshTokenResponse>('/auth/refresh', data);
 		setTokens({
 			accessToken: response.accessToken,
 			refreshToken: response.refreshToken,
+			tokenId: response.tokenId,
 		});
 		return response;
 	}
 
 	static async logout(data: LogoutDto): Promise<LogoutResponse> {
-		const response = await ApiClient.post<LogoutResponse>('/auth/logout', data);
+		const response = await apiClient.post<LogoutResponse>('/auth/logout', data);
 		return response;
 	}
 
 	static async logoutAll(): Promise<LogoutResponse> {
-		const response = await ApiClient.post<LogoutResponse>('/auth/logout-all', {});
+		const response = await apiClient.post<LogoutResponse>('/auth/logout-all', {});
 		clearTokens();
 		return response;
 	}
 
 	static async switchRole(data: SwitchRoleDto): Promise<SwitchRoleResponse> {
-		const response = await ApiClient.post<SwitchRoleResponse>('/auth/switch-role', data);
+		const response = await apiClient.post<SwitchRoleResponse>('/auth/switch-role', data);
 		setAccessToken(response.accessToken);
 		return response;
 	}
 
 	static async getProfile(): Promise<UserProfile> {
-		return ApiClient.get<UserProfile>('/auth/profile');
+		return apiClient.get<UserProfile>('/auth/profile');
 	}
 
 	static async getActiveSessions(): Promise<Session[]> {
-		return ApiClient.get<Session[]>('/auth/sessions');
+		return apiClient.get<Session[]>('/auth/sessions');
 	}
 
 	static isAuthenticated(): boolean {
-		return !!localStorage.getItem('access_token');
+		if (typeof window === 'undefined')
+			return false;
+		return !!localStorage.getItem('accessToken');
 	}
 
 	static getAccessToken(): string | null {
-		return localStorage.getItem('access_token');
+		if (typeof window === 'undefined')
+			return null;
+		return localStorage.getItem('accessToken');
 	}
 
 	static getRefreshToken(): string | null {
-		return localStorage.getItem('refresh_token');
+		if (typeof window === 'undefined')
+			return null;
+		return localStorage.getItem('refreshToken');
 	}
 
 	static async register(data: RegisterDto): Promise<RegisterResponse> {
-		return ApiClient.post<RegisterResponse>('/auth/register', {
+		return apiClient.post<RegisterResponse>('/auth/register', {
 			...data,
 			role: 'customer' satisfies UserRole,
-		}, false);
+		});
 	}
 }

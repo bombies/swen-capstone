@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ApiProperty } from '@nestjs/swagger';
 import { ExtractJwt, Strategy } from 'passport-jwt';
@@ -37,12 +37,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 	}
 
 	async validate(payload: JwtPayload) {
-		try {
-			// Validate the session and ensure the role is still valid
-			await this.sessionService.validateSession(payload.sub);
-			return payload;
-		} catch {
-			throw new UnauthorizedException('Invalid session');
-		}
+		await this.sessionService.validateSession(payload);
+		return payload;
 	}
 }

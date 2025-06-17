@@ -1,14 +1,15 @@
+'use client';
+
 import type { FC } from 'react';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
-import { useLogout } from '@/api-utils/hooks/auth.hooks';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import UserProfile from '@/components/user-profile';
 import { useAuth } from '@/hooks/use-auth';
 
 const Navbar: FC = () => {
-	const { user } = useAuth();
-	const { mutate: logout, isPending: isLoggingOut } = useLogout();
+	const { session } = useAuth();
 
 	return (
 		<nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -31,18 +32,8 @@ const Navbar: FC = () => {
 				</div>
 
 				{/* User Management */}
-				{user
-					? (
-							<div>
-								hey user
-								<Button
-									loading={isLoggingOut}
-									onClick={() => logout({ refreshToken: '' })}
-								>
-									Logout
-								</Button>
-							</div>
-						)
+				{session
+					? <UserProfile />
 					: (
 							<div className="flex items-center space-x-4">
 								<Button variant="ghost" asChild>
@@ -53,7 +44,6 @@ const Navbar: FC = () => {
 								</Button>
 							</div>
 						)}
-
 			</div>
 		</nav>
 	);

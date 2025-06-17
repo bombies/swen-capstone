@@ -37,8 +37,8 @@ export class AuthController {
 		description: 'Login successful',
 		schema: {
 			properties: {
-				access_token: { type: 'string' },
-				refresh_token: { type: 'string' },
+				accessToken: { type: 'string' },
+				refreshToken: { type: 'string' },
 				user: { type: 'object' },
 			},
 		},
@@ -72,8 +72,8 @@ export class AuthController {
 		description: 'Token refresh successful',
 		schema: {
 			properties: {
-				access_token: { type: 'string' },
-				refresh_token: { type: 'string' },
+				accessToken: { type: 'string' },
+				refreshToken: { type: 'string' },
 			},
 		},
 	})
@@ -141,7 +141,7 @@ export class AuthController {
 		description: 'Role switch successful',
 		schema: {
 			properties: {
-				access_token: { type: 'string' },
+				accessToken: { type: 'string' },
 				role: { type: 'string' },
 			},
 		},
@@ -154,10 +154,11 @@ export class AuthController {
 		const token = await this.sessionService.switchRole(
 			req.user.sub,
 			switchRoleDto.role,
+			switchRoleDto.tokenId,
 		);
 
 		return {
-			access_token: token,
+			accessToken: token,
 			role: switchRoleDto.role,
 		};
 	}
@@ -217,8 +218,8 @@ export class AuthController {
 		description: 'Registration successful',
 		schema: {
 			properties: {
-				access_token: { type: 'string' },
-				refresh_token: { type: 'string' },
+				accessToken: { type: 'string' },
+				refreshToken: { type: 'string' },
 				user: { type: 'object' },
 			},
 		},
@@ -247,7 +248,7 @@ export class AuthController {
 		},
 	})
 	@ApiResponse({ status: 409, description: 'User already has this role.' })
-	async addRole(@CurrentUser('id') userId: string, @Body() addRoleDto: AddRoleDto) {
+	async addRole(@CurrentUser('sub') userId: string, @Body() addRoleDto: AddRoleDto) {
 		return this.authService.addRole(userId, addRoleDto);
 	}
 }

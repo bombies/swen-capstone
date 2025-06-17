@@ -9,6 +9,7 @@ import {
 	UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -51,6 +52,11 @@ export class UsersController {
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
 	findAll() {
 		return this.usersService.findAll();
+	}
+
+	@Get('self')
+	getSelf(@CurrentUser('sub') selfId: string) {
+		return this.usersService.findById(selfId);
 	}
 
 	@Get(':id')

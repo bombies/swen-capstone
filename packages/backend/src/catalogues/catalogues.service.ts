@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { Merchant } from '../merchants/merchant.schema';
 import { CreateCatalogueDto } from './dto/create-catalogue.dto';
 import { UpdateCatalogueDto } from './dto/update-catalogue.dto';
 import { Catalogue, CatalogueDocument, CatalogueStatus } from './schemas/catalogue.schema';
@@ -14,12 +15,29 @@ export class CataloguesService {
 	constructor(
 		@InjectModel(Catalogue.name)
 		private readonly catalogueModel: Model<Catalogue>,
+		@InjectModel(Merchant.name)
+		private readonly merchantModel: Model<Merchant>,
 	) {}
 
-	async create(createCatalogueDto: CreateCatalogueDto): Promise<Catalogue> {
+	async create(createCatalogueDto: CreateCatalogueDto, userId: string): Promise<Catalogue> {
+		// Find the merchant by user ID
+		const merchant = await this.merchantModel.findOne({ user: userId }).exec();
+		if (!merchant) {
+			throw new BadRequestException('User is not a merchant');
+		}
+
+		// Check if merchant already has a catalogue
+		const existingCatalogue = await this.catalogueModel
+			.findOne({ merchant: merchant._id })
+			.exec();
+
+		if (existingCatalogue) {
+			throw new BadRequestException('Merchant already has a catalogue');
+		}
+
 		const createdCatalogue = new this.catalogueModel({
 			...createCatalogueDto,
-			merchant: new Types.ObjectId(createCatalogueDto.merchant),
+			merchant: merchant._id,
 			products: createCatalogueDto.products?.map(
 				p => new Types.ObjectId(p),
 			),
@@ -40,9 +58,25 @@ export class CataloguesService {
 		return catalogue;
 	}
 
-	async findByMerchant(merchantId: string): Promise<Catalogue[]> {
+	async findByMerchant(userId: string): Promise<Catalogue[]> {
+		const merchant = await this.merchantModel.findOne({ user: userId }).exec();
+		if (!merchant) {
+			throw new BadRequestException('User is not a merchant');
+		}
+
 		return this.catalogueModel
-			.find({ merchant: new Types.ObjectId(merchantId) })
+			.find({ merchant: merchant._id })
+			.exec();
+	}
+
+	async findMyCatalogue(userId: string): Promise<Catalogue | null> {
+		const merchant = await this.merchantModel.findOne({ user: userId }).exec();
+		if (!merchant) {
+			return null;
+		}
+
+		return this.catalogueModel
+			.findOne({ merchant: merchant._id })
 			.exec();
 	}
 

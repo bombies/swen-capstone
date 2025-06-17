@@ -31,14 +31,6 @@ export class CreateCatalogueDto {
 	description?: string;
 
 	@ApiProperty({
-		description: 'Merchant ID',
-		example: '123e4567-e89b-12d3-a456-426614174000',
-	})
-	@IsNotEmpty()
-	@IsUUID()
-	merchant: string;
-
-	@ApiProperty({
 		description: 'Array of product IDs',
 		example: ['123e4567-e89b-12d3-a456-426614174001', '123e4567-e89b-12d3-a456-426614174002'],
 		type: [String],

@@ -37,7 +37,7 @@ export class PaymentsController {
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
 	async create(
-		@CurrentUser('id') customerId: string,
+		@CurrentUser('sub') customerId: string,
 		@Body() createPaymentDto: CreatePaymentDto,
 	) {
 		return this.paymentsService.create({
@@ -83,7 +83,7 @@ export class PaymentsController {
 	})
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
-	async findByCustomer(@CurrentUser('id') customerId: string) {
+	async findByCustomer(@CurrentUser('sub') customerId: string) {
 		return this.paymentsService.findByCustomer(customerId);
 	}
 
@@ -97,7 +97,7 @@ export class PaymentsController {
 	})
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
-	async findByMerchant(@CurrentUser('id') merchantId: string) {
+	async findByMerchant(@CurrentUser('sub') merchantId: string) {
 		return this.paymentsService.findByMerchant(merchantId);
 	}
 
@@ -161,7 +161,7 @@ export class PaymentsController {
 	})
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
-	async getPaymentStats(@CurrentUser('id') merchantId: string) {
+	async getPaymentStats(@CurrentUser('sub') merchantId: string) {
 		return this.paymentsService.getPaymentStats(merchantId);
 	}
 }

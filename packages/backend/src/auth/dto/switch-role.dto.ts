@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
 import { UserRole } from '../../users/schemas/user.schema';
 
 export class SwitchRoleDto {
@@ -10,4 +10,11 @@ export class SwitchRoleDto {
 	})
 	@IsEnum(UserRole)
 	role: UserRole;
+
+	@ApiProperty({
+		description: 'Token ID',
+		example: '0x1234567890',
+	})
+	@IsString()
+	tokenId: string;
 }

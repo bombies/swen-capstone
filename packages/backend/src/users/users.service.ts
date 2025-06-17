@@ -8,7 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User, UserDocument, UserStatus } from './schemas/user.schema';
+import { User, UserDocument, UserRole, UserStatus } from './schemas/user.schema';
 
 @Injectable()
 export class UsersService {
@@ -65,6 +65,36 @@ export class UsersService {
 
 		const updatedUser = await this.userModel
 			.findByIdAndUpdate(id, updateUserDto, { new: true })
+			.exec();
+
+		return updatedUser as User;
+	}
+
+	async addRole(id: string, role: UserRole) {
+		const user = await this.findById(id);
+		if (!user) {
+			throw new NotFoundException('User not found');
+		}
+
+		const updatedUser = await this.userModel
+			.findByIdAndUpdate(id, {
+				roles: [...user.roles, role],
+			}, { new: true })
+			.exec();
+
+		return updatedUser as User;
+	}
+
+	async removeRole(id: string, role: UserRole) {
+		const user = await this.findById(id);
+		if (!user) {
+			throw new NotFoundException('User not found');
+		}
+
+		const updatedUser = await this.userModel
+			.findByIdAndUpdate(id, {
+				roles: user.roles.filter(r => r === role),
+			}, { new: true })
 			.exec();
 
 		return updatedUser as User;

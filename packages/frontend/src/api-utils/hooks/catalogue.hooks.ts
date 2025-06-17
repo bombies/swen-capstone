@@ -1,5 +1,6 @@
 import type {
 	CreateCatalogueDto,
+	RateCatalogueDto,
 	UpdateCatalogueDto,
 } from '../types/catalogue.types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -19,6 +20,13 @@ export const useGetAllCatalogues = () => {
 	return useQuery({
 		queryKey: ['catalogues'],
 		queryFn: () => CatalogueService.getAllCatalogues(),
+	});
+};
+
+export const useGetMyCatalogue = () => {
+	return useQuery({
+		queryKey: ['catalogues', 'me'],
+		queryFn: () => CatalogueService.getMyCatalogue(),
 	});
 };
 
@@ -119,8 +127,9 @@ export const useIncrementViewCount = () => {
 export const useRateCatalogue = () => {
 	const queryClient = useQueryClient();
 	return useMutation({
-		mutationFn: (id: string) => CatalogueService.rateCatalogue(id),
-		onSuccess: (_, id) => {
+		mutationFn: ({ id, data }: { id: string; data: RateCatalogueDto }) =>
+			CatalogueService.rateCatalogue(id, data),
+		onSuccess: (_, { id }) => {
 			queryClient.invalidateQueries({ queryKey: ['catalogues', id] });
 		},
 	});

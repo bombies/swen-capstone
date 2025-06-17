@@ -3,6 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Model } from 'mongoose';
+import { Token, TokenDocument } from 'src/auth/schemas/token.schema';
+import { JwtPayload } from 'src/auth/strategies/jwt.strategy';
 import { User, UserDocument, UserRole } from '../users/schemas/user.schema';
 
 export class SessionPayload {
@@ -44,10 +46,11 @@ export class SessionPayload {
 export class SessionService {
 	constructor(
 		@InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+		@InjectModel(Token.name) private readonly tokenModel: Model<TokenDocument>,
 		private readonly jwtService: JwtService,
 	) {}
 
-	async createSession(user: UserDocument, role: UserRole): Promise<string> {
+	async createSession(user: UserDocument, role: UserRole, tokenId: string): Promise<string> {
 		if (!user.roles.includes(role)) {
 			throw new UnauthorizedException('User does not have this role');
 		}
@@ -58,10 +61,17 @@ export class SessionService {
 			role,
 		};
 
-		return this.jwtService.signAsync(payload);
+		const accessToken = await this.jwtService.signAsync(payload);
+
+		await this.tokenModel.findByIdAndUpdate(tokenId, {
+			accessToken,
+			lastUsedAt: new Date(),
+		});
+
+		return accessToken;
 	}
 
-	async switchRole(userId: string, newRole: UserRole): Promise<string> {
+	async switchRole(userId: string, newRole: UserRole, tokenId: string): Promise<string> {
 		const user = await this.userModel.findById(userId);
 		if (!user) {
 			throw new UnauthorizedException('User not found');
@@ -76,35 +86,30 @@ export class SessionService {
 		await user.save();
 
 		// Create new session with new role
-		return this.createSession(user, newRole);
+		return this.createSession(user, newRole, tokenId);
 	}
 
-	async validateSession(token: string): Promise<SessionPayload> {
-		try {
-			const payload = await this.jwtService.verifyAsync<SessionPayload>(token);
-			const user = await this.userModel.findById(payload.sub);
+	async validateSession(token: JwtPayload): Promise<SessionPayload> {
+		const payload = token as SessionPayload;
+		const user = await this.userModel.findById(payload.sub);
 
-			if (!user || !user.roles.includes(payload.role)) {
-				throw new UnauthorizedException('Invalid session');
-			}
-
-			return payload;
-		} catch {
-			throw new UnauthorizedException('Invalid session');
+		if (!user || !user.roles.includes(payload.role)) {
+			throw new UnauthorizedException(`Invalid session. Payload: ${JSON.stringify(payload, null, 4)}`);
 		}
+
+		return payload;
 	}
 
-	async getActiveSessions(userId: string): Promise<{ role: UserRole; token: string }[]> {
+	async getActiveSessions(userId: string): Promise<Token[]> {
 		const user = await this.userModel.findById(userId);
 		if (!user) {
 			throw new UnauthorizedException('User not found');
 		}
 
-		return Promise.all(
-			user.roles.map(async role => ({
-				role,
-				token: await this.createSession(user, role),
-			})),
-		);
+		const sessions = await this.tokenModel.find({
+			userId,
+		}).exec();
+
+		return sessions as Token[];
 	}
 }

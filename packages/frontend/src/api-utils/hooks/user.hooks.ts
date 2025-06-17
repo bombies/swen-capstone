@@ -3,6 +3,7 @@ import type {
 	UpdateUserDto,
 } from '../types/user.types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AuthService } from '@/api-utils/services/auth-service';
 import { UserService } from '../services/user-service';
 
 export const useCreateUser = () => {
@@ -12,6 +13,14 @@ export const useCreateUser = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 		},
+	});
+};
+
+export const useGetSelf = () => {
+	return useQuery({
+		queryKey: ['users', 'self'],
+		queryFn: () => UserService.getSelf(),
+		enabled: AuthService.isAuthenticated(),
 	});
 };
 

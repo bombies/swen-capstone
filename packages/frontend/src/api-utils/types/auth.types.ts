@@ -19,14 +19,16 @@ export interface RefreshTokenDto {
 }
 
 export interface LogoutDto {
-	refreshToken: string;
+	tokenId: string;
 }
 
 export interface SwitchRoleDto {
 	role: UserRole;
+	tokenId: string;
 }
 
 export interface LoginResponse {
+	tokenId: string;
 	accessToken: string;
 	refreshToken: string;
 	user: UserProfile;
@@ -35,6 +37,7 @@ export interface LoginResponse {
 export interface RefreshTokenResponse {
 	accessToken: string;
 	refreshToken: string;
+	tokenId: string;
 }
 
 export interface LogoutResponse {
@@ -55,18 +58,17 @@ export interface UserProfile {
 }
 
 export interface Session {
-	id: string;
-	deviceInfo: {
-		[key: string]: string;
-	};
-	lastActive: string;
+	sub: string;
+	email: string;
+	role: UserRole;
+	iat?: number;
+	exp?: number;
 }
 
 export interface ApiError {
 	message: string;
 	statusCode: number;
 }
-
 export interface RegisterResponse {
 	message: string;
 }

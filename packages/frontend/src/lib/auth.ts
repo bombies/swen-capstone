@@ -1,16 +1,21 @@
-interface Tokens {
+'use client';
+
+export interface Tokens {
+	tokenId: string;
 	accessToken: string;
 	refreshToken: string;
 }
 
-export const setTokens = ({ accessToken, refreshToken }: Tokens) => {
+export const setTokens = ({ accessToken, refreshToken, tokenId }: Tokens) => {
 	// Store in localStorage
 	localStorage.setItem('accessToken', accessToken);
 	localStorage.setItem('refreshToken', refreshToken);
+	localStorage.setItem('tokenId', tokenId);
 
 	// Store in cookies
 	document.cookie = `accessToken=${accessToken}; path=/; max-age=3600; SameSite=Strict`;
 	document.cookie = `refreshToken=${refreshToken}; path=/; max-age=2592000; SameSite=Strict`; // 30 days
+	document.cookie = `tokenId=${tokenId}; path=/; SameSite=Strict`; // 30 days
 };
 
 export const setAccessToken = (accessToken: string) => {
@@ -22,12 +27,16 @@ export const setAccessToken = (accessToken: string) => {
 };
 
 export const getTokens = (): Tokens | null => {
+	if (typeof window === 'undefined' || !localStorage)
+		return null;
+
 	// Try to get from localStorage first
 	const accessToken = localStorage.getItem('accessToken');
 	const refreshToken = localStorage.getItem('refreshToken');
+	const tokenId = localStorage.getItem('tokenId');
 
-	if (accessToken && refreshToken) {
-		return { accessToken, refreshToken };
+	if (accessToken && refreshToken && tokenId) {
+		return { accessToken, refreshToken, tokenId };
 	}
 
 	// If not in localStorage, try cookies
@@ -42,10 +51,12 @@ export const getTokens = (): Tokens | null => {
 		setTokens({
 			accessToken: cookies.accessToken,
 			refreshToken: cookies.refreshToken,
+			tokenId: cookies.tokenId,
 		});
 		return {
 			accessToken: cookies.accessToken,
 			refreshToken: cookies.refreshToken,
+			tokenId: cookies.tokenId,
 		};
 	}
 
@@ -56,8 +67,10 @@ export const clearTokens = () => {
 	// Clear from localStorage
 	localStorage.removeItem('accessToken');
 	localStorage.removeItem('refreshToken');
+	localStorage.removeItem('tokenId');
 
 	// Clear from cookies
 	document.cookie = 'accessToken=; path=/; max-age=0; SameSite=Strict';
 	document.cookie = 'refreshToken=; path=/; max-age=0; SameSite=Strict';
+	document.cookie = 'tokenId=; path=/; max-age=0; SameSite=Strict';
 };

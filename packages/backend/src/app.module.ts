@@ -4,6 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CartsModule } from 'src/carts/carts.module';
 import { CataloguesModule } from 'src/catalogues/catalogues.module';
+import { MerchantModule as MerchantsModule } from 'src/merchants/merchant.module';
 import { OrdersModule } from 'src/orders/orders.module';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { ProductsModule } from 'src/products/products.module';
@@ -27,6 +28,7 @@ import { UsersModule } from './users/users.module';
 		}),
 		AuthModule,
 		UsersModule,
+		MerchantsModule,
 		ProductsModule,
 		PaymentsModule,
 		OrdersModule,

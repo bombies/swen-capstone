@@ -94,7 +94,7 @@ export class TokenService {
 		return {
 			accessToken: newAccessToken,
 			refreshToken: newRefreshToken,
-			tokenId: token._id,
+			tokenId: token.id,
 		};
 	}
 

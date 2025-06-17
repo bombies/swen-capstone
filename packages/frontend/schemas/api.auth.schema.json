@@ -25,10 +25,10 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"access_token": {
+										"accessToken": {
 											"type": "string"
 										},
-										"refresh_token": {
+										"refreshToken": {
 											"type": "string"
 										},
 										"user": {
@@ -65,10 +65,10 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"access_token": {
+										"accessToken": {
 											"type": "string"
 										},
-										"refresh_token": {
+										"refreshToken": {
 											"type": "string"
 										}
 									}
@@ -162,7 +162,7 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"access_token": {
+										"accessToken": {
 											"type": "string"
 										},
 										"role": {
@@ -273,10 +273,10 @@
 							"application/json": {
 								"schema": {
 									"properties": {
-										"access_token": {
+										"accessToken": {
 											"type": "string"
 										},
-										"refresh_token": {
+										"refreshToken": {
 											"type": "string"
 										},
 										"user": {

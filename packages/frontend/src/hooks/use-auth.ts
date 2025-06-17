@@ -1,36 +1,34 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { getCurrentUser } from '@/lib/actions';
-
-interface User {
-	id: string;
-	email: string;
-}
+import type { Session } from '@/api-utils';
+import { useEffect, useMemo, useState } from 'react';
+import { useGetSelf } from '@/api-utils/hooks/user.hooks';
+import { getTokens } from '@/lib/auth';
+import { verifyToken } from '@/lib/auth-actions';
 
 export function useAuth() {
-	const [user, setUser] = useState<User | null>(null);
-	const [isLoading, setIsLoading] = useState(true);
-
-	const refreshUser = useCallback(async () => {
-		try {
-			const user = await getCurrentUser();
-			setUser(user);
-		} catch (error) {
-			console.error('Error fetching user:', error);
-			setUser(null);
-		} finally {
-			setIsLoading(false);
-		}
+	const tokens = useMemo(() => {
+		return getTokens();
 	}, []);
 
+	const [session, setSession] = useState<Session | null>(null);
+	const { data: user, isLoading: userLoading } = useGetSelf();
+
 	useEffect(() => {
-		refreshUser();
-	}, [refreshUser]);
+		if (!tokens?.accessToken) return;
+
+		(async () => {
+			const session = await verifyToken(tokens?.accessToken);
+			setSession(session as unknown as Session | null);
+		})();
+	}, [tokens?.accessToken]);
 
 	return {
-		user,
-		isLoading,
-		refreshUser,
+		tokenId: tokens?.tokenId,
+		session,
+		user: {
+			data: user,
+			isLoading: userLoading,
+		},
 	};
 }

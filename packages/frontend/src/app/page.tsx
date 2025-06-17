@@ -4,17 +4,15 @@ import type { Catalogue } from '@/api-utils/types/catalogue.types';
 import Link from 'next/link';
 import { useGetAllCatalogues } from '@/api-utils/hooks/catalogue.hooks';
 import { CatalogueCard } from '@/components/catalogue-card';
-import Navbar from '@/components/navbar';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function Home() {
 	const { data: catalogues, isLoading } = useGetAllCatalogues();
+	const { user: { data: userData, isLoading: userDataLoading } } = useAuth();
 
 	return (
 		<main className="min-h-screen bg-background">
-			{/* Navigation Bar */}
-			<Navbar />
-
 			{/* Hero Section */}
 			<section className="container py-24 text-center">
 				<h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
@@ -27,9 +25,11 @@ export default function Home() {
 					<Button size="lg" asChild>
 						<Link href="/catalogues">Browse Catalogues</Link>
 					</Button>
-					<Button size="lg" variant="outline" asChild>
-						<Link href="/register/merchant">Become a Seller</Link>
-					</Button>
+					{!userDataLoading && !userData?.roles.includes('merchant') && (
+						<Button size="lg" variant="outline" asChild>
+							<Link href="/become-merchant">Become a Seller</Link>
+						</Button>
+					)}
 				</div>
 			</section>
 

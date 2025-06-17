@@ -1,3 +1,5 @@
+'use client';
+
 import type {
 	LoginDto,
 	LogoutDto,
@@ -5,7 +7,7 @@ import type {
 	RegisterDto,
 	SwitchRoleDto,
 } from '../types/auth.types';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { clearTokens, setTokens } from '@/lib/auth';
 import { AuthService } from '../services/auth-service';
@@ -19,6 +21,7 @@ export const useLogin = () => {
 			setTokens({
 				accessToken: data.accessToken,
 				refreshToken: data.refreshToken,
+				tokenId: data.tokenId,
 			});
 			router.push('/');
 		},
@@ -50,8 +53,12 @@ export const useLogoutAll = () => {
 };
 
 export const useSwitchRole = () => {
+	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: (data: SwitchRoleDto) => AuthService.switchRole(data),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['users', 'self'] });
+		},
 	});
 };
 
