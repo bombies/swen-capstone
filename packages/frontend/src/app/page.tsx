@@ -15,7 +15,7 @@ export default function Home() {
 		<main className="min-h-screen bg-background">
 			{/* Hero Section */}
 			<section className={cn(
-				'py-24 text-center bg-secondary w-full',
+				'py-36 flex flex-col items-center justify-center text-center bg-secondary w-full',
 				'bg-gradient-to-br to-primary from-lime-700',
 				'bg-[length:200%_200%]',
 				'hover:bg-[position:100%_100%]',
@@ -43,7 +43,7 @@ export default function Home() {
 			{/* Featured Products */}
 			<section id="catalogue" className="p-12">
 				<h2 className="text-3xl font-bold tracking-tight">Featured Products</h2>
-				<div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				<div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-[95rem]">
 					{isLoading
 						? <div>Loading products...</div>
 						: catalogueProducts?.map(product => (
