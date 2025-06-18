@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { Minus, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -18,11 +19,12 @@ import ManagedFormField from '@/components/ui/managed-form/managed-form-field';
 import { useAuth } from '@/hooks/use-auth';
 
 export function ProductView({ merchantId, productId }: { merchantId: string; productId: string }) {
-	const { user: { data: userData } } = useAuth();
+	const { user: userData } = useAuth();
 	const { data: product, isLoading } = useGetProductById(productId);
 	const { mutate: addItemToCart, isPending: isAddingToCart } = useAddItemToCart();
 	const [selectedImage, setSelectedImage] = useState(0);
 	const [selectedCartId, setSelectedCartId] = useState<string | null>(null);
+	const queryClient = useQueryClient();
 
 	const schema = z.object({
 		quantity: z.coerce.number().min(1, 'Quantity must be at least 1').max(100, 'Quantity cannot exceed 100'),
@@ -48,6 +50,7 @@ export function ProductView({ merchantId, productId }: { merchantId: string; pro
 		}, {
 			onSuccess: () => {
 				toast.success('Added to cart!');
+				queryClient.invalidateQueries({ queryKey: ['carts'] });
 			},
 			onError: () => {
 				toast.error('Failed to add to cart.');
@@ -150,7 +153,7 @@ export function ProductView({ merchantId, productId }: { merchantId: string; pro
 
 				<Card>
 					<CardContent className="p-6">
-						{userData?.activeRole === 'customer'
+						{userData?.activeRole !== 'merchant'
 							? (
 									<ManagedForm
 										schema={schema}

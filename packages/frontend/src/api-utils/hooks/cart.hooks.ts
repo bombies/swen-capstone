@@ -4,6 +4,7 @@ import type {
 	UpdateCartDto,
 } from '../types/cart.types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '@/contexts/auth-context';
 import { CartService } from '../services/cart-service';
 
 export const useCreateCart = () => {
@@ -17,9 +18,11 @@ export const useCreateCart = () => {
 };
 
 export const useGetAllCarts = () => {
+	const auth = useAuth();
 	return useQuery({
 		queryKey: ['carts'],
 		queryFn: () => CartService.getAllCarts(),
+		enabled: auth.isAuthenticated && auth.user?.activeRole === 'customer',
 	});
 };
 

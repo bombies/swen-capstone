@@ -6,6 +6,7 @@ export interface CreateOrderDto {
 	totalAmount: number;
 	shippingAddress: Address;
 	notes?: string;
+	paymentStatus?: PaymentStatus;
 }
 
 export interface UpdateOrderDto {

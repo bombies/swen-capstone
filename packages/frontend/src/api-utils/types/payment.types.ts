@@ -1,13 +1,17 @@
 export interface CreatePaymentDto {
-	orderId: string;
+	order: string;
+	customer: string;
+	merchant: string;
 	amount: number;
-	currency: string;
-	paymentMethod: string;
+	method: PaymentMethod;
 }
 
 export interface UpdatePaymentDto {
 	status?: PaymentStatus;
-	paymentMethod?: string;
+	method?: PaymentMethod;
+	transactionId?: string;
+	errorMessage?: string;
+	refundReason?: string;
 }
 
 export type PaymentStatus
@@ -16,13 +20,23 @@ export type PaymentStatus
 		| 'FAILED'
 		| 'REFUNDED';
 
+export type PaymentMethod
+	= | 'credit_card'
+		| 'debit_card'
+		| 'bank_transfer'
+		| 'cash';
+
 export interface Payment {
-	id: string;
-	orderId: string;
+	_id: string;
+	order: string;
+	customer: string;
+	merchant: string;
 	amount: number;
-	currency: string;
 	status: PaymentStatus;
-	paymentMethod: string;
+	method: PaymentMethod;
+	transactionId?: string;
+	errorMessage?: string;
+	refundReason?: string;
 	createdAt: string;
 	updatedAt: string;
 }

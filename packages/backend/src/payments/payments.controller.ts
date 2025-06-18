@@ -161,7 +161,7 @@ export class PaymentsController {
 	})
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
 	@ApiResponse({ status: 403, description: 'Forbidden.' })
-	async getPaymentStats(@CurrentUser('sub') merchantId: string) {
-		return this.paymentsService.getPaymentStats(merchantId);
+	async getPaymentStats(@CurrentUser('sub') userId: string) {
+		return this.paymentsService.getPaymentStats(userId);
 	}
 }

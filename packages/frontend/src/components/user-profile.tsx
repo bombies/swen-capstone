@@ -20,7 +20,7 @@ import {
 import { useAuth } from '@/hooks/use-auth';
 
 const UserProfile: FC = () => {
-	const { session, tokenId, user: { data: userData } } = useAuth();
+	const { session, tokenId, user: userData } = useAuth();
 	const { mutate: logout, isPending: isLoggingOut } = useLogout();
 	const router = useRouter();
 	const { mutate: switchRole, isPending: isSwitchingRole } = useSwitchRole();

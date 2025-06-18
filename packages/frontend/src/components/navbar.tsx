@@ -11,7 +11,7 @@ import UserProfile from '@/components/user-profile';
 import { useAuth } from '@/hooks/use-auth';
 
 const Navbar: FC = () => {
-	const { session } = useAuth();
+	const { isAuthenticated } = useAuth();
 	const { data: carts } = useGetAllCarts();
 
 	const totalItems = carts?.reduce((sum, cart) => sum + cart.items.length, 0) || 0;
@@ -38,10 +38,10 @@ const Navbar: FC = () => {
 
 				{/* User Management */}
 				<div className="flex items-center space-x-4">
-					{session && (
-						<Button variant="ghost" size="icon" asChild className="relative">
+					{isAuthenticated && (
+						<Button variant="ghost" size="icon" asChild className="relative text-primary-foreground hover:text-foreground">
 							<Link href="/carts">
-								<ShoppingCart className="h-5 w-5 text-primary-foreground" />
+								<ShoppingCart className="h-5 w-5 " />
 								{totalItems > 0 && (
 									<Badge
 										variant="secondary"
@@ -53,11 +53,11 @@ const Navbar: FC = () => {
 							</Link>
 						</Button>
 					)}
-					{session
+					{isAuthenticated
 						? <UserProfile />
 						: (
 								<>
-									<Button variant="ghost" asChild>
+									<Button variant="accent" asChild>
 										<Link href="/auth/login">Sign In</Link>
 									</Button>
 									<Button asChild>

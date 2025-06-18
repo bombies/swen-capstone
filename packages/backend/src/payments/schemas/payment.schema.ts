@@ -36,7 +36,7 @@ export class Payment {
 		description: 'Merchant ID',
 		example: '507f1f77bcf86cd799439013',
 	})
-	@Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
+	@Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Merchant', required: true })
 	merchant: Types.ObjectId;
 
 	@ApiProperty({

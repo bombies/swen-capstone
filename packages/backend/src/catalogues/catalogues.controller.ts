@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { Public } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Product } from 'src/products/schemas/product.schema';
@@ -20,6 +21,7 @@ export class CataloguesController {
 	constructor(private readonly cataloguesService: CataloguesService) {}
 
 	@Get()
+	@Public()
 	async getCatalogueProducts() {
 		return this.cataloguesService.getCatalogueProducts();
 	}
@@ -40,7 +42,7 @@ export class CataloguesController {
 	}
 
 	@Get('merchant')
-	@Roles(UserRole.CUSTOMER, UserRole.MERCHANT, UserRole.ADMIN)
+	@Public()
 	@ApiOperation({ summary: 'Get all catalogues for a merchant' })
 	@ApiResponse({
 		status: 200,

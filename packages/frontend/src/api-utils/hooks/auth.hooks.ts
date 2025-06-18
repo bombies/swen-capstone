@@ -14,6 +14,7 @@ import { AuthService } from '../services/auth-service';
 
 export const useLogin = () => {
 	const router = useRouter();
+	const queryClient = useQueryClient();
 
 	return useMutation({
 		mutationFn: (data: LoginDto) => AuthService.login(data),
@@ -23,6 +24,7 @@ export const useLogin = () => {
 				refreshToken: data.refreshToken,
 				tokenId: data.tokenId,
 			});
+			queryClient.invalidateQueries({ queryKey: ['users', 'self'] });
 			router.push('/');
 		},
 	});
@@ -36,19 +38,32 @@ export const useRefreshToken = () => {
 
 export const useLogout = () => {
 	const router = useRouter();
+	const queryClient = useQueryClient();
 
 	return useMutation({
 		mutationFn: (data: LogoutDto) => AuthService.logout(data),
 		onSuccess: () => {
 			clearTokens();
+			queryClient.invalidateQueries({ queryKey: ['users'] });
+			queryClient.invalidateQueries({ queryKey: ['orders'] });
+			queryClient.invalidateQueries({ queryKey: ['carts'] });
+			queryClient.invalidateQueries({ queryKey: ['merchant'] });
 			router.push('/auth/login');
 		},
 	});
 };
 
 export const useLogoutAll = () => {
+	const queryClient = useQueryClient();
+
 	return useMutation({
 		mutationFn: () => AuthService.logoutAll(),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['users'] });
+			queryClient.invalidateQueries({ queryKey: ['orders'] });
+			queryClient.invalidateQueries({ queryKey: ['carts'] });
+			queryClient.invalidateQueries({ queryKey: ['merchant'] });
+		},
 	});
 };
 

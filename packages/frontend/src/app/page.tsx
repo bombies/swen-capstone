@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 export default function Home() {
 	const { data: catalogueProducts, isLoading } = useGetCatalogueProducts();
-	const { user: { data: userData, isLoading: userDataLoading } } = useAuth();
+	const { user: userData, isLoading: userDataLoading } = useAuth();
 
 	return (
 		<main className="min-h-screen bg-background">

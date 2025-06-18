@@ -25,7 +25,7 @@ interface CreateCartDialogProps {
 
 export function CreateCartDialog({ onCartCreated, disabled, className }: CreateCartDialogProps) {
 	const [open, setOpen] = useState(false);
-	const { user: { data: userData } } = useAuth();
+	const { user: userData } = useAuth();
 	const { mutate: createCart, isPending: isCreating } = useCreateCart();
 
 	const handleSubmit = (data: CreateCartFormData) => {
@@ -82,14 +82,6 @@ export function CreateCartDialog({ onCartCreated, disabled, className }: CreateC
 							description="Give your cart a name to help you identify it later"
 							inputProps={{
 								placeholder: 'e.g., Birthday Shopping',
-							}}
-						/>
-						<ManagedFormInput
-							name="defaultShippingAddress"
-							label="Default Shipping Address"
-							description="Optional: Set a default shipping address for this cart"
-							inputProps={{
-								placeholder: 'e.g., 123 Main St, City, Country',
 							}}
 						/>
 					</div>

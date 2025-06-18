@@ -62,3 +62,19 @@ export interface Cart {
 export type CartWithRefs = Omit<Cart, 'items'> & {
 	items: CartItemWithRefs[];
 };
+
+export const GCT = 0.15;
+
+export const getCartTotals = (cart: CartWithRefs) => {
+	const subtotal = cart.items.reduce(
+		(acc, item) => acc + (item.price * item.quantity),
+		0,
+	).toFixed(2);
+	const tax = (Number.parseFloat(subtotal) * GCT).toFixed(2);
+	const total = (Number.parseFloat(subtotal) + Number.parseFloat(tax)).toFixed(2);
+	return {
+		subtotal,
+		tax,
+		total,
+	};
+};

@@ -10,6 +10,7 @@ import {
 	UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/auth/decorators/public.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -42,6 +43,7 @@ export class ProductsController {
 	}
 
 	@Get()
+	@Public()
 	@ApiOperation({ summary: 'Get all products' })
 	@ApiResponse({
 		status: 200,
@@ -54,6 +56,7 @@ export class ProductsController {
 	}
 
 	@Get('search')
+	@Public()
 	@ApiOperation({ summary: 'Search products' })
 	@ApiQuery({
 		name: 'q',
@@ -72,6 +75,7 @@ export class ProductsController {
 	}
 
 	@Get('category/:category')
+	@Public()
 	@ApiOperation({ summary: 'Get products by category' })
 	@ApiResponse({
 		status: 200,
@@ -85,6 +89,7 @@ export class ProductsController {
 	}
 
 	@Get('merchant/:merchantId')
+	@Public()
 	@ApiOperation({ summary: 'Get products by merchant' })
 	@ApiResponse({
 		status: 200,
@@ -98,6 +103,7 @@ export class ProductsController {
 	}
 
 	@Get(':id')
+	@Public()
 	@ApiOperation({ summary: 'Get a product by id' })
 	@ApiResponse({
 		status: 200,

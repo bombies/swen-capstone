@@ -1,5 +1,6 @@
 import type { BecomeMerchantDto } from '../types/merchant.types';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useAuth } from '@/contexts/auth-context';
 import { useSingleMediaUploader } from '@/hooks/media-upload-hooks';
 import { merchantService } from '../services/merchant-service';
 import { useGetUploadUrl } from './s3.hooks';
@@ -11,9 +12,11 @@ export const useBecomeMerchant = () => {
 };
 
 export const useMyMerchantProfile = () => {
+	const auth = useAuth();
 	return useQuery({
 		queryKey: ['merchant', 'me'],
 		queryFn: () => merchantService.getMyMerchantProfile(),
+		enabled: auth.isAuthenticated && auth.user?.activeRole === 'merchant',
 	});
 };
 

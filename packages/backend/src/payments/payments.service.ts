@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { MerchantDocument } from 'src/merchants/merchant.schema';
+import { MerchantService } from 'src/merchants/merchant.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
 import { Payment, PaymentDocument, PaymentStatus } from './schemas/payment.schema';
@@ -10,6 +12,7 @@ export class PaymentsService {
 	constructor(
 		@InjectModel(Payment.name)
 		private readonly paymentModel: Model<PaymentDocument>,
+		private readonly merchantService: MerchantService,
 	) {}
 
 	async create(createPaymentDto: CreatePaymentDto): Promise<Payment> {
@@ -118,28 +121,37 @@ export class PaymentsService {
 		return updatedPayment as Payment;
 	}
 
-	async getPaymentStats(merchantId: string): Promise<{
-		total: number;
-		completed: number;
-		failed: number;
-		refunded: number;
+	async getPaymentStats(userId: string): Promise<{
+		totalAmount: number;
+		totalTransactions: number;
+		averageAmount: number;
+		successRate: number;
 	}> {
-		const stats = await this.paymentModel.aggregate([
-			{ $match: { merchant: new Types.ObjectId(merchantId) } },
-			{
-				$group: {
-					_id: '$status',
-					count: { $sum: 1 },
-					total: { $sum: '$amount' },
-				},
-			},
-		]);
+		const merchant = (await this.merchantService.findByUserId(userId)) as MerchantDocument;
+
+		if (!merchant) {
+			throw new NotFoundException('Merchant not found');
+		}
+
+		// Get all payments for the merchant
+		const payments = await this.paymentModel
+			.find({ merchant: merchant.id })
+			.exec();
+
+		// Calculate basic stats
+		const totalTransactions = payments.length;
+		const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);
+		const averageAmount = totalTransactions > 0 ? totalAmount / totalTransactions : 0;
+
+		// Calculate success rate (completed payments / total payments)
+		const completedPayments = payments.filter(payment => payment.status === PaymentStatus.COMPLETED).length;
+		const successRate = totalTransactions > 0 ? (completedPayments / totalTransactions) * 100 : 0;
 
 		return {
-			total: stats.reduce((acc, curr) => acc + curr.total, 0),
-			completed: stats.find(s => s._id === PaymentStatus.COMPLETED)?.count ?? 0,
-			failed: stats.find(s => s._id === PaymentStatus.FAILED)?.count ?? 0,
-			refunded: stats.find(s => s._id === PaymentStatus.REFUNDED)?.count ?? 0,
+			totalAmount,
+			totalTransactions,
+			averageAmount,
+			successRate,
 		};
 	}
 }

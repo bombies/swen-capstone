@@ -1,9 +1,11 @@
-import type { CartWithRefs } from '@/api-utils/types/cart.types';
 import type { Address } from '@/api-utils/types/order.types';
 import { PayPalButtons } from '@paypal/react-paypal-js';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 import { toast } from 'sonner';
 import { useCreateOrder } from '@/api-utils/hooks/order.hooks';
+import { type CartWithRefs, GCT, getCartTotals } from '@/api-utils/types/cart.types';
 
 interface PayPalCheckoutButtonProps {
 	cart: CartWithRefs;
@@ -14,6 +16,8 @@ interface PayPalCheckoutButtonProps {
 export function PayPalCheckoutButton({ cart, shippingAddress, disabled }: PayPalCheckoutButtonProps) {
 	const router = useRouter();
 	const { mutate: createOrder } = useCreateOrder();
+	const totals = useMemo(() => getCartTotals(cart), [cart]);
+	const queryClient = useQueryClient();
 
 	const handleCreateOrder = async () => {
 		try {
@@ -24,18 +28,22 @@ export function PayPalCheckoutButton({ cart, shippingAddress, disabled }: PayPal
 				},
 				body: JSON.stringify({
 					cart: {
-						items: cart.items.map(item => ({
+						items: [...cart.items.map(item => ({
 							name: item.product.name,
 							quantity: item.quantity,
 							unit_amount: {
 								currency_code: 'USD',
 								value: item.price.toString(),
 							},
-						})),
-						total: cart.items.reduce(
-							(acc, item) => acc + (item.price * item.quantity),
-							0,
-						).toFixed(2),
+						})), {
+							name: `GCT (${GCT * 100}%)`,
+							quantity: 1,
+							unit_amount: {
+								currency_code: 'USD',
+								value: totals.tax,
+							},
+						}],
+						total: totals.total,
 					},
 				}),
 			});
@@ -70,16 +78,17 @@ export function PayPalCheckoutButton({ cart, shippingAddress, disabled }: PayPal
 						quantity: item.quantity,
 						price: item.price,
 					})),
+					paymentStatus: 'COMPLETED',
 					shippingAddress,
 					totalItems: cart.items.length,
-					totalAmount: cart.items.reduce(
-						(acc, item) => acc + (item.price * item.quantity),
-						0,
-					),
+					totalAmount: Number(totals.total),
 				},
 				{
 					onSuccess: () => {
 						toast.success('Order created successfully');
+						queryClient.invalidateQueries({
+							queryKey: ['carts'],
+						});
 						router.push('/orders');
 					},
 					onError: () => {

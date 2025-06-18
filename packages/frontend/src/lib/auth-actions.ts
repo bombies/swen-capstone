@@ -7,6 +7,7 @@ import type { Tokens } from '@/lib/auth';
 import axios from 'axios';
 import { jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { getTokens, setTokens } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 
@@ -112,4 +113,13 @@ export const getServerSideAuth = async () => {
 		return null;
 
 	return { ...tokens, user };
+};
+
+export const requireAuth = async () => {
+	const auth = await getServerSideAuth();
+
+	if (!auth)
+		redirect('/auth/login');
+
+	return auth;
 };

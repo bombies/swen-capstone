@@ -1,3 +1,4 @@
+import { Prop } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
@@ -9,6 +10,7 @@ import {
 	IsString,
 	ValidateNested,
 } from 'class-validator';
+import { PaymentStatus } from 'src/payments/schemas/payment.schema';
 
 export class CreateOrderItemDto {
 	@ApiProperty({
@@ -158,4 +160,13 @@ export class CreateOrderDto {
 	@IsOptional()
 	@IsString()
 	notes?: string;
+
+	@ApiProperty({
+		description: 'Payment status',
+		enum: PaymentStatus,
+		example: PaymentStatus.PENDING,
+	})
+	@Prop({ type: String, enum: PaymentStatus, default: PaymentStatus.PENDING })
+	@IsOptional()
+	paymentStatus: PaymentStatus;
 }

@@ -3,9 +3,10 @@
 import type { SubmitHandler } from 'react-hook-form';
 import type { Address } from '@/api-utils/types/order.types';
 import { Minus, Plus, Trash2 } from 'lucide-react';
-import { use, useCallback, useState } from 'react';
+import { use, useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { GCT, getCartTotals } from '@/api-utils';
 import { useGetCartById, useRemoveItemFromCart, useUpdateCart } from '@/api-utils/hooks/cart.hooks';
 import { PayPalCheckoutButton } from '@/components/payment/paypal-checkout-button';
 import { Button } from '@/components/ui/button';
@@ -13,11 +14,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Image from '@/components/ui/image';
 import ManagedFormInput from '@/components/ui/managed-form/fields/managed-form.input';
 import ManagedForm from '@/components/ui/managed-form/managed-form';
+import { Separator } from '@/components/ui/separator';
 
 const addressSchema = z.object({
 	street: z.string().min(1, 'Street is required'),
 	city: z.string().min(1, 'City is required'),
-	state: z.string().min(1, 'State is required'),
+	state: z.string().min(1, 'Parish/State is required'),
 	country: z.string().min(1, 'Country is required'),
 	zipCode: z.string().min(1, 'Zip code is required'),
 });
@@ -30,6 +32,7 @@ export default function CartPage({ params }: { params: Promise<{ id: string }> }
 	const { mutate: removeItem } = useRemoveItemFromCart();
 	const { mutate: updateCart } = useUpdateCart();
 	const [shippingAddress, setShippingAddress] = useState<Address | null>(null);
+	const totals = useMemo(() => cart && getCartTotals(cart), [cart]);
 
 	const handleAddressSubmit = useCallback<SubmitHandler<z.infer<AddressFormSchema>>>((values) => {
 		setShippingAddress(values);
@@ -146,6 +149,36 @@ export default function CartPage({ params }: { params: Promise<{ id: string }> }
 								</div>
 							))}
 						</div>
+						<Separator className="my-6" />
+						<div className="flex flex-row-reverse">
+							<div className="grid grid-cols-2 gap-2">
+								<p className="text-sm font-semibold">
+									Subtotal
+								</p>
+								<span className="text-sm font-semibold">
+									$
+									{totals?.subtotal}
+								</span>
+								<p className="text-sm text-muted-foreground font-medium">
+									Tax (GCT
+									{' '}
+									{GCT * 100}
+									%):
+								</p>
+								<span className="text-sm text-muted-foreground font-medium">
+									$
+									{totals?.tax}
+								</span>
+								<p className="text-lg font-bold">
+									Total:
+								</p>
+								<span className="text-lg font-bold text-green-600">
+									$
+									{totals?.total}
+								</span>
+							</div>
+
+						</div>
 					</CardContent>
 				</Card>
 
@@ -166,17 +199,29 @@ export default function CartPage({ params }: { params: Promise<{ id: string }> }
 									type="string"
 									name="street"
 									label="Street Address"
+									inputProps={{
+										autoComplete: 'street-address',
+										placeholder: '123 Main St',
+									}}
 								/>
 								<div className="grid grid-cols-2 gap-4">
 									<ManagedFormInput<AddressFormSchema>
 										type="string"
 										name="city"
 										label="City"
+										inputProps={{
+											autoComplete: 'address-level2',
+											placeholder: 'Half Way Tree',
+										}}
 									/>
 									<ManagedFormInput<AddressFormSchema>
 										type="string"
 										name="state"
-										label="State"
+										label="Parish/State"
+										inputProps={{
+											autoComplete: 'address-level1',
+											placeholder: 'St. Andrew',
+										}}
 									/>
 								</div>
 								<div className="grid grid-cols-2 gap-4">
@@ -184,11 +229,19 @@ export default function CartPage({ params }: { params: Promise<{ id: string }> }
 										type="string"
 										name="country"
 										label="Country"
+										inputProps={{
+											autoComplete: 'country-name',
+											placeholder: 'Jamaica',
+										}}
 									/>
 									<ManagedFormInput<AddressFormSchema>
 										type="string"
 										name="zipCode"
 										label="Zip Code"
+										inputProps={{
+											autoComplete: 'postal-code',
+											placeholder: '12345',
+										}}
 									/>
 								</div>
 								<Button type="submit">Continue to Payment</Button>

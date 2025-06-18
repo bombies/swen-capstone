@@ -38,6 +38,27 @@ export const useGetPaymentByOrder = (orderId: string) => {
 	});
 };
 
+export const useGetCustomerPayments = () => {
+	return useQuery({
+		queryKey: ['payments', 'customer'],
+		queryFn: () => PaymentService.getCustomerPayments(),
+	});
+};
+
+export const useGetMerchantPayments = () => {
+	return useQuery({
+		queryKey: ['payments', 'merchant'],
+		queryFn: () => PaymentService.getMerchantPayments(),
+	});
+};
+
+export const useGetMerchantPaymentStats = () => {
+	return useQuery({
+		queryKey: ['payments', 'merchant', 'stats'],
+		queryFn: () => PaymentService.getMerchantPaymentStats(),
+	});
+};
+
 export const useUpdatePayment = () => {
 	const queryClient = useQueryClient();
 	return useMutation({

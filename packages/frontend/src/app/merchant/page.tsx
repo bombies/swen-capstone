@@ -2,8 +2,10 @@
 
 import { DollarSign, Package, Plus, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useGetMyCatalogue } from '@/api-utils/hooks/catalogue.hooks';
+import { useGetOrdersByMerchant } from '@/api-utils/hooks/order.hooks';
+import { useGetMerchantPaymentStats } from '@/api-utils/hooks/payment.hooks';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useMerchant } from '@/contexts/merchant-context';
@@ -12,6 +14,18 @@ export default function MerchantDashboard() {
 	const router = useRouter();
 	const { merchant, isLoading } = useMerchant();
 	const { data: catalogue } = useGetMyCatalogue();
+	const { data: orders } = useGetOrdersByMerchant(merchant?._id || '');
+	const { data: paymentStats } = useGetMerchantPaymentStats();
+
+	// Calculate unique customers from orders
+	const uniqueCustomers = useMemo(() => {
+		if (!orders) return 0;
+		const customerIds = new Set();
+		orders.forEach((order) => {
+			customerIds.add(order.customer);
+		});
+		return customerIds.size;
+	}, [orders]);
 
 	useEffect(() => {
 		if (!isLoading && !merchant) {
@@ -61,7 +75,9 @@ export default function MerchantDashboard() {
 						<DollarSign className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
-						<div className="text-2xl font-bold">0</div>
+						<div className="text-2xl font-bold">
+							{orders?.length || 0}
+						</div>
 					</CardContent>
 				</Card>
 
@@ -71,7 +87,9 @@ export default function MerchantDashboard() {
 						<Users className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
-						<div className="text-2xl font-bold">0</div>
+						<div className="text-2xl font-bold">
+							{uniqueCustomers}
+						</div>
 					</CardContent>
 				</Card>
 
@@ -81,7 +99,10 @@ export default function MerchantDashboard() {
 						<DollarSign className="h-4 w-4 text-muted-foreground" />
 					</CardHeader>
 					<CardContent>
-						<div className="text-2xl font-bold">$0.00</div>
+						<div className="text-2xl font-bold">
+							$
+							{paymentStats?.totalAmount?.toFixed(2) || '0.00'}
+						</div>
 					</CardContent>
 				</Card>
 			</div>

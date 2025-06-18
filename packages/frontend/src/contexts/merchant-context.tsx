@@ -4,7 +4,7 @@ import type { User } from '@/api-utils';
 import type { Merchant } from '@/api-utils/types/merchant.types';
 import { createContext, use, useMemo } from 'react';
 import { useMyMerchantProfile } from '@/api-utils/hooks/merchant.hooks';
-import { useAuth } from '@/hooks/use-auth';
+import { useAuth } from '@/contexts/auth-context';
 
 interface MerchantContextType {
 	merchant: Merchant | null;
@@ -17,13 +17,13 @@ interface MerchantContextType {
 const MerchantContext = createContext<MerchantContextType | undefined>(undefined);
 
 export function MerchantProvider({ children }: { children: React.ReactNode }) {
-	const { user: { data: user } } = useAuth();
+	const { user } = useAuth();
 	const { data: merchantData, isLoading, refetch } = useMyMerchantProfile();
 
 	const value = useMemo<MerchantContextType>(() => ({
 		merchant: merchantData || null,
 		user: user || null,
-		isOwnProfile: merchantData?.user.id === user?.id,
+		isOwnProfile: merchantData?.user._id === user?._id,
 		isLoading,
 		refetch,
 	}), [isLoading, merchantData, refetch, user]);
